@@ -1,0 +1,66 @@
+/* Motion provides feedback without keeping lesson content in constant motion. */
+.studio-grid .studio-card,
+.module-filter,
+.nav-item,
+.studio-primary { position: relative; }
+.press-ripple {
+  position: absolute;
+  z-index: 5;
+  border-radius: 50%;
+  background: currentColor;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  animation: press-wave 620ms ease-out forwards;
+}
+.studio-grid .studio-card { isolation: isolate; }
+.studio-grid .studio-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle 140px at var(--card-glow-x, 50%) var(--card-glow-y, 50%), rgba(0, 153, 191, 0.14), transparent 76%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+.studio-card-art, .studio-card-bottom { position: relative; z-index: 1; }
+.studio-card-arrow { transition: transform 220ms ease, color 220ms ease; }
+.module-filter, .nav-item { overflow: hidden; }
+.studio-primary { overflow: hidden; }
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-motion="on"] .studio-grid .studio-card:hover {
+    transform: perspective(800px) rotateX(var(--card-tilt-x, 0deg)) rotateY(var(--card-tilt-y, 0deg)) translateY(-5px);
+    border-color: #a6dce9;
+    box-shadow: 0 14px 28px rgba(24, 116, 150, 0.13);
+  }
+  html[data-motion="on"] .studio-grid .studio-card:hover::after { opacity: 1; }
+  html[data-motion="on"] .studio-card:hover .studio-card-art img { transform: translateY(-3px) rotate(-5deg) scale(1.06); }
+  html[data-motion="on"] .studio-grid .studio-card:hover .studio-card-arrow { transform: translate(3px, -3px); color: #078bad; }
+  html[data-motion="on"] .nav-item:hover { transform: translateX(3px); }
+}
+html[data-motion="on"] .studio-grid .studio-card { transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease !important; }
+html[data-motion="on"] .studio-card-art img { transition: transform 400ms cubic-bezier(.2,.8,.2,1) !important; }
+html[data-motion="on"] .nav-item { transition: transform 180ms ease, background-color 180ms ease, color 180ms ease; }
+html[data-motion="on"] .nav-item.active svg { animation: nav-icon-pop 320ms cubic-bezier(.2,.8,.2,1); }
+html[data-motion="on"] .module-filter.active { animation: filter-pop 260ms cubic-bezier(.2,.8,.2,1); }
+html[data-motion="on"] .studio-hero-copy { animation: studio-copy-arrive 650ms ease both !important; }
+html[data-motion="on"] .studio-hero-note { animation: studio-note-arrive 900ms 180ms ease both !important; }
+html[data-motion="on"] .learning-step:active,
+html[data-motion="on"] .intro-module-list button:active,
+html[data-motion="on"] .model-view-btn:active { transform: scale(0.985); }
+@keyframes press-wave {
+  0% { opacity: 0.18; transform: translate(-50%, -50%) scale(0); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes nav-icon-pop {
+  0% { transform: scale(0.75) rotate(-8deg); }
+  70% { transform: scale(1.12) rotate(2deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+@keyframes filter-pop {
+  0% { transform: scale(0.92); }
+  70% { transform: scale(1.035); }
+  100% { transform: scale(1); }
+}

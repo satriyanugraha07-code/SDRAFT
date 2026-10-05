@@ -12,24 +12,34 @@ const AUTH_STORAGE_KEY = 'draftlab_student_session';
 const HISTORY_STORAGE_KEY = 'draftlab_students_history';
 const SCRIPT_URL_STORAGE_KEY = 'draftlab_sheets_url';
 
-import { renderDiagnostikRekapTable, exportDiagnostikToCsv, getLockMode, setLockMode } from './diagnostik.js';
+import { renderDiagnostikRekapTable, exportDiagnostikToCsv } from './diagnostik.js';
 import { renderPostTestRekapTable, exportPostTestToCsv } from './post-test.js';
 
 // Default SheetDB / Google Apps Script URL
 export const DEFAULT_SCRIPT_URL = 'https://sheetdb.io/api/v1/dsn6t93x0uhsr';
 
+function isSupportedSheetUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && (
+      (url.hostname === 'sheetdb.io' && url.pathname.startsWith('/api/v1/')) ||
+      (url.hostname === 'script.google.com' && url.pathname.startsWith('/macros/s/'))
+    );
+  } catch {
+    return false;
+  }
+}
+
 export function getScriptUrl() {
   const saved = localStorage.getItem(SCRIPT_URL_STORAGE_KEY);
-  if (saved && saved.startsWith('https://sheetdb.io/api/v1/')) {
-    return saved;
-  }
+  if (saved && isSupportedSheetUrl(saved)) return saved;
   return DEFAULT_SCRIPT_URL;
 }
 
 export function setScriptUrl(url) {
-  if (url && typeof url === 'string') {
-    localStorage.setItem(SCRIPT_URL_STORAGE_KEY, url.trim());
-  }
+  if (typeof url !== 'string' || !isSupportedSheetUrl(url.trim())) return false;
+  localStorage.setItem(SCRIPT_URL_STORAGE_KEY, url.trim());
+  return true;
 }
 
 export function getStudentSession() {
@@ -121,7 +131,7 @@ export function exportStudentsToCsv() {
   const link = document.createElement('a');
   const now = new Date().toISOString().slice(0, 10);
   link.setAttribute('href', url);
-  link.setAttribute('download', `Rekap_Siswa_DRAFT-LAB_${now}.csv`);
+  link.setAttribute('download', `Rekap_Siswa_SDRAFT_${now}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -215,8 +225,8 @@ export function updateHeaderProfile(student) {
     if (popoverName) popoverName.textContent = student.nama;
     if (popoverMeta) popoverMeta.textContent = `Kelas: ${student.kelas} • No. Absen: ${student.absen}`;
   } else {
-    if (badgeLevel) badgeLevel.textContent = 'Draftsman Apprentice';
-    if (userSubLabel) userSubLabel.textContent = 'Peserta PPG';
+    if (badgeLevel) badgeLevel.textContent = 'Isi identitas';
+    if (userSubLabel) userSubLabel.textContent = 'Opsional untuk menjelajah';
     if (popoverName) popoverName.textContent = 'Belum Login';
     if (popoverMeta) popoverMeta.textContent = 'Klik untuk masuk';
   }
@@ -239,12 +249,8 @@ export function showAuthModal() {
 export function hideAuthModal() {
   const modal = document.getElementById('auth-modal');
   if (!modal) return;
-  modal.classList.add('fade-out');
-  setTimeout(() => {
-    modal.style.display = 'none';
-    modal.classList.remove('fade-out');
-    document.body.classList.remove('auth-modal-open');
-  }, 250);
+  modal.style.display = 'none';
+  document.body.classList.remove('auth-modal-open');
 }
 
 /**
@@ -289,68 +295,13 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-const DEV_PASSWORD = 'str08';
-const DEV_SESSION_KEY = 'draftlab_dev_mode_unlocked';
-
-export function isDevModeUnlocked() {
-  return sessionStorage.getItem(DEV_SESSION_KEY) === 'true';
-}
-
-export function unlockDevMode() {
-  sessionStorage.setItem(DEV_SESSION_KEY, 'true');
-}
-
-export function lockDevMode() {
-  sessionStorage.removeItem(DEV_SESSION_KEY);
-}
-
-export function showDevModal() {
-  const modal = document.getElementById('dev-modal');
-  if (!modal) return;
-  const pwdInput = document.getElementById('dev-password-input');
-  const alertBox = document.getElementById('dev-alert');
-  if (pwdInput) {
-    pwdInput.value = '';
-    pwdInput.type = 'password';
-  }
-  const eyeIconShow = document.getElementById('eye-icon-show');
-  const eyeIconHide = document.getElementById('eye-icon-hide');
-  if (eyeIconShow) eyeIconShow.style.display = 'block';
-  if (eyeIconHide) eyeIconHide.style.display = 'none';
-  if (alertBox) alertBox.style.display = 'none';
-
-  modal.style.display = 'flex';
-  document.body.classList.add('modal-open');
-  setTimeout(() => pwdInput?.focus(), 120);
-}
-
-export function hideDevModal() {
-  const modal = document.getElementById('dev-modal');
-  if (!modal) return;
-  modal.style.display = 'none';
-  document.body.classList.remove('modal-open');
-}
-
-/**
- * Show / Hide Rekap Modal (Hanya bisa dibuka jika Developer Mode aktif)
- */
+/** Open locally stored learning results. */
 export function showRekapModal() {
-  if (!isDevModeUnlocked()) {
-    showDevModal();
-    return;
-  }
-
   const modal = document.getElementById('rekap-modal');
   if (!modal) return;
   renderRekapTable();
   renderDiagnostikRekapTable();
 
-  // Set lock select value
-  const lockSelect = document.getElementById('teacher-lock-mode-select');
-  if (lockSelect) {
-    lockSelect.value = getLockMode();
-  }
-  
   // Isi input URL Apps Script yang tersimpan
   const urlInput = document.getElementById('sheet-url-input');
   if (urlInput) {
@@ -383,23 +334,12 @@ export function initAuth() {
   const btnExportCsv = document.getElementById('btn-export-csv');
   const btnClearHistory = document.getElementById('btn-clear-history');
   const btnSaveSheetUrl = document.getElementById('btn-save-sheet-url');
+  document.getElementById('auth-close-btn')?.addEventListener('click', hideAuthModal);
 
   // 1. Cek sesi yang sudah ada di localStorage
   const currentSession = getStudentSession();
 
-  if (currentSession && currentSession.nama) {
-    updateHeaderProfile(currentSession);
-  } else {
-    // Tampilkan modal login setelah splash screen selesai
-    const splashScreen = document.getElementById('splash-screen');
-    if (splashScreen && splashScreen.style.display !== 'none') {
-      setTimeout(() => {
-        showAuthModal();
-      }, 2600);
-    } else {
-      showAuthModal();
-    }
-  }
+  updateHeaderProfile(currentSession);
 
   // 2. Event Submit Form Login
   if (authForm) {
@@ -480,7 +420,7 @@ export function initAuth() {
   // 4. Tombol Ganti Akun / Logout
   if (btnLogout) {
     btnLogout.addEventListener('click', () => {
-      if (confirm('Apakah Anda ingin ganti akun siswa atau keluar?')) {
+      if (!getStudentSession() || confirm('Ganti identitas siswa di perangkat ini?')) {
         clearStudentSession();
         updateHeaderProfile(null);
         try {
@@ -522,7 +462,6 @@ export function initAuth() {
   const postTestView = document.getElementById('rekap-posttest-view');
   const btnExportDiag = document.getElementById('btn-export-diag-csv');
   const btnExportPostTest = document.getElementById('btn-export-posttest-csv');
-  const lockSelect = document.getElementById('teacher-lock-mode-select');
 
   const activateTab = (activeTabBtn, activeView, renderFn) => {
     [tabLogin, tabDiag, tabPostTest].forEach(tab => {
@@ -557,15 +496,6 @@ export function initAuth() {
     btnExportPostTest.addEventListener('click', exportPostTestToCsv);
   }
 
-  if (lockSelect) {
-    lockSelect.value = getLockMode();
-    lockSelect.addEventListener('change', (e) => {
-      const mode = e.target.value;
-      setLockMode(mode);
-      alert(`Mode Kunci Platform diubah menjadi: ${mode.toUpperCase()}`);
-    });
-  }
-
   // 7. Tombol Reset / Bersihkan Riwayat
   if (btnClearHistory) {
     btnClearHistory.addEventListener('click', () => {
@@ -582,8 +512,11 @@ export function initAuth() {
       const urlInput = document.getElementById('sheet-url-input');
       const val = urlInput?.value.trim() || '';
       if (val) {
-        setScriptUrl(val);
-        alert('URL Google Spreadsheet berhasil disimpan! Data login siswa akan langsung disinkronkan ke link tersebut.');
+        if (setScriptUrl(val)) {
+          alert('URL sinkronisasi berhasil disimpan. Data berikutnya akan dikirim ke alamat tersebut.');
+        } else {
+          alert('Gunakan URL HTTPS dari SheetDB atau Google Apps Script.');
+        }
       } else {
         localStorage.removeItem(SCRIPT_URL_STORAGE_KEY);
         alert('URL Google Spreadsheet direset ke default.');
@@ -591,68 +524,6 @@ export function initAuth() {
     });
   }
 
-  // 9. Developer Mode Form & Controls (Password: str08)
-  const devAuthForm = document.getElementById('dev-auth-form');
-  const devPwdInput = document.getElementById('dev-password-input');
-  const devAlert = document.getElementById('dev-alert');
-  const btnCancelDev = document.getElementById('btn-cancel-dev');
-  const btnToggleDevPwd = document.getElementById('btn-toggle-dev-pwd');
-  const btnLockDev = document.getElementById('btn-lock-dev');
-  const eyeIconShow = document.getElementById('eye-icon-show');
-  const eyeIconHide = document.getElementById('eye-icon-hide');
-  const devModal = document.getElementById('dev-modal');
-
-  if (devAuthForm) {
-    devAuthForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const val = devPwdInput?.value.trim() || '';
-      if (val === DEV_PASSWORD) {
-        unlockDevMode();
-        hideDevModal();
-        showRekapModal();
-        showLoginToast('🔓 Developer Mode Aktif! Akses rekap terbuka.');
-      } else {
-        if (devAlert) {
-          devAlert.style.display = 'block';
-          devAlert.classList.remove('shake');
-          void devAlert.offsetWidth; // Force reflow
-          devAlert.classList.add('shake');
-        }
-        if (devPwdInput) {
-          devPwdInput.select();
-        }
-      }
-    });
-  }
-
-  if (btnCancelDev) {
-    btnCancelDev.addEventListener('click', hideDevModal);
-  }
-
-  if (devModal) {
-    devModal.addEventListener('click', (e) => {
-      if (e.target === devModal) hideDevModal();
-    });
-  }
-
-  if (btnToggleDevPwd && devPwdInput) {
-    btnToggleDevPwd.addEventListener('click', () => {
-      const isPwd = devPwdInput.type === 'password';
-      devPwdInput.type = isPwd ? 'text' : 'password';
-      if (eyeIconShow && eyeIconHide) {
-        eyeIconShow.style.display = isPwd ? 'none' : 'block';
-        eyeIconHide.style.display = isPwd ? 'block' : 'none';
-      }
-    });
-  }
-
-  if (btnLockDev) {
-    btnLockDev.addEventListener('click', () => {
-      lockDevMode();
-      hideRekapModal();
-      showLoginToast('🔒 Developer Mode Telah Dikunci.');
-    });
-  }
 }
 
 function showAuthAlert(message, type = 'error') {

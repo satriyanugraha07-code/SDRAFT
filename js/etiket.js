@@ -192,17 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-reset-logo')
   ].filter(el => el !== null);
 
-  const setFormLockedState = (locked) => {
-    // Enable or disable form inputs
+  const setFormLockedState = () => {
+    // Form dapat diedit pada tampilan penuh maupun tampilan zoom.
     formInputs.forEach(input => {
-      input.disabled = locked;
+      input.disabled = false;
     });
-
-    if (locked) {
-      if (formLockOverlay) formLockOverlay.classList.remove('hidden');
-    } else {
-      if (formLockOverlay) formLockOverlay.classList.add('hidden');
-    }
+    if (formLockOverlay) formLockOverlay.classList.add('hidden');
   };
 
   const zoomToA4 = () => {
@@ -215,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (btnZoomA4) btnZoomA4.classList.add('active');
     if (btnZoomEtiket) btnZoomEtiket.classList.remove('active');
-    setFormLockedState(true);
+    setFormLockedState();
   };
 
   const zoomToEtiket = () => {
@@ -228,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (btnZoomA4) btnZoomA4.classList.remove('active');
     if (btnZoomEtiket) btnZoomEtiket.classList.add('active');
-    setFormLockedState(false);
+    setFormLockedState();
     if (typeof window.completeModule === 'function') {
       window.completeModule('etiket');
     }
@@ -242,8 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
     zoomToEtiket();
   });
 
-  // Start with form locked
-  setFormLockedState(true);
+  setFormLockedState();
 
   // --- LOGO UPLOAD & HANDLING ---
   const inputLogo = document.getElementById('input-logo');

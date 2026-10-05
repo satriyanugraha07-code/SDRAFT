@@ -1,0 +1,116 @@
+/* Brighter SDRAFT palette: color supports scanning without filling lessons with noise. */
+:root {
+  --bg-primary: #f3f8ff;
+  --text-primary: #153451;
+  --text-secondary: #476580;
+  --color-cyan: #059bbb;
+  --color-blue: #176bc5;
+}
+body, main.content-area {
+  background: linear-gradient(145deg, #eefaff 0%, #f4f8ff 48%, #fffaf1 100%);
+}
+aside.sidebar {
+  background: linear-gradient(180deg, #ffffff 0%, #f5fbff 100%);
+  border-right-color: #d9eaf4;
+}
+.nav-eyebrow { color: #39869d; }
+.nav-item { color: #3e5c76; }
+.nav-item:hover { background: #e8f8fd; color: #067d9d; }
+.nav-item.active {
+  background: linear-gradient(100deg, #dcf8ff, #e5f0ff) !important;
+  color: #075d85 !important;
+  box-shadow: inset 3px 0 #05a9c6;
+}
+.nav-item.active svg { color: #078aab !important; filter: none !important; }
+.progress-box {
+  background: linear-gradient(135deg, #e2f8ff, #edf2ff);
+  border: 1px solid #d4eaf5;
+}
+.progress-header { color: #285f7f; }
+.progress-bar-container { background: #cce5f4; }
+.progress-bar-fill { background: linear-gradient(90deg, #00b8c6, #3774de); }
+header.top-header {
+  background: rgba(246, 251, 255, 0.96);
+  border-bottom: 1px solid #dcebf5;
+}
+.page-title h2 { color: #285b79; }
+.sidebar-toggle-btn, .header-user-badge { background: #fff; border: 1px solid #dcecf5; }
+.user-avatar-circle { background: #ddf5ff; color: #0789ae; }
+
+.studio-hero { border: 1px solid #b5e4f1; box-shadow: 0 18px 38px rgba(10, 117, 155, 0.11); }
+.studio-topics-heading h2 { color: #113e61; }
+.studio-topics-heading .module-filters {
+  background: #dceef8;
+  border: 1px solid #c9e6f3;
+}
+.studio-topics-heading .module-filter { color: #2c6681; }
+.studio-topics-heading .module-filter:hover { color: #046c8d; background: #f0fbff; }
+.studio-topics-heading .module-filter.active {
+  color: #fff;
+  background: linear-gradient(115deg, #06a9c5, #0b78bf);
+  box-shadow: 0 4px 10px rgba(4, 135, 171, 0.2);
+}
+
+.studio-grid .studio-card {
+  --card-accent: #078eaf;
+  --card-glow: rgba(7, 142, 175, 0.16);
+  background: linear-gradient(180deg, #fff 63%, #f7fcff 100%);
+  border-color: #d9e9f1;
+  border-bottom: 3px solid var(--card-accent);
+  box-shadow: 0 5px 16px rgba(27, 79, 118, 0.055);
+}
+.studio-grid .studio-card:nth-child(1) { --card-accent: #008fb7; --card-glow: rgba(0, 143, 183, 0.19); }
+.studio-grid .studio-card:nth-child(2) { --card-accent: #df7258; --card-glow: rgba(223, 114, 88, 0.2); }
+.studio-grid .studio-card:nth-child(3) { --card-accent: #138c70; --card-glow: rgba(19, 140, 112, 0.19); }
+.studio-grid .studio-card:nth-child(4) { --card-accent: #bb7b0e; --card-glow: rgba(187, 123, 14, 0.2); }
+.studio-grid .studio-card:nth-child(5) { --card-accent: #5974ca; --card-glow: rgba(89, 116, 202, 0.19); }
+.studio-grid .studio-card:nth-child(6) { --card-accent: #8251be; --card-glow: rgba(130, 81, 190, 0.19); }
+.studio-grid .studio-card:nth-child(7) { --card-accent: #387cc6; --card-glow: rgba(56, 124, 198, 0.19); }
+.studio-grid .studio-card:nth-child(8) { --card-accent: #088d9f; --card-glow: rgba(8, 141, 159, 0.2); }
+.studio-grid .studio-card:nth-child(9) { --card-accent: #b47717; --card-glow: rgba(180, 119, 23, 0.2); }
+.studio-grid .studio-card:nth-child(10) { --card-accent: #15926b; --card-glow: rgba(21, 146, 107, 0.19); }
+
+.studio-grid .studio-card:nth-child(1) .studio-card-art { background: linear-gradient(140deg, #dff8ff, #aee9f6); }
+.studio-grid .studio-card:nth-child(2) .studio-card-art { background: linear-gradient(140deg, #fff0e8, #ffd0bb); }
+.studio-grid .studio-card:nth-child(3) .studio-card-art { background: linear-gradient(140deg, #e1faed, #aee9cf); }
+.studio-grid .studio-card:nth-child(4) .studio-card-art { background: linear-gradient(140deg, #fff6db, #ffe09b); }
+.studio-grid .studio-card:nth-child(5) .studio-card-art { background: linear-gradient(140deg, #eaf2ff, #bbd4ff); }
+.studio-grid .studio-card:nth-child(6) .studio-card-art { background: linear-gradient(140deg, #f3eaff, #dac4fc); }
+.studio-grid .studio-card:nth-child(7) .studio-card-art { background: linear-gradient(140deg, #e4f2ff, #afd8fb); }
+.studio-grid .studio-card:nth-child(8) .studio-card-art { background: linear-gradient(140deg, #e0fbf9, #a8e8e5); }
+.studio-grid .studio-card:nth-child(9) .studio-card-art { background: linear-gradient(140deg, #fff4d9, #ffdfa0); }
+.studio-grid .studio-card:nth-child(10) .studio-card-art { background: linear-gradient(140deg, #e4faec, #aeeac9); }
+
+.studio-card-art { position: relative; }
+.studio-card-art::before,
+.studio-card-art::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.studio-card-art::before { width: 104px; height: 104px; top: -52px; right: -22px; background: rgba(255, 255, 255, 0.42); }
+.studio-card-art::after { width: 74px; height: 74px; bottom: -38px; left: -18px; border: 2px solid rgba(255, 255, 255, 0.58); }
+.studio-card-art > img, .studio-card-art .learning-scene { position: relative; z-index: 1; }
+.studio-card .gamtek-card-title { color: #1c3857; }
+.studio-card-arrow { color: var(--card-accent); font-weight: 800; }
+.studio-grid .studio-card::after {
+  background: radial-gradient(circle 145px at var(--card-glow-x, 50%) var(--card-glow-y, 50%), var(--card-glow), transparent 76%);
+}
+@media (hover: hover) and (pointer: fine) {
+  html[data-motion="on"] .studio-grid .studio-card:hover {
+    border-color: var(--card-accent);
+    box-shadow: 0 14px 30px rgba(27, 93, 132, 0.14);
+  }
+  html[data-motion="on"] .studio-grid .studio-card:hover .studio-card-arrow { color: var(--card-accent); }
+}
+
+/* Keep interactive lesson surfaces aligned with the refreshed shell. */
+.panel-title { color: #16466c; }
+.learning-step:hover, #intro .intro-index a:hover { border-color: #86d7e9; background: #e9f9ff; }
+@media (max-width: 680px) {
+  header.top-header { background: #f5faff; }
+  .studio-hero { box-shadow: 0 9px 24px rgba(10, 117, 155, 0.1); }
+  .studio-grid .studio-card { border-bottom-width: 2px; }
+}

@@ -1,5 +1,4 @@
 // --- DRAFT-LAB MAIN APP LOGIC ---
-import { isWebLocked } from './js/diagnostik.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- SPLASH INTRO SCREEN LOGIC ---
@@ -10,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         splashScreen.style.display = 'none';
       }, 600);
-    }, 2200);
+    }, 180);
   }
 
   // --- SIDEBAR TOGGLE LOGIC ---
@@ -398,22 +397,6 @@ document.addEventListener('DOMContentLoaded', () => {
       item.addEventListener('click', () => {
         const target = item.getAttribute('data-target');
         
-        // Lock check: if web is locked, allow ONLY quiz (Post-Test)
-        if (target !== 'quiz' && isWebLocked()) {
-          if (window.showDraftlabToast) {
-            window.showDraftlabToast(
-              target === 'diagnostik' ? "Tes Diagnostik Selesai" : "Modul Terkunci (Pertemuan 1)",
-              target === 'diagnostik'
-                ? "Tahap Tes Diagnostik Awal telah selesai dan saat ini dikunci. Silakan fokus mengerjakan modul Tes Pemahaman (Post-Test)."
-                : "Khusus tahap ini, hanya modul Tes Pemahaman (Post-Test) yang dapat diakses.",
-              "🔒"
-            );
-          } else {
-            alert(target === 'diagnostik' ? "🔒 Tes Diagnostik Awal telah selesai dan dikunci." : "🔒 Modul ini dikunci guru.");
-          }
-          return;
-        }
-
         // Update active class on nav
         navItems.forEach(nav => nav.classList.remove('active'));
         item.classList.add('active');
@@ -427,21 +410,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update title
         const titles = {
-          diagnostik: "Tes Diagnostik Awal — Gambar Teknik Manual",
-          dashboard: "Dashboard Utama",
-          book: "Buku Ajar Gambar Teknik Mesin",
-          intro: "Pengenalan Gambar Teknik Mesin",
-          tools: "Papan Gambar Digital & Segitiga Berpasangan",
-          pencils: "Laboratorium Pensil Gambar (Pencil Grade Lab)",
-          lines: "Standardisasi Garis Gambar (ISO)",
-          etiket: "Kepala Gambar (Etiket ISO)",
-          projection: "Simulator Proyeksi Orthogonal",
-          model3d: "Konversi Gambar 2D ke Model 3D",
-          lkpd: "Lembar Kerja Peserta Didik (LKPD)",
-          quiz: "Tes Pemahaman — Post-Test Pertemuan 1"
+          diagnostik: "Tes Diagnostik",
+          dashboard: "Beranda Belajar",
+          book: "Baca Buku",
+          intro: "Pengenalan Gambar Teknik",
+          tools: "Papan Gambar",
+          pencils: "Laboratorium Pensil",
+          lines: "Jenis Garis",
+          etiket: "Etiket Gambar",
+          projection: "Proyeksi Orthogonal",
+          model3d: "Model 3D",
+          lkpd: "Lembar Kerja",
+          quiz: "Tes Pemahaman",
+          settings: "Pengaturan",
+          help: "Bantuan"
         };
-        pageTitle.textContent = titles[target] || "DRAFT-LAB";
+        pageTitle.textContent = titles[target] || "SDRAFT";
         state.activeTab = target;
+        window.scrollTo({ top: 0, behavior: 'auto' });
 
         if (window.matchMedia('(max-width: 860px)').matches) {
           appContainer?.classList.remove('sidebar-open');
@@ -463,6 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make dashboard cards clickable
     const dashboardCards = document.querySelectorAll('.module-card');
     dashboardCards.forEach(card => {
+      if (card.hasAttribute('onclick')) return;
       card.addEventListener('click', () => {
         const targetModule = card.getAttribute('data-module');
         const navItem = document.querySelector(`.nav-item[data-target="${targetModule}"]`);
@@ -472,23 +459,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Initial State on Page Load: If locked, activate quiz (Post-Test)
-    if (isWebLocked()) {
-      state.activeTab = 'quiz';
-      const quizNav = document.querySelector('.nav-item[data-target="quiz"]');
-      if (quizNav) {
-        navItems.forEach(nav => nav.classList.remove('active'));
-        quizNav.classList.add('active');
-      }
-      sections.forEach(sec => sec.classList.remove('active'));
-      const quizSec = document.getElementById('quiz');
-      if (quizSec) {
-        quizSec.classList.add('active');
-      }
-      if (pageTitle) {
-        pageTitle.textContent = "Tes Pemahaman — Post-Test Gambar Teknik";
-      }
-    }
+    // Beranda adalah titik awal yang sama di desktop maupun ponsel.
+    document.querySelector('.nav-item[data-target="dashboard"]')?.click();
   };
 
   // --- QUIZ GAME LOGIC ---
@@ -698,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (finalVal === 100) {
         resultMedal.textContent = "🥇";
         resultTitle.textContent = "Luar Biasa! Chief Draftsman!";
-        resultDesc.textContent = `Kamu menjawab semua ${state.quiz.questions.length} pertanyaan dengan benar! Sekarang kamu memegang tingkat kepangkatan tertinggi di DRAFT-LAB.`;
+        resultDesc.textContent = `Kamu menjawab semua ${state.quiz.questions.length} pertanyaan dengan benar! Sekarang kamu memegang tingkat kepangkatan tertinggi di SDRAFT.`;
         window.completeModule('quiz');
       } else if (finalVal >= 80) {
         resultMedal.textContent = "🥈";

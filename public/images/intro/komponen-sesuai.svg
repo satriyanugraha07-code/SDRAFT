@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" fill="none">
+  <rect width="640" height="250" rx="22" fill="#eefbf5"/>
+  <g stroke="#205b77" stroke-width="3" stroke-linejoin="round"><path d="M152 54H434V76H152Z" fill="#8bddc7"/><path d="M170 76H195V210H170Z M391 76H416V210H391Z" fill="#bfeddf"/><path d="M195 156H391V177H195Z" fill="#8bddc7"/></g>
+  <g stroke="#2a9d7c" stroke-width="2"><path d="M170 81H127 M170 210H127 M139 81V210 M433 81H460 M433 210H460 M448 81V210"/><path d="m139 81-4 8h8z m0 129-4-8h8z m309-129-4 8h8z m0 129-4-8h8z" fill="#2a9d7c" stroke="none"/></g>
+  <g font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#187b5d"><text transform="translate(115 166) rotate(-90)">Sama panjang</text><text transform="translate(474 166) rotate(-90)">Sama panjang</text></g>
+  <circle cx="540" cy="76" r="29" fill="#23b688"/><path d="m526 76 10 10 18-20" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M114 213H466" stroke="#92d7bc" stroke-width="3" stroke-linecap="round"/>
+</svg>

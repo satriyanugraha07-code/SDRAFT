@@ -7,7 +7,6 @@
  */
 
 import { getStudentSession, getScriptUrl } from './auth.js';
-import { initCbtLock, enableCbtLock, disableCbtLock, cbtState, requestCbtFullscreen, showMandatoryGate, hideMandatoryGate, activateMandatoryLock } from './cbt-lock.js';
 
 const DRAFT_STORAGE_KEY = 'draftlab_posttest_draft';
 const SUBMISSIONS_STORAGE_KEY = 'draftlab_posttest_submissions';
@@ -551,7 +550,7 @@ export async function submitPostTest(isForced = false, forceReason = '') {
   const scores = calculatePostTestScore();
   const session = getStudentSession() || {};
   const student = {
-    nama: session.nama || postTestState.student.nama || 'Siswa DRAFT-LAB',
+    nama: session.nama || postTestState.student.nama || 'Siswa SDRAFT',
     absen: session.absen || postTestState.student.absen || '-',
     kelas: session.kelas || postTestState.student.kelas || 'X T. Pemesinan'
   };
@@ -563,9 +562,6 @@ export async function submitPostTest(isForced = false, forceReason = '') {
     if (!proceed) return;
   }
 
-  // Deactivate CBT exam lock now that test is finished
-  disableCbtLock();
-
   const submissionId = `DL-POST-2026-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
   const now = new Date();
 
@@ -576,8 +572,8 @@ export async function submitPostTest(isForced = false, forceReason = '') {
     student,
     scores,
     answers: JSON.parse(JSON.stringify(postTestState.answers)),
-    violations: cbtState.violationCount || 0,
-    violationEntries: cbtState.violations ? JSON.parse(JSON.stringify(cbtState.violations)) : [],
+    violations: 0,
+    violationEntries: [],
     isForced: !!isForced,
     forceReason: forceReason || ''
   };
@@ -781,8 +777,6 @@ function showPostTestResultCard(record) {
     const reviewBox = document.querySelector('.posttest-review-container');
     if (reviewBox) reviewBox.style.display = 'none';
 
-    disableCbtLock();
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
@@ -944,45 +938,6 @@ function escapeHtml(str) {
 export function initPostTest() {
   loadSavedDraft();
 
-  // Initialize and activate CBT Exam Lock (Anti-Pindah Tab)
-  initCbtLock({
-    maxViolations: 3,
-    onAutoSubmit: (isForced, reason) => submitPostTest(isForced, reason)
-  });
-
-  const isCompleted = localStorage.getItem(COMPLETED_STORAGE_KEY) === 'true';
-  if (!isCompleted) {
-    const hasStarted = localStorage.getItem('draftlab_cbt_exam_started') === 'true';
-    if (!hasStarted) {
-      showMandatoryGate('start');
-    } else {
-      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        showMandatoryGate('relock');
-      } else {
-        hideMandatoryGate();
-        enableCbtLock({
-          maxViolations: 3,
-          onAutoSubmit: (isForced, reason) => submitPostTest(isForced, reason)
-        });
-      }
-    }
-  } else {
-    hideMandatoryGate();
-    disableCbtLock();
-  }
-
-  // Listen for navigation to quiz tab to ensure mandatory gate is shown
-  window.addEventListener('draftlab:open-quiz', () => {
-    const isNowCompleted = localStorage.getItem(COMPLETED_STORAGE_KEY) === 'true';
-    if (!isNowCompleted) {
-      if (!cbtState.examStarted) {
-        showMandatoryGate('start');
-      } else if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        showMandatoryGate('relock');
-      }
-    }
-  });
-
   // 1. Sync Student Name Display in Post-Test Strip
   const studentNameDisplay = document.getElementById('posttest-student-name-display');
   const studentMetaDisplay = document.getElementById('posttest-student-meta-display');
@@ -1105,14 +1060,6 @@ export function initPostTest() {
         if (formWrap) formWrap.style.display = 'block';
         if (resultWrap) resultWrap.style.display = 'none';
 
-        cbtState.examStarted = false;
-        cbtState.isSubmitted = false;
-        cbtState.violationCount = 0;
-        try {
-          localStorage.removeItem('draftlab_cbt_exam_started');
-        } catch (e) {}
-
-        showMandatoryGate('start');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });

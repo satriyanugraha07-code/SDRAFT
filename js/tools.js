@@ -1270,7 +1270,7 @@ document.addEventListener('DOMContentLoaded', () => {
       expCtx.fillStyle = '#123f76';
       expCtx.font = 'bold 11px sans-serif';
       expCtx.textAlign = 'left';
-      expCtx.fillText('DRAFT-LAB • Latihan Papan Gambar Digital (Standard ISO)', 50, exportCanvas.height - 18);
+      expCtx.fillText('SDRAFT • Latihan Papan Gambar Digital (Standard ISO)', 50, exportCanvas.height - 18);
       
       const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
       expCtx.fillStyle = '#536a85';

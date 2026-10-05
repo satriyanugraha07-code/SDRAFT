@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
       expCtx.fillStyle = '#123f76';
       expCtx.font = 'bold 11px sans-serif';
       expCtx.textAlign = 'left';
-      expCtx.fillText('DRAFT-LAB • Lembar Uji Karakteristik Grafit Pensil (ISO)', 25, exportCanvas.height - 24);
+      expCtx.fillText('SDRAFT • Lembar Uji Karakteristik Grafit Pensil (ISO)', 25, exportCanvas.height - 24);
 
       const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
       expCtx.fillStyle = '#536a85';

@@ -8,7 +8,6 @@
 
 import { getStudentSession, getScriptUrl } from './auth.js';
 
-const LOCK_STORAGE_KEY = 'draftlab_lock_mode';
 const DRAFT_STORAGE_KEY = 'draftlab_diagnostik_draft';
 const SUBMISSIONS_STORAGE_KEY = 'draftlab_diagnostik_submissions';
 const COMPLETED_STORAGE_KEY = 'draftlab_diagnostik_completed';
@@ -25,7 +24,6 @@ export const MCQ_KEYS = {
 // Initial State
 let diagState = {
   activeSectionIndex: 0,
-  lockMode: localStorage.getItem(LOCK_STORAGE_KEY) || 'locked', // 'locked', 'unlock_on_complete', 'unlocked'
   answers: {
     q1: null,
     q2: null,
@@ -45,69 +43,6 @@ let diagState = {
     tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
   }
 };
-
-/**
- * Check if the web is currently locked for students
- */
-export function isWebLocked() {
-  const mode = localStorage.getItem(LOCK_STORAGE_KEY) || 'locked';
-  if (mode === 'unlocked') return false;
-  if (mode === 'unlock_on_complete') {
-    return localStorage.getItem(COMPLETED_STORAGE_KEY) !== 'true';
-  }
-  // Default 'locked'
-  return true;
-}
-
-export function getLockMode() {
-  return localStorage.getItem(LOCK_STORAGE_KEY) || 'locked';
-}
-
-export function setLockMode(newMode) {
-  localStorage.setItem(LOCK_STORAGE_KEY, newMode);
-  diagState.lockMode = newMode;
-  updateLockUI();
-}
-
-/**
- * Update Sidebar & UI according to lock status
- */
-export function updateLockUI() {
-  const locked = isWebLocked();
-  const navItems = document.querySelectorAll('.nav-item');
-  const banner = document.getElementById('web-locked-banner');
-
-  if (banner) {
-    banner.style.display = locked ? 'flex' : 'none';
-  }
-
-  navItems.forEach(item => {
-    const target = item.getAttribute('data-target');
-    // Khusus tahap ini, hanya modul Tes Pemahaman (Post-Test) yang terbuka
-    const isAllowed = (target === 'quiz');
-    if (isAllowed) {
-      item.classList.remove('is-locked');
-      const badge = item.querySelector('.nav-lock-badge');
-      if (badge) badge.remove();
-      return;
-    }
-
-    let badge = item.querySelector('.nav-lock-badge');
-    if (locked) {
-      item.classList.add('is-locked');
-      if (!badge) {
-        badge = document.createElement('span');
-        badge.className = 'nav-lock-badge';
-        badge.title = 'Terkunci — Khusus tahap ini hanya Tes Pemahaman (Post-Test) yang dibuka';
-        badge.textContent = '🔒';
-        item.appendChild(badge);
-      }
-    } else {
-      item.classList.remove('is-locked');
-      if (badge) badge.remove();
-    }
-  });
-}
 
 /**
  * Load draft answers from localStorage
@@ -390,10 +325,6 @@ export async function submitDiagnosticTest() {
   localStorage.setItem(COMPLETED_STORAGE_KEY, 'true');
   sendDiagnostikToSpreadsheet(submissionRecord);
 
-  if (diagState.lockMode === 'unlock_on_complete') {
-    updateLockUI();
-  }
-
   showResultCard(submissionRecord);
 }
 
@@ -422,15 +353,9 @@ function showResultCard(record) {
     if (scoreVal) scoreVal.textContent = `${record.scores.mcqScore} / 25`;
     if (essayStatusVal) essayStatusVal.textContent = `${record.scores.essayAnsweredCount} / 4 Soal Terisi`;
 
-    if (statusNote) {
-      if (isWebLocked()) {
-        statusNote.innerHTML = '🎯 <em>Jawaban Tes Diagnostik Awal tersimpan. Silakan lanjutkan ke instrumen <strong>Tes Pemahaman (Post-Test)</strong> melalui tombol di bawah atau menu samping.</em>';
-      } else {
-        statusNote.innerHTML = '🎉 <strong>Akses Terbuka!</strong> Anda sekarang dapat mengakses modul pembelajaran dan simulator DRAFT-LAB.';
-        const btnGo = document.getElementById('diag-btn-enter-app');
-        if (btnGo) btnGo.style.display = 'inline-flex';
-      }
-    }
+    if (statusNote) statusNote.textContent = 'Jawaban tes diagnostik tersimpan. Kamu bisa lanjut belajar atau membuka tes pemahaman.';
+    const btnGo = document.getElementById('diag-btn-enter-app');
+    if (btnGo) btnGo.style.display = 'inline-flex';
 
     const btnPosttest = document.getElementById('diag-btn-goto-posttest');
     if (btnPosttest) {
@@ -537,7 +462,7 @@ export function exportDiagnostikToCsv() {
   const link = document.createElement('a');
   const now = new Date().toISOString().slice(0, 10);
   link.setAttribute('href', url);
-  link.setAttribute('download', `Rekap_Tes_Diagnostik_DRAFT-LAB_${now}.csv`);
+  link.setAttribute('download', `Rekap_Tes_Diagnostik_SDRAFT_${now}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -555,7 +480,6 @@ function escapeHtml(str) {
 
 export function initDiagnostik() {
   loadSavedDraft();
-  updateLockUI();
 
   // 1. Hook MCQ Options (Soal 1 - 5)
   for (let i = 1; i <= 5; i++) {
@@ -719,16 +643,6 @@ export function initDiagnostik() {
     btnEnterApp.addEventListener('click', () => {
       const dashboardNav = document.querySelector('.nav-item[data-target="dashboard"]');
       if (dashboardNav) dashboardNav.click();
-    });
-  }
-
-  // Teacher lock control toggle in Rekap Modal if available
-  const lockSelect = document.getElementById('teacher-lock-mode-select');
-  if (lockSelect) {
-    lockSelect.value = getLockMode();
-    lockSelect.addEventListener('change', (e) => {
-      setLockMode(e.target.value);
-      alert(`Mode Penguncian diperbarui: ${e.target.value.toUpperCase()}`);
     });
   }
 

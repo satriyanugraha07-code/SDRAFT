@@ -1,0 +1,275 @@
+/* A quieter learning shell. Kept separate from module styles so simulations stay intact. */
+:root {
+  --bg-primary: #f5f7fb;
+  --color-cyan: #1769d2;
+  --color-blue: #124b9c;
+  --text-primary: #172a42;
+  --text-secondary: #526780;
+  --sidebar-width: 252px;
+  --header-height: 72px;
+}
+
+html { scroll-behavior: smooth; }
+body { background: #f5f7fb; color: var(--text-primary); }
+.blueprint-bg, #splash-screen, #web-locked-banner,
+.dashboard-blueprint-footer, .gamtek-card-quote-modern { display: none !important; }
+button, input, select, textarea { font: inherit; }
+button, .nav-item, .module-card { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid #67a7ff; outline-offset: 3px; }
+
+aside.sidebar {
+  background: #fff;
+  box-shadow: none;
+  border-right: 1px solid #e2eaf3;
+  padding: 1.15rem 0.85rem;
+}
+.logo-container { margin-bottom: 1.2rem; }
+.logo-copy span { font-size: 0.62rem; letter-spacing: 0; text-transform: none; }
+.nav-eyebrow { margin: 0 0.7rem 0.45rem; }
+.nav-item { min-height: 43px; padding: 0.65rem 0.75rem; border-radius: 10px; font-size: 0.82rem; }
+.nav-item:hover { transform: none; }
+.nav-item.active { background: #e9f3ff; color: #1458ad; border-color: transparent; }
+.nav-item.active::before { height: 20px; }
+.nav-badge-required, .nav-badge-posttest { display: none !important; }
+.sidebar-progress-tip { display: none; }
+.progress-box { background: #f5f9ff; box-shadow: none; }
+
+header.top-header { background: #fff; border-bottom: 1px solid #e3eaf2; box-shadow: none; }
+.page-title h2 { font-size: clamp(0.96rem, 1.4vw, 1.17rem); }
+.header-user-badge { border-radius: 12px; box-shadow: none; }
+.user-online-status { display: none; }
+.app-section { padding: clamp(1rem, 2.6vw, 2rem); }
+.app-section.active, .app-section.active > * { animation: none; }
+.glass-panel { background: #fff !important; border-color: #e1e9f3 !important; box-shadow: 0 4px 18px rgba(27, 62, 105, 0.045) !important; backdrop-filter: none; }
+.glass-panel:hover { transform: none; }
+.auth-card { position: relative; }
+.auth-close-btn { position: absolute; z-index: 10; top: 0.8rem; right: 0.8rem; width: 36px; height: 36px; border: 1px solid #dce7f4; border-radius: 10px; background: #fff; color: #59708a; cursor: pointer; }
+.auth-close-btn:hover { background: #f0f6fd; }
+
+#dashboard { padding: clamp(1rem, 2.5vw, 2rem) !important; }
+.dashboard-hub { max-width: 1160px; gap: 1.65rem; }
+.gamtek-hero-banner {
+  min-height: 250px;
+  margin: 0;
+  border: 0;
+  border-radius: 22px;
+  background: linear-gradient(115deg, #125bc1 0%, #2f83e4 100%);
+  box-shadow: 0 16px 36px rgba(22, 89, 179, 0.14);
+}
+.gamtek-hero-left { background: transparent; padding: clamp(1.6rem, 3vw, 2.7rem); flex-basis: 58%; }
+.gamtek-hero-eyebrow { color: #bfdeff; font-size: 0.72rem; letter-spacing: 0.12em; }
+.gamtek-eyebrow-line { background: #bfdeff; }
+.gamtek-hero-title { color: #fff; white-space: normal; font-size: clamp(1.8rem, 3vw, 2.65rem); line-height: 1.12; margin: 0 0 0.65rem; }
+.gamtek-hero-subtitle { color: #fff; font-size: clamp(0.94rem, 1.3vw, 1.08rem); font-weight: 650; max-width: 520px; margin-bottom: 0.45rem; }
+.gamtek-hero-lead { color: #dcecff; font-size: 0.86rem; line-height: 1.6; max-width: 520px; margin-bottom: 1.3rem; }
+.gamtek-hero-action { margin: 0; }
+.gamtek-hero-btn { min-height: 44px; border-radius: 11px; background: #fff; color: #155ab6; box-shadow: none; font-weight: 800; padding: 0.7rem 1.15rem; }
+.gamtek-hero-btn:hover { color: #0c4898; background: #f0f7ff; box-shadow: none; }
+.gamtek-hero-subtitle { margin-bottom: 1.15rem; }
+.gamtek-hero-motto, .blueprint-handwritten-text, .blueprint-vertical-tags, .blueprint-compass-svg, .gamtek-blueprint-svg { display: none; }
+.gamtek-hero-right { min-height: 250px; flex-basis: 42%; }
+.gamtek-hero-illustration { height: 100%; max-height: 270px; filter: drop-shadow(0 12px 24px rgba(12, 53, 112, 0.2)); }
+
+.learning-path { background: #fff; border: 1px solid #e2eaf4; border-radius: 20px; padding: clamp(1.2rem, 2.4vw, 1.75rem); }
+.learning-path-kicker { color: #1769d2; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.11em; }
+.learning-path-heading h3 { font-size: clamp(1.16rem, 2vw, 1.45rem); margin: 0.3rem 0 0.3rem; color: #182e4b; letter-spacing: -0.025em; }
+.learning-path-heading p { display: none; }
+.learning-path-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin-top: 1.3rem; }
+.learning-step { min-width: 0; display: flex; align-items: center; text-align: left; gap: 0.8rem; min-height: 64px; padding: 0.75rem 0.9rem; background: #f7faff; border: 1px solid #e2ebf7; border-radius: 14px; color: #193958; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+.learning-step:hover { border-color: #8fbaeb; background: #edf6ff; }
+.learning-step-number { display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 auto; border-radius: 11px; background: #dfeeff; color: #1663c1; font-size: 0.78rem; font-weight: 800; }
+.learning-step strong, .learning-step small { display: block; }
+.learning-step strong { font-size: 0.87rem; line-height: 1.35; }
+.learning-step small { display: none; }
+.learning-step-arrow { margin-left: auto; color: #3c83d5; font-size: 1.1rem; }
+
+.hub-section-heading { margin: 0; padding: 0; }
+.heading-left-group { gap: 0; }
+.heading-grid-icon { display: none; }
+.heading-text-group h3 { color: #192e4a; font-size: clamp(1.16rem, 2vw, 1.45rem); }
+.heading-text-group p { color: #62748a; font-size: 0.84rem; }
+.hub-count-badge { background: #e8f6ef; border: 0; color: #198057; border-radius: 100px; }
+.module-filters { display: flex; gap: 0.55rem; flex-wrap: wrap; margin-top: -0.8rem; }
+.module-filter { min-height: 38px; border: 1px solid #dce7f4; background: #fff; color: #526b86; border-radius: 100px; padding: 0.45rem 0.95rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+.module-filter:hover { border-color: #9bc2ee; color: #1458ad; }
+.module-filter.active { background: #1769d2; color: #fff; border-color: #1769d2; }
+.hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; }
+.hub-grid .module-card[hidden] { display: none !important; }
+.gamtek-card {
+  min-height: 170px;
+  padding: 1rem;
+  border: 1px solid #e0e9f3;
+  border-radius: 17px;
+  background: #fff !important;
+  background-image: none !important;
+  box-shadow: 0 4px 16px rgba(23, 65, 112, 0.04);
+}
+.gamtek-card::before, .gamtek-card-img-wrap::before, .gamtek-card-img-wrap::after { display: none; }
+.gamtek-card:hover { border-color: #95bced; box-shadow: 0 10px 24px rgba(23, 65, 112, 0.09); transform: translateY(-2px); }
+.gamtek-card-top { margin: 0; }
+.gamtek-card-badge { background: #edf5ff; color: #2669ba; border: 0; box-shadow: none; }
+.gamtek-card-img-wrap { position: absolute; top: 1rem; right: 1rem; width: 74px; height: 74px; margin: 0; }
+.gamtek-card-img { width: 100%; height: 100%; max-width: 100%; max-height: 100%; filter: none; }
+.gamtek-card:hover .gamtek-card-img { transform: none; filter: none; }
+.gamtek-card-content { margin: 2.4rem 3.7rem 0.65rem 0; }
+.gamtek-card-title { font-size: 0.98rem; line-height: 1.35; }
+.gamtek-card-title br { display: none; }
+.gamtek-card-desc { font-size: 0.75rem; line-height: 1.45; }
+.gamtek-card-footer { padding-top: 0.65rem; border-top: 1px solid #edf1f6; }
+.gamtek-card-cta { letter-spacing: 0; text-transform: none; font-size: 0.77rem; color: #1769d2; }
+.gamtek-card-btn { width: 26px; height: 26px; box-shadow: none; }
+
+/* Keep the lesson focused on the picture or activity. Optional explanations stay available. */
+.learning-detail-block,
+.learning-detail-tip { color: var(--text-secondary); }
+.learning-detail-block > summary,
+.learning-detail-tip > summary {
+  cursor: pointer;
+  color: #1761b8;
+  font-weight: 700;
+  list-style-position: inside;
+  padding: 0.2rem 0;
+}
+.learning-detail-block[open] > summary,
+.learning-detail-tip[open] > summary { margin-bottom: 0.65rem; }
+.learning-detail-block > summary:focus-visible,
+.learning-detail-tip > summary:focus-visible { outline: 3px solid #67a7ff; outline-offset: 3px; }
+.pencil-pro-con-content { display: flex; flex-direction: column; gap: 0.5rem; }
+
+#intro .intro-opening { gap: 1.4rem; padding: 0.35rem 0 1.75rem; }
+#intro .intro-eyebrow { margin-bottom: 0.5rem; }
+#intro .intro-opening h2 { font-size: clamp(2rem, 3.1vw, 3.05rem); line-height: 1.09; margin-bottom: 0.7rem; }
+#intro .intro-deck { font-size: 0.98rem; line-height: 1.55; }
+#intro .intro-index > span, #intro .intro-index a { padding-top: 0.7rem; padding-bottom: 0.7rem; }
+#intro .intro-lesson { padding-top: 2.2rem; padding-bottom: 2.2rem; }
+#intro .intro-lesson h3 { font-size: clamp(1.35rem, 2vw, 1.75rem); }
+#intro .intro-compare { margin-top: 1rem; }
+
+#tools .tools-showcase { height: auto; grid-template-columns: minmax(0, 1fr); }
+#tools .tools-shelf { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 0.5rem; overflow: visible; padding: 0; }
+#tools .tool-item-card { min-width: 0; min-height: 58px; padding: 0.55rem 0.65rem; gap: 0.55rem; border-radius: 11px; }
+#tools .tool-item-card:hover { transform: none; }
+#tools .tool-item-thumb { width: 34px; height: 34px; flex: 0 0 auto; font-size: 1rem; }
+#tools .tool-item-details { min-width: 0; }
+#tools .tool-item-details h5 { font-size: 0.8rem; line-height: 1.25; margin: 0; }
+#tools .tool-item-details p { display: none; }
+#tools .tool-info-card, #tools .tools-shelf > div:last-child { grid-column: 1 / -1; }
+#tools .tool-info-card { margin-top: 0.25rem !important; }
+#tools .tools-shelf > div:last-child { padding-top: 0.35rem !important; }
+#tools .control-group-title { font-size: 0.72rem; }
+#tools .drawing-board-container { min-width: 0; }
+
+#pencils > .glass-panel > .pencils-layout { order: 3; }
+#pencils > .glass-panel > .pencils-layout + div { order: 2; margin-top: 0 !important; padding-top: 0 !important; border-top: 0 !important; }
+#pencils .graphite-scale-container { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.65rem; background: #f8fbff; padding: 0.75rem; margin: 0; }
+#pencils .graphite-grade-group { min-width: 0; gap: 0.3rem; }
+#pencils .graphite-cell { min-width: 38px; height: 38px; }
+#pencils .pencils-layout { align-items: start; }
+#pencils .pencils-controls { gap: 0.6rem; }
+#pencils .pencils-controls > .control-group-title { display: none; }
+#pencils .pencil-legend-card { margin: 0 !important; padding: 0.65rem 0.8rem !important; }
+#pencils .pencil-details-card { margin: 0 !important; padding: 0.8rem !important; gap: 0.55rem !important; }
+#pencils .pencil-canvas-container { min-width: 0; }
+
+#lines .line-lab-hero { padding: 1.1rem 1.3rem; }
+#lines .line-lab-hero h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); line-height: 1.2; }
+#lines .line-lab-hero p { max-width: 50ch; margin-top: 0.55rem; line-height: 1.5; }
+#model3d .model-lab-flow { display: none; }
+#model3d .model-lab-hero { min-height: 0; }
+#model3d .cad-selector-info { min-width: 0; }
+#model3d .cad-selector-desc { display: none; }
+#model3d .model-assumption-note { padding: 0.8rem 1rem; }
+
+/* Comfortable reading and controls on small screens, including Safari on iPhone. */
+@media (max-width: 1100px) {
+  .learning-path-grid { grid-template-columns: 1fr; }
+  .learning-step { min-height: 70px; }
+  .hub-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .hub-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gamtek-hero-banner { flex-direction: row; }
+  .gamtek-hero-right { min-height: 250px; height: auto; }
+  aside.sidebar { padding-top: max(1.15rem, env(safe-area-inset-top)); }
+}
+@media (max-width: 680px) {
+  html, body, .app-container, main.content-area { width: 100%; max-width: 100%; }
+  body { overflow-x: hidden; }
+  header.top-header { height: 62px; display: flex !important; align-items: center; gap: 0.6rem; padding: 0 0.8rem; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .header-left { flex: 0 0 auto; }
+  .sidebar-toggle-btn { width: 40px; height: 40px; }
+  .page-title { flex: 1 1 auto; justify-content: flex-start; text-align: left; min-width: 0; }
+  .page-title h2 { max-width: 100%; font-size: 0.92rem; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .header-actions { display: flex !important; flex: 0 0 auto; }
+  .header-user-badge { padding: 0.26rem; border: 0; background: #eef5ff; }
+  .header-user-badge:hover, .header-user-badge:focus-within { transform: none; }
+  .header-user-badge .user-badge-info { display: none; }
+  .user-popover { position: fixed !important; top: 64px !important; left: 0.8rem !important; right: 0.8rem !important; width: auto !important; max-width: none !important; z-index: 1001; }
+  .app-section, #dashboard, #intro { padding: 0.85rem !important; }
+  .dashboard-hub { gap: 1.15rem; }
+  .gamtek-hero-banner { flex-direction: column; border-radius: 17px; min-height: auto; }
+  .gamtek-hero-left { padding: 1.4rem; }
+  .gamtek-hero-title { font-size: clamp(1.55rem, 7vw, 2.05rem); }
+  .gamtek-hero-lead { margin-bottom: 1rem; }
+  .gamtek-hero-right { display: none; }
+  .gamtek-hero-btn { width: auto; }
+  .learning-path { padding: 1.1rem; border-radius: 16px; }
+  .learning-path-grid { gap: 0.55rem; margin-top: 1rem; }
+  .learning-step { min-height: 68px; }
+  .heading-right-group { display: none; }
+  .module-filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.2rem; margin-top: -0.35rem; scrollbar-width: none; }
+  .module-filter { flex: 0 0 auto; }
+  .hub-grid { grid-template-columns: 1fr; gap: 0.7rem; }
+  .gamtek-card { min-height: 150px; }
+  .gamtek-card-content { margin-top: 1.65rem; }
+  .gamtek-card-desc { display: none; }
+  .glass-panel, .posttest-card { border-radius: 14px !important; }
+  .auth-card, .rekap-card, .certificate-modal-card { max-width: calc(100vw - 1rem); max-height: calc(100dvh - 1rem); overflow-y: auto; }
+  input, select, textarea { max-width: 100%; font-size: 16px; }
+  .rekap-table-container { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .rekap-table { min-width: 620px; }
+  .posttest-container, .diag-container, .lkpd-container, .intro-page-container { width: 100%; max-width: 100%; min-width: 0; }
+  .posttest-action-bar, .posttest-result-actions { gap: 0.6rem; }
+  .posttest-result-actions > *, .posttest-action-bar > button { min-height: 44px; }
+  .model-lab-grid, #model3d .model-lab-hero { grid-template-columns: minmax(0, 1fr) !important; }
+  #model3d .model-lab-hero-preview { justify-self: center; }
+  .model-viewer-toolbar { flex-wrap: wrap; }
+  .model-canvas-shell { height: 310px; }
+  .book-reader, .book-reader-shell, .book-page-frame { max-width: 100%; min-width: 0; }
+  .book-page-frame img { max-width: 100%; }
+  #lines .line-lab-layout, #etiket .etiket-grid { grid-template-columns: minmax(0, 1fr); width: 100%; min-width: 0; }
+  #lines .line-lab-layout > *, #etiket .etiket-grid > * { min-width: 0; width: 100%; box-sizing: border-box; }
+  #lines .line-type-list { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+  #lines .line-type-button { min-width: 0; grid-template-columns: 18px 35px minmax(0, 1fr) auto; }
+  #lines .line-meta-col { min-width: 0; }
+  #lines .line-meta-col strong, #lines .line-meta-col small { overflow-wrap: anywhere; }
+  #lines .line-drawing-stage { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #etiket .panel-header { flex-wrap: wrap; gap: 0.75rem; }
+  #etiket .a4-paper-viewport { width: 100%; max-width: 100%; min-width: 0; }
+  #etiket .a4-info-card { display: none; }
+  #etiket .viewport-controls-overlay { top: 0.5rem; left: 0.5rem; right: 0.5rem; flex-wrap: wrap; }
+  #etiket .viewport-controls-overlay .board-btn { font-size: 0.72rem; }
+  #intro .intro-opening { padding: 0.3rem 0 1.2rem; gap: 1.1rem; }
+  #intro .intro-opening h2 { font-size: clamp(1.9rem, 8vw, 2.55rem); }
+  #intro .intro-index > span { display: none; }
+  #intro .intro-lesson { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+  #pencils .pencils-layout { display: flex; flex-direction: column; }
+  #pencils .pencil-canvas-container { order: 1; width: 100%; }
+  #pencils .pencils-controls { order: 2; width: 100%; }
+  #pencils .graphite-scale-container { gap: 0.3rem; padding: 0.55rem; }
+  #pencils .graphite-cell { min-width: 30px; height: 36px; }
+  #pencils .group-label { font-size: 0.64rem; }
+  #pencils .pencil-canvas-container .board-toolbar > div { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; margin-left: 0 !important; gap: 0.4rem; }
+  #pencils .pencil-canvas-container .board-toolbar .board-btn { min-width: 0; width: 100%; justify-content: center; padding: 0.45rem 0.2rem; font-size: 0.72rem; }
+  #tools .tool-item-card { min-height: 52px; }
+}
+@media (max-width: 390px) {
+  .gamtek-card-content { margin-right: 3rem; }
+  .learning-step { gap: 0.55rem; padding: 0.75rem; }
+  .learning-step-arrow { display: none; }
+  .page-title h2 { font-size: 0.85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .gamtek-card, .learning-step, .module-filter { transition: none; }
+}

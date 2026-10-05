@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (letterInput && letterDisplay) {
     letterInput.addEventListener('input', () => {
-      letterDisplay.textContent = letterInput.value || "DRAFT-LAB 2026";
+      letterDisplay.textContent = letterInput.value || "SDRAFT 2026";
       if (typeof window.completeModule === 'function') {
         window.completeModule('lines');
       }
