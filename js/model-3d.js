@@ -1,6 +1,7 @@
 import { publicAssetUrl } from '../src/asset-url.js';
 import { isModuleLocked } from '../src/module-availability.js';
 import { renderModel3dMarkup, modelViews } from '../src/model3d-markup.js';
+import { MODEL_VIEW_PRESETS, createModelOrbitMatrix } from '../src/model3d-camera.js';
 
 // Interactive STL viewer for the single Job Kelas Extrim lesson.
 
@@ -222,39 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return matrix;
   };
 
-  const rotationX = (angle) => {
-    const matrix = identity();
-    const cosine = Math.cos(angle);
-    const sine = Math.sin(angle);
-    matrix[5] = cosine;
-    matrix[6] = sine;
-    matrix[9] = -sine;
-    matrix[10] = cosine;
-    return matrix;
-  };
-
-  const rotationY = (angle) => {
-    const matrix = identity();
-    const cosine = Math.cos(angle);
-    const sine = Math.sin(angle);
-    matrix[0] = cosine;
-    matrix[2] = -sine;
-    matrix[8] = sine;
-    matrix[10] = cosine;
-    return matrix;
-  };
-
-  const perspective = (fieldOfView, aspect, near, far) => {
-    const matrix = new Float32Array(16);
-    const focal = 1 / Math.tan(fieldOfView / 2);
-    matrix[0] = focal / aspect;
-    matrix[5] = focal;
-    matrix[10] = (far + near) / (near - far);
-    matrix[11] = -1;
-    matrix[14] = (2 * far * near) / (near - far);
-    return matrix;
-  };
-
   const orthographic = (halfHeight, aspect, near, far) => {
     const matrix = identity();
     matrix[0] = 1 / (halfHeight * aspect);
@@ -268,21 +236,22 @@ document.addEventListener('DOMContentLoaded', () => {
   let vertexCount = 0;
   let edgeVertexCount = 0;
   let modelRadius = 58;
-  let yaw = -0.62;
-  let pitch = 0.34;
+  let yaw = MODEL_VIEW_PRESETS.isometric.yaw;
+  let pitch = MODEL_VIEW_PRESETS.isometric.pitch;
   let cameraDistance = 235;
   let dragging = false;
   let activePointerId = null;
   let previousPointer = null;
-  let autoRotate = false;
+  let autoRotate = true;
   let animationFrame = null;
   let previousAnimationTime = null;
 
   // Visual Styles
   let renderMode = 'shaded-edges'; // 'shaded-edges', 'shaded', 'wireframe'
-  let currentMaterial = 'mint';   // 'steel', 'aluminum', 'cyan', 'castiron'
+  let currentMaterial = 'mint';
 
   const MATERIALS = {
+    blue: { baseColor: [0.13, 0.25, 0.43], specularStrength: 0.42, shininess: 36.0 },
     mint: { baseColor: [0.38, 0.68, 0.55], specularStrength: 0.38, shininess: 36.0 },
     steel: {
       baseColor: [0.76, 0.82, 0.88],
@@ -306,15 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const viewPresets = {
-    isometric: { yaw: -0.62, pitch: 0.34 },
-    front: { yaw: 0, pitch: 0 },
-    top: { yaw: 0, pitch: Math.PI / 2 },
-    right: { yaw: -Math.PI / 2, pitch: 0 },
-    left: { yaw: Math.PI / 2, pitch: 0 },
-    back: { yaw: Math.PI, pitch: 0 },
-    bottom: { yaw: 0, pitch: -Math.PI / 2 }
-  };
+  const viewPresets = MODEL_VIEW_PRESETS;
   let activeView = 'isometric';
   const updateZoomLabel = () => {
     document.getElementById('model3d-zoom-level').textContent = Math.round(modelRadius * 3.1 / cameraDistance * 100) + '%';
@@ -327,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
       button.setAttribute('aria-pressed', String(selected));
     });
     const view = modelViews[name] || { label: 'Putaran bebas', title: 'Jelajahi bentuknya.', description: modelViews.isometric.description, tip: 'Pilih tombol pandangan untuk kembali melihat benda dari arah yang tepat.' };
-    document.getElementById('model3d-view-label').textContent = view.label;
+    document.getElementById('model3d-view-label').textContent = autoRotate ? `${view.label} · berputar` : view.label;
     document.getElementById('model3d-detail-title').textContent = view.title;
     document.getElementById('model3d-detail-desc').textContent = view.description;
     document.getElementById('model3d-detail-tip').textContent = view.tip;
@@ -548,9 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gl.depthFunc(gl.LEQUAL);
 
     // Matrices
-    const baseOrientation = identity(); // This SolidWorks model uses Y as its vertical axis.
-    const orbit = multiply(rotationY(yaw), rotationX(pitch));
-    const model = multiply(orbit, baseOrientation);
+    const model = createModelOrbitMatrix(yaw, pitch);
     const view = translation(0, -modelRadius * 0.06, -cameraDistance);
     const modelView = multiply(view, model);
     const aspect = Math.max(0.1, canvas.width / canvas.height);
@@ -558,9 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const halfHeight = cameraDistance * Math.tan(Math.PI / 8) * Math.max(1, 1 / aspect);
     const near = Math.max(0.1, cameraDistance - modelRadius * 2.2);
     const far = cameraDistance + modelRadius * 3;
-    const projection = activeView && activeView !== 'isometric'
-      ? orthographic(halfHeight, aspect, near, far)
-      : perspective(2 * Math.atan(halfHeight / cameraDistance), aspect, near, far);
+    const projection = orthographic(halfHeight, aspect, near, far);
 
     const mat = MATERIALS[currentMaterial] || MATERIALS.steel;
 
@@ -631,7 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const startAnimationLoop = () => {
-    if (animationFrame === null && autoRotate && !document.hidden && section.classList.contains('active')) {
+    if (animationFrame === null && vertexCount && autoRotate && !document.hidden && section.classList.contains('active')) {
       animationFrame = requestAnimationFrame(animate);
     }
   };
@@ -651,15 +608,29 @@ document.addEventListener('DOMContentLoaded', () => {
       status.textContent = 'Model siap diputar';
       status.classList.add('ready');
       setPreset('isometric');
+      startAnimationLoop();
     } catch (error) {
       console.error('Job Kelas Extrim gagal dimuat:', error);
       showFallback('Mode gambar statis');
     }
   };
+  const syncRotationButton = () => {
+    autoRotateButton?.setAttribute('aria-pressed', String(autoRotate));
+    if (autoRotateButton) autoRotateButton.textContent = autoRotate ? 'Jeda putaran' : 'Putar otomatis';
+    const view = modelViews[activeView] || { label: 'Putaran bebas' };
+    document.getElementById('model3d-view-label').textContent = autoRotate ? `${view.label} · berputar` : view.label;
+  };
   const pauseRotation = () => {
     autoRotate = false;
-    autoRotateButton?.setAttribute('aria-pressed', 'false');
+    syncRotationButton();
     stopAnimationLoop();
+  };
+  const enterLesson = () => {
+    stopAnimationLoop();
+    autoRotate = true;
+    setPreset('isometric');
+    syncRotationButton();
+    startAnimationLoop();
   };
   const markExplored = () => window.completeModule?.('model3d');
   section.querySelectorAll('[data-render-mode]').forEach(button => {
@@ -684,10 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Reset Button
   resetButton?.addEventListener('click', () => {
-    autoRotate = false;
-    autoRotateButton?.setAttribute('aria-pressed', 'false');
-    stopAnimationLoop();
-    setPreset('isometric');
+    enterLesson();
     canvas.focus({ preventScroll: true });
   });
 
@@ -695,7 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
   autoRotateButton?.addEventListener('click', () => {
     autoRotate = !autoRotate;
     markExplored();
-    autoRotateButton.setAttribute('aria-pressed', String(autoRotate));
+    syncRotationButton();
     if (autoRotate) {
       updateActivePreset();
       startAnimationLoop();
@@ -771,15 +739,13 @@ document.addEventListener('DOMContentLoaded', () => {
     render();
   });
 
+  let wasActive = section.classList.contains('active');
   const sectionObserver = new MutationObserver(() => {
-    if (section.classList.contains('active')) {
-      requestAnimationFrame(() => {
-        render();
-        startAnimationLoop();
-      });
-    } else {
-      stopAnimationLoop();
-    }
+    const isActive = section.classList.contains('active');
+    if (isActive === wasActive) return;
+    wasActive = isActive;
+    if (isActive) enterLesson();
+    else stopAnimationLoop();
   });
   sectionObserver.observe(section, { attributes: true, attributeFilter: ['class'] });
 
@@ -792,13 +758,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stopAnimationLoop();
-    else startAnimationLoop();
+    else { render(); startAnimationLoop(); }
   });
   canvas.addEventListener('webglcontextlost', event => {
     event.preventDefault();
     pauseRotation();
     showFallback('Mode gambar statis');
   });
+  syncRotationButton();
   loadModel();
   };
 
