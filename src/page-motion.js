@@ -93,7 +93,7 @@ export function initPageMotion() {
   const enterSection = (initial = false) => {
     clearReveals();
     const section = document.querySelector('.app-section.active');
-    if (!section || !canAnimate() || ['etiket', 'projection'].includes(section.id)) return;
+    if (!section || !canAnimate() || ['etiket', 'projection', 'model3d', 'lkpd', 'book'].includes(section.id)) return;
 
     if (!initial) {
       document.documentElement.dataset.initialEntry = 'done';

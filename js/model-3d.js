@@ -1,11 +1,19 @@
 import { publicAssetUrl } from '../src/asset-url.js';
 import { isModuleLocked } from '../src/module-availability.js';
+import { renderModel3dMarkup, modelViews } from '../src/model3d-markup.js';
 
-// --- PENAMPIL MODEL 3D INTERAKTIF REALVIEW (CAD STUDIO SHADER) ---
+// Interactive STL viewer for the single Job Kelas Extrim lesson.
 
 document.addEventListener('DOMContentLoaded', () => {
   if (isModuleLocked('model3d')) return;
   const section = document.getElementById('model3d');
+  if (!section) return;
+  section.innerHTML = renderModel3dMarkup();
+  document.getElementById('model3d-start')?.addEventListener('click', () => {
+    document.getElementById('model3d-workspace')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+  });
+
+  const initializeViewer = () => {
   const shell = document.getElementById('model3d-shell');
   const canvas = document.getElementById('model3d-canvas');
   const fallback = document.getElementById('model3d-fallback');
@@ -16,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!section || !shell || !canvas) return;
 
+  let viewerFailed = false;
   const gl = canvas.getContext('webgl', {
     alpha: true,
     antialias: true,
@@ -24,7 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const showFallback = (message) => {
+    viewerFailed = true;
     canvas.hidden = true;
+    section.querySelectorAll('[data-model-view], [data-render-mode], #model3d-autorotate, #model3d-reset, #model3d-zoom-in, #model3d-zoom-out').forEach(button => button.disabled = true);
+    document.getElementById('model3d-stage-note').textContent = 'Pratinjau gambar · model interaktif tidak tersedia';
+    document.getElementById('model3d-view-help').textContent = 'Berkas model tetap dapat diunduh pada panel keterangan.';
     if (fallback) fallback.hidden = false;
     if (status) {
       status.textContent = message;
@@ -242,14 +255,24 @@ document.addEventListener('DOMContentLoaded', () => {
     return matrix;
   };
 
+  const orthographic = (halfHeight, aspect, near, far) => {
+    const matrix = identity();
+    matrix[0] = 1 / (halfHeight * aspect);
+    matrix[5] = 1 / halfHeight;
+    matrix[10] = -2 / (far - near);
+    matrix[14] = -(far + near) / (far - near);
+    return matrix;
+  };
+
   // --- STATE ---
   let vertexCount = 0;
   let edgeVertexCount = 0;
   let modelRadius = 58;
   let yaw = -0.62;
-  let pitch = -0.34;
+  let pitch = 0.34;
   let cameraDistance = 235;
   let dragging = false;
+  let activePointerId = null;
   let previousPointer = null;
   let autoRotate = false;
   let animationFrame = null;
@@ -257,9 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Visual Styles
   let renderMode = 'shaded-edges'; // 'shaded-edges', 'shaded', 'wireframe'
-  let currentMaterial = 'steel';   // 'steel', 'aluminum', 'cyan', 'castiron'
+  let currentMaterial = 'mint';   // 'steel', 'aluminum', 'cyan', 'castiron'
 
   const MATERIALS = {
+    mint: { baseColor: [0.38, 0.68, 0.55], specularStrength: 0.38, shininess: 36.0 },
     steel: {
       baseColor: [0.76, 0.82, 0.88],
       specularStrength: 0.85,
@@ -283,29 +307,40 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const viewPresets = {
-    isometric: { yaw: -0.62, pitch: -0.34 },
+    isometric: { yaw: -0.62, pitch: 0.34 },
     front: { yaw: 0, pitch: 0 },
-    top: { yaw: 0, pitch: Math.PI / 2 - 0.015 },
-    right: { yaw: -Math.PI / 2, pitch: 0 }
+    top: { yaw: 0, pitch: Math.PI / 2 },
+    right: { yaw: -Math.PI / 2, pitch: 0 },
+    left: { yaw: Math.PI / 2, pitch: 0 },
+    back: { yaw: Math.PI, pitch: 0 },
+    bottom: { yaw: 0, pitch: -Math.PI / 2 }
   };
-
+  let activeView = 'isometric';
+  const updateZoomLabel = () => {
+    document.getElementById('model3d-zoom-level').textContent = Math.round(modelRadius * 3.1 / cameraDistance * 100) + '%';
+  };
   const updateActivePreset = (name = '') => {
+    activeView = name;
     presetButtons.forEach(button => {
-      button.classList.toggle('active', button.dataset.modelView === name);
+      const selected = button.dataset.modelView === name;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', String(selected));
     });
+    const view = modelViews[name] || { label: 'Putaran bebas', title: 'Jelajahi bentuknya.', description: modelViews.isometric.description, tip: 'Pilih tombol pandangan untuk kembali melihat benda dari arah yang tepat.' };
+    document.getElementById('model3d-view-label').textContent = view.label;
+    document.getElementById('model3d-detail-title').textContent = view.title;
+    document.getElementById('model3d-detail-desc').textContent = view.description;
+    document.getElementById('model3d-detail-tip').textContent = view.tip;
   };
-
-  const setPreset = (name) => {
+  const setPreset = name => {
     const preset = viewPresets[name];
     if (!preset) return;
     yaw = preset.yaw;
     pitch = preset.pitch;
-    cameraDistance = modelRadius * 3.7;
+    cameraDistance = modelRadius * 3.1;
     updateActivePreset(name);
+    updateZoomLabel();
     render();
-    if (typeof window.completeModule === 'function') {
-      window.completeModule('model3d');
-    }
   };
 
   // --- ADVANCED STL PARSER WITH SMOOTH NORMALS & FEATURE EDGE EXTRACTION ---
@@ -486,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gl.bindBuffer(gl.ARRAY_BUFFER, edgeBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(edgeLineVertices), gl.STATIC_DRAW);
 
-    cameraDistance = modelRadius * 3.7;
+    cameraDistance = modelRadius * 3.1;
   };
 
   // --- RENDER FUNCTION ---
@@ -504,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const render = () => {
-    if (!vertexCount || !section.classList.contains('active')) return;
+    if (viewerFailed || document.hidden || !vertexCount || !section.classList.contains('active')) return;
     resizeCanvas();
 
     gl.clearColor(0, 0, 0, 0);
@@ -513,17 +548,19 @@ document.addEventListener('DOMContentLoaded', () => {
     gl.depthFunc(gl.LEQUAL);
 
     // Matrices
-    const baseOrientation = rotationX(-Math.PI / 2);
+    const baseOrientation = identity(); // This SolidWorks model uses Y as its vertical axis.
     const orbit = multiply(rotationY(yaw), rotationX(pitch));
     const model = multiply(orbit, baseOrientation);
     const view = translation(0, -modelRadius * 0.06, -cameraDistance);
     const modelView = multiply(view, model);
-    const projection = perspective(
-      Math.PI / 4,
-      Math.max(0.1, canvas.width / canvas.height),
-      Math.max(0.1, cameraDistance - modelRadius * 2.2),
-      cameraDistance + modelRadius * 3
-    );
+    const aspect = Math.max(0.1, canvas.width / canvas.height);
+    // Keep the same horizontal framing on portrait phone viewports.
+    const halfHeight = cameraDistance * Math.tan(Math.PI / 8) * Math.max(1, 1 / aspect);
+    const near = Math.max(0.1, cameraDistance - modelRadius * 2.2);
+    const far = cameraDistance + modelRadius * 3;
+    const projection = activeView && activeView !== 'isometric'
+      ? orthographic(halfHeight, aspect, near, far)
+      : perspective(2 * Math.atan(halfHeight / cameraDistance), aspect, near, far);
 
     const mat = MATERIALS[currentMaterial] || MATERIALS.steel;
 
@@ -580,7 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const animate = (timestamp) => {
     animationFrame = null;
-    if (!autoRotate || !section.classList.contains('active')) {
+    if (!autoRotate || document.hidden || !section.classList.contains('active')) {
       previousAnimationTime = null;
       return;
     }
@@ -594,298 +631,55 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const startAnimationLoop = () => {
-    if (animationFrame === null && autoRotate && section.classList.contains('active')) {
+    if (animationFrame === null && autoRotate && !document.hidden && section.classList.contains('active')) {
       animationFrame = requestAnimationFrame(animate);
     }
   };
 
-  // --- MODEL LIBRARY DICTIONARY ---
-  const CAD_MODELS = {
-    'bracket-93': {
-      title: 'Bracket 93',
-      eyebrow: 'Rekonstruksi 2D ke 3D · Modeling Practice 93',
-      stlUrl: publicAssetUrl('/models/bracket-93/bracket-93-reference.stl'),
-      glbUrl: publicAssetUrl('/models/bracket-93/bracket-93-reference.glb'),
-      sldprtUrl: null,
-      macroUrl: publicAssetUrl('/models/bracket-93/bracket-93.FCMacro'),
-      sourceImage: publicAssetUrl('/models/bracket-93/bracket-93-source.jpg'),
-      previewImage: publicAssetUrl('/models/bracket-93/bracket-93-preview.png'),
-      specs: [
-        { label: 'Ukuran alas', val: '72 × 35 mm' },
-        { label: 'Lubang', val: '3 × Ø12 mm' },
-        { label: 'Boss atas', val: 'Ø30 × 13 mm' },
-        { label: 'Radius utama', val: 'R15' },
-        { label: 'Penguat', val: 'Rib 10 mm · 60°' }
-      ],
-      note: 'Ketebalan alas menggunakan 10 mm dari tampak depan. Pada potongan samping juga terlihat angka 6 mm sehingga ukuran ini perlu dikonfirmasi sebelum produksi.'
-    },
-    'part-2': {
-      title: 'Part 2 (Stepped T-Block)',
-      eyebrow: 'Balok Bertingkat ISO · Latihan Proyeksi Kuadran',
-      stlUrl: publicAssetUrl('/models/solidworks-library/part-2.stl'),
-      glbUrl: null,
-      sldprtUrl: publicAssetUrl('/models/solidworks-library/part-2.SLDPRT'),
-      macroUrl: null,
-      sourceImage: publicAssetUrl('/models/solidworks-library/part-2-preview.png'),
-      previewImage: publicAssetUrl('/models/solidworks-library/part-2-preview.png'),
-      specs: [
-        { label: 'Dimensi luar', val: '60 × 30 × 50 mm' },
-        { label: 'Tingkat sayap', val: 'Tinggi 25 mm (kiri & kanan)' },
-        { label: 'Tingkat tengah', val: 'Tinggi 50 mm' },
-        { label: 'Lebar langkah', val: '20 mm / tingkat' },
-        { label: 'Aplikasi', val: 'Latihan Proyeksi Orthogonal Kuadran' }
-      ],
-      note: 'Model balok bertingkat 3 step untuk melatih interpretasi visual tampak depan, tampak atas, dan tampak samping berundak.'
-    },
-    'job-flange-connector': {
-      title: 'Job Flange Connector',
-      eyebrow: 'Dudukan Flens Poros & Alur Pasak Ganda',
-      stlUrl: publicAssetUrl('/models/solidworks-library/job-flange-connector.stl'),
-      glbUrl: null,
-      sldprtUrl: publicAssetUrl('/models/solidworks-library/job-flange-connector.SLDPRT'),
-      macroUrl: null,
-      sourceImage: publicAssetUrl('/models/solidworks-library/job-flange-connector-preview.png'),
-      previewImage: publicAssetUrl('/models/solidworks-library/job-flange-connector-preview.png'),
-      specs: [
-        { label: 'Dimensi dasar', val: '140 × 50 × 10 mm' },
-        { label: 'Silinder luar', val: 'Ø64 × tinggi 50 mm' },
-        { label: 'Lubang buntu', val: 'Ø40 × kedalaman 24 mm' },
-        { label: 'Alur garpu', val: '2 alur lebar 20 mm' },
-        { label: 'Panjang alur', val: '30 mm pada tiap ujung' }
-      ],
-      note: 'Dudukan flens silindris dengan lubang buntu Ø40 mm dan sepasang alur pengunci pasak 20 mm untuk dudukan bearing mesin.'
-    },
-    'job-kelas-extrim': {
-      title: 'Job Kelas Extrim',
-      eyebrow: 'Model Asli SolidWorks 2023 · Pelat Braket & Rusuk Penguat',
-      stlUrl: publicAssetUrl('/models/solidworks-library/job-kelas-extrim.stl'),
-      glbUrl: null,
-      sldprtUrl: publicAssetUrl('/models/solidworks-library/job-kelas-extrim.SLDPRT'),
-      macroUrl: null,
-      sourceImage: publicAssetUrl('/models/solidworks-library/job-kelas-extrim-preview.png'),
-      previewImage: publicAssetUrl('/models/solidworks-library/job-kelas-extrim-preview.png'),
-      specs: [
-        { label: 'Dimensi luar (X×Y×Z)', val: '230 × 225 × 80 mm' },
-        { label: 'Resolusi mesh', val: '1.940 Segitiga (Binary STL)' },
-        { label: 'Sumber model', val: 'SolidWorks 2023 Part Asli' },
-        { label: 'Fitur utama', val: 'Pelat dudukan, boss bore, rusuk penguat' },
-        { label: 'Akurasi geometri', val: '100% CAD Asli (Presisi 1:1)' }
-      ],
-      note: 'Model 3D asli yang diekspor langsung dari SolidWorks. Seluruh dimensi, kelengkungan, dan geometri telah 100% presisi sesuai rancangan SolidWorks aslinya.'
-    }
-  };
-
-  let currentModelKey = 'bracket-93';
-
-  const loadCadModel = (modelKey, shouldScroll = false) => {
-    const config = CAD_MODELS[modelKey];
-    if (!config) return;
-
-    currentModelKey = modelKey;
-    if (status) {
-      status.textContent = `Memuat ${config.title}...`;
-      status.classList.remove('ready', 'error');
-    }
-
-    // Update Tab UI
-    document.querySelectorAll('.cad-model-tab').forEach(tab => {
-      tab.classList.toggle('active', tab.dataset.cadModel === modelKey);
-    });
-
-    // Update Viewer Heading
-    const titleEl = document.getElementById('model3d-title');
-    const eyebrowEl = document.getElementById('model3d-eyebrow');
-    if (titleEl) titleEl.textContent = config.title;
-    if (eyebrowEl) eyebrowEl.textContent = config.eyebrow;
-
-    // Update fallback image
-    if (fallback) {
-      fallback.src = config.previewImage;
-      fallback.alt = `Pratinjau model 3D ${config.title}`;
-    }
-
-    // Update Reference Panel
-    const refTitle = document.getElementById('model-ref-title');
-    const refLink = document.getElementById('model-ref-link');
-    const refImg = document.getElementById('model-ref-img');
-    const refSpecs = document.getElementById('model-ref-specs');
-    const refNote = document.getElementById('model-ref-note');
-    const refDownloads = document.getElementById('model-ref-downloads');
-
-    if (refTitle) refTitle.textContent = config.title;
-    if (refLink) refLink.href = config.sourceImage || config.previewImage;
-    if (refImg) refImg.src = config.sourceImage || config.previewImage;
-    if (refNote) refNote.textContent = config.note;
-
-    if (refSpecs) {
-      refSpecs.innerHTML = config.specs.map(s => `
-        <div><dt>${s.label}</dt><dd>${s.val}</dd></div>
-      `).join('');
-    }
-
-    if (refDownloads) {
-      let dlHtml = '';
-      if (config.stlUrl) {
-        dlHtml += `<a class="glass-btn" href="${config.stlUrl}" download>Unduh STL</a>`;
-      }
-      if (config.glbUrl) {
-        dlHtml += `<a class="cta-button" href="${config.glbUrl}" download>Unduh GLB</a>`;
-      }
-      if (config.sldprtUrl) {
-        dlHtml += `<a class="cta-button" href="${config.sldprtUrl}" download style="background: linear-gradient(135deg, #107c41 0%, #1f9a55 100%);">Unduh SLDPRT</a>`;
-      }
-      if (config.macroUrl) {
-        dlHtml += `<a class="model-macro-link" href="${config.macroUrl}" download>Macro FreeCAD</a>`;
-      }
-      refDownloads.innerHTML = dlHtml;
-    }
-
-    // Fetch and parse STL
-    fetch(config.stlUrl)
-      .then(response => {
-        if (!response.ok) throw new Error(`Model tidak ditemukan (${response.status}).`);
-        return response.arrayBuffer();
-      })
-      .then(arrayBuffer => {
-        parseBinaryStl(arrayBuffer);
-        if (canvas) canvas.hidden = false;
-        if (fallback) fallback.hidden = true;
-        if (status) {
-          status.textContent = 'Model siap diputar';
-          status.classList.remove('error');
-          status.classList.add('ready');
-        }
-        setPreset('isometric');
-        if (section.classList.contains('active')) requestAnimationFrame(render);
-        if (typeof window.completeModule === 'function') {
-          window.completeModule('model3d');
-        }
-      })
-      .catch(error => {
-        console.error(`Model ${config.title} gagal dimuat:`, error);
-        showFallback('Mode gambar statis');
-      });
-
-    if (shouldScroll && shell) {
-      shell.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
-
-  window.loadCadModel = loadCadModel;
-
-  // --- USER STL FILE LOADER (DRAG & DROP / UPLOAD) ---
-  const loadCustomStlArrayBuffer = (buffer, filename = 'Model CAD Eksternal') => {
+  let loaded = false;
+  const loadModel = async () => {
+    if (loaded) return;
+    loaded = true;
     try {
+      const response = await fetch(publicAssetUrl('models/solidworks-library/job-kelas-extrim.stl'));
+      if (!response.ok) throw new Error('Model tidak ditemukan (' + response.status + ').');
+      const buffer = await response.arrayBuffer();
+      if (viewerFailed) return;
       parseBinaryStl(buffer);
-      if (canvas) canvas.hidden = false;
+      canvas.hidden = false;
       if (fallback) fallback.hidden = true;
-      if (status) {
-        status.textContent = `File siap: ${filename}`;
-        status.classList.remove('error');
-        status.classList.add('ready');
-      }
-
-      // Update titles
-      const titleEl = document.getElementById('model3d-title');
-      const eyebrowEl = document.getElementById('model3d-eyebrow');
-      if (titleEl) titleEl.textContent = filename.replace(/\.[^/.]+$/, '');
-      if (eyebrowEl) eyebrowEl.textContent = 'Model STL Impor Kustom';
-
-      document.querySelectorAll('.cad-model-tab').forEach(t => t.classList.remove('active'));
+      status.textContent = 'Model siap diputar';
+      status.classList.add('ready');
       setPreset('isometric');
-      if (section.classList.contains('active')) requestAnimationFrame(render);
-      if (typeof window.completeModule === 'function') {
-        window.completeModule('model3d', `Impor CAD: ${filename}`);
-      }
-    } catch (err) {
-      console.error('Gagal memuat STL kustom:', err);
-      alert('Gagal membaca file STL. Pastikan file berformat STL biner.');
+    } catch (error) {
+      console.error('Job Kelas Extrim gagal dimuat:', error);
+      showFallback('Mode gambar statis');
     }
   };
-
-  const uploadInput = document.getElementById('cad-user-file-input');
-  const btnUpload = document.getElementById('btn-upload-stl');
-
-  btnUpload?.addEventListener('click', () => {
-    uploadInput?.click();
-  });
-
-  uploadInput?.addEventListener('change', (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (evt) => {
-        if (evt.target?.result) {
-          loadCustomStlArrayBuffer(evt.target.result, file.name);
-        }
-      };
-      reader.readAsArrayBuffer(file);
-    }
-  });
-
-  // Drag & drop support on 3D viewport
-  shell.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    shell.classList.add('drag-over');
-  });
-
-  shell.addEventListener('dragleave', () => {
-    shell.classList.remove('drag-over');
-  });
-
-  shell.addEventListener('drop', (e) => {
-    e.preventDefault();
-    shell.classList.remove('drag-over');
-    const file = e.dataTransfer?.files?.[0];
-    if (file && file.name.toLowerCase().endsWith('.stl')) {
-      const reader = new FileReader();
-      reader.onload = (evt) => {
-        if (evt.target?.result) {
-          loadCustomStlArrayBuffer(evt.target.result, file.name);
-        }
-      };
-      reader.readAsArrayBuffer(file);
-    }
-  });
-
-  // --- RENDER MODE & MATERIAL SWITCHERS ---
-  document.querySelectorAll('[data-render-mode]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-render-mode]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderMode = btn.dataset.renderMode || 'shaded-edges';
+  const pauseRotation = () => {
+    autoRotate = false;
+    autoRotateButton?.setAttribute('aria-pressed', 'false');
+    stopAnimationLoop();
+  };
+  const markExplored = () => window.completeModule?.('model3d');
+  section.querySelectorAll('[data-render-mode]').forEach(button => {
+    button.addEventListener('click', () => {
+      renderMode = button.dataset.renderMode;
+      section.querySelectorAll('[data-render-mode]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
       render();
     });
   });
-
-  document.querySelectorAll('[data-mat]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-mat]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentMaterial = btn.dataset.mat || 'steel';
-      render();
-    });
-  });
-
-  // CAD Model Tabs listeners
-  document.querySelectorAll('.cad-model-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const modelKey = tab.dataset.cadModel;
-      if (modelKey) loadCadModel(modelKey);
-    });
-  });
-
-  // SolidWorks cards "Putar Model 3D" listeners
-  document.querySelectorAll('[data-view-cad]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const modelKey = btn.dataset.viewCad;
-      if (modelKey) loadCadModel(modelKey, true);
-    });
-  });
+  const zoomModel = factor => {
+    cameraDistance = Math.max(modelRadius * 1.8, Math.min(modelRadius * 6.5, cameraDistance * factor));
+    updateZoomLabel();
+    render();
+  };
+  document.getElementById('model3d-zoom-in').addEventListener('click', () => zoomModel(.85));
+  document.getElementById('model3d-zoom-out').addEventListener('click', () => zoomModel(1 / .85));
 
   // Preset Buttons
   presetButtons.forEach(button => {
-    button.addEventListener('click', () => setPreset(button.dataset.modelView));
+    button.addEventListener('click', () => { pauseRotation(); setPreset(button.dataset.modelView); markExplored(); });
   });
 
   // Reset Button
@@ -900,6 +694,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Auto-rotate Toggle
   autoRotateButton?.addEventListener('click', () => {
     autoRotate = !autoRotate;
+    markExplored();
     autoRotateButton.setAttribute('aria-pressed', String(autoRotate));
     if (autoRotate) {
       updateActivePreset();
@@ -912,6 +707,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Pointer drag rotate
   canvas.addEventListener('pointerdown', event => {
+    if (!event.isPrimary || event.button !== 0 || dragging) return;
+    activePointerId = event.pointerId;
+    pauseRotation();
+    canvas.classList.add('is-dragging');
+    markExplored();
     dragging = true;
     previousPointer = { x: event.clientX, y: event.clientY };
     canvas.setPointerCapture(event.pointerId);
@@ -919,7 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   canvas.addEventListener('pointermove', event => {
-    if (!dragging || !previousPointer) return;
+    if (!dragging || !previousPointer || event.pointerId !== activePointerId) return;
     const deltaX = event.clientX - previousPointer.x;
     const deltaY = event.clientY - previousPointer.y;
     yaw += deltaX * 0.009;
@@ -929,8 +729,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const stopDragging = event => {
-    if (!dragging) return;
+    if (!dragging || event.pointerId !== activePointerId) return;
     dragging = false;
+    activePointerId = null;
+    canvas.classList.remove('is-dragging');
     previousPointer = null;
     try {
       canvas.releasePointerCapture(event.pointerId);
@@ -939,11 +741,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   canvas.addEventListener('pointerup', stopDragging);
   canvas.addEventListener('pointercancel', stopDragging);
+  canvas.addEventListener('lostpointercapture', stopDragging);
 
   // Wheel zoom
   canvas.addEventListener('wheel', event => {
     event.preventDefault();
     cameraDistance = Math.max(modelRadius * 1.8, Math.min(modelRadius * 6.5, cameraDistance + event.deltaY * 0.13));
+    updateZoomLabel();
     render();
   }, { passive: false });
 
@@ -960,7 +764,10 @@ document.addEventListener('DOMContentLoaded', () => {
     else return;
 
     event.preventDefault();
-    updateActivePreset();
+    pauseRotation();
+    markExplored();
+    if (event.key.startsWith('Arrow')) updateActivePreset();
+    updateZoomLabel();
     render();
   });
 
@@ -983,6 +790,26 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', render);
   }
 
-  // Load initial model
-  loadCadModel('bracket-93');
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAnimationLoop();
+    else startAnimationLoop();
+  });
+  canvas.addEventListener('webglcontextlost', event => {
+    event.preventDefault();
+    pauseRotation();
+    showFallback('Mode gambar statis');
+  });
+  loadModel();
+  };
+
+  // The WebGL context and mesh are created only when this lesson is opened.
+  if (section.classList.contains('active')) initializeViewer();
+  else {
+    const initializationObserver = new MutationObserver(() => {
+      if (!section.classList.contains('active')) return;
+      initializationObserver.disconnect();
+      initializeViewer();
+    });
+    initializationObserver.observe(section, { attributes: true, attributeFilter: ['class'] });
+  }
 });

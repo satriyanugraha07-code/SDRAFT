@@ -1,8 +1,13 @@
 import { publicAssetUrl } from '../src/asset-url.js';
+import { BOOK_LIBRARY, renderBookMarkup } from '../src/book-markup.js';
 
 // --- PEMBACA BUKU / FLIPBOOK ---
 
 document.addEventListener('DOMContentLoaded', () => {
+  const bookSection = document.getElementById('book');
+  if (!bookSection || bookSection.dataset.bookReady === 'true') return;
+  bookSection.innerHTML = renderBookMarkup();
+  bookSection.dataset.bookReady = 'true';
   const reader = document.getElementById('book-reader');
   const stage = document.getElementById('book-stage');
   const frame = document.getElementById('book-page-frame');
@@ -28,41 +33,80 @@ document.addEventListener('DOMContentLoaded', () => {
   const zoomInButton = document.getElementById('book-zoom-in');
   const fullscreenButton = document.getElementById('book-fullscreen');
   const startReadingButton = document.getElementById('book-start-reading');
-  const bookSection = reader?.closest('#book');
+  const totalPagesLabel = document.getElementById('book-total-pages');
+  const readerStatus = document.getElementById('book-reader-status');
+  const retryButton = document.getElementById('book-retry-page');
+  const readingHint = document.getElementById('book-reading-hint');
+  const positionNote = reader?.querySelector('.book-reader-footer > p');
 
   if (!reader || !stage || !frame || !pageImage) return;
 
-  const books = {
-    'gamtek-dasar': {
-      title: 'Bab 1 · Fungsi dan Sifat Gambar',
-      totalPages: 17,
-      basePath: publicAssetUrl('books/gambar-teknik-mesin/pages')
-    },
-    'garis-huruf': {
-      title: 'Bab 2 · Garis dan Huruf Standar ISO',
-      totalPages: 20,
-      basePath: publicAssetUrl('books/gambar-teknik-mesin-garis-huruf/pages')
-    }
+  const books = Object.fromEntries(BOOK_LIBRARY.map(book => [book.id, {
+    ...book,
+    basePath: publicAssetUrl(`books/${book.folder}/pages`),
+    pdfUrl: publicAssetUrl(`books/${book.folder}/${book.pdf}`)
+  }]));
+  const STORAGE_KEY = 'draftlab_book_pages';
+  const ACTIVE_BOOK_KEY = 'draftlab_book_active';
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const normalizePage = (value, count) => clamp(Number.parseInt(value, 10) || 1, 1, count);
+  const readStorage = key => {
+    try { return localStorage.getItem(key); } catch { return null; }
   };
-
-  let activeBookId = 'gamtek-dasar';
+  let storedPages = {};
+  try {
+    const value = JSON.parse(readStorage(STORAGE_KEY) || '{}');
+    if (value && typeof value === 'object' && !Array.isArray(value)) storedPages = value;
+  } catch { /* A damaged saved value should not stop the reader. */ }
+  const savedPages = Object.fromEntries(BOOK_LIBRARY.map(book => [book.id,
+    normalizePage(storedPages[book.id] ?? (book.id === 'gamtek-dasar' ? readStorage('draftlab_book_page') : 1), book.totalPages)
+  ]));
+  const storedBook = readStorage(ACTIVE_BOOK_KEY);
+  let activeBookId = Object.hasOwn(books, storedBook) ? storedBook : BOOK_LIBRARY[0].id;
   let totalPages = books[activeBookId].totalPages;
   let pageBasePath = books[activeBookId].basePath;
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-  const storedPage = Number.parseInt(localStorage.getItem('draftlab_book_page') || '1', 10);
-  let currentPage = clamp(Number.isFinite(storedPage) ? storedPage : 1, 1, totalPages);
+  let currentPage = savedPages[activeBookId];
   let zoom = 100;
   let pageRequestId = 0;
   let turnAnimationFrame = null;
   let loadingTimer = null;
+  let loadTimeout = null;
+  let pendingImage = null;
+  let cancelPaperTurn = null;
   let fullscreenControlsTimer = null;
   let pointerOverFullscreenControls = false;
   let fullscreenStartedByPointer = false;
   let isBusy = false;
   let swipeStart = null;
+  let failedPage = null;
+  let hasLoadedPage = false;
   const flipStrips = [];
 
   const pageSource = (page) => `${pageBasePath}/page-${String(page).padStart(2, '0')}.webp`;
+  const setStatus = (text, state = '') => {
+    if (!readerStatus) return;
+    readerStatus.textContent = text;
+    readerStatus.dataset.state = state;
+  };
+  const savePosition = () => {
+    savedPages[activeBookId] = currentPage;
+    let saved = true;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedPages));
+      localStorage.setItem(ACTIVE_BOOK_KEY, activeBookId);
+      // Keep the original first-book key compatible with earlier installations.
+      if (activeBookId === 'gamtek-dasar') localStorage.setItem('draftlab_book_page', String(currentPage));
+    } catch { saved = false; }
+    if (positionNote) {
+      const detail = document.createElement('span');
+      detail.textContent = saved ? 'Lanjutkan dari halaman terakhirmu saat kembali.' : 'Halaman tetap bisa dibaca. Catat nomor halaman untuk melanjutkan nanti.';
+      positionNote.replaceChildren(
+        document.createTextNode(saved ? 'Posisi setiap buku disimpan di browser ini.' : 'Browser belum bisa menyimpan posisi baca.'),
+        document.createElement('br'), detail
+      );
+    }
+    return saved;
+  };
 
   const createFlipStrips = () => {
     if (!flipStripsContainer) return;
@@ -115,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
       image.height = 1404;
       image.loading = page <= 3 ? 'eager' : 'lazy';
       image.decoding = 'async';
+      image.addEventListener('error', () => { image.style.visibility = 'hidden'; });
       label.textContent = String(page);
       button.append(image, label);
       button.addEventListener('click', () => {
@@ -124,21 +169,37 @@ document.addEventListener('DOMContentLoaded', () => {
       fragment.append(button);
     }
 
-    thumbnails.append(fragment);
+    thumbnails.replaceChildren(fragment);
+  };
+
+  const revealActiveThumbnail = () => {
+    if (!thumbnails || !thumbnails.closest('details')?.open) return;
+    const thumbnail = thumbnails.querySelector('.book-thumbnail.active');
+    if (!thumbnail) return;
+    const left = thumbnail.getBoundingClientRect().left - thumbnails.getBoundingClientRect().left + thumbnails.scrollLeft;
+    if (left < thumbnails.scrollLeft || left + thumbnail.offsetWidth > thumbnails.scrollLeft + thumbnails.clientWidth) {
+      thumbnails.scrollLeft = Math.max(0, left - (thumbnails.clientWidth - thumbnail.offsetWidth) / 2);
+    }
   };
 
   const updatePageControls = () => {
     if (currentPageLabel) currentPageLabel.textContent = String(currentPage);
-    if (pageRange) pageRange.value = String(currentPage);
+    if (totalPagesLabel) totalPagesLabel.textContent = String(totalPages);
+    if (pageRange) {
+      pageRange.max = String(totalPages);
+      pageRange.value = String(currentPage);
+      pageRange.setAttribute('aria-valuetext', `Halaman ${currentPage} dari ${totalPages}`);
+    }
     if (progressLabel) {
-      progressLabel.textContent = `${Math.round((currentPage / totalPages) * 100)}% selesai dibaca`;
+      progressLabel.textContent = `Halaman ${currentPage} dari ${totalPages} · ${Math.round((currentPage / totalPages) * 100)}%`;
     }
 
-    if (currentPage >= 3 && typeof window.completeModule === 'function') {
+    if (hasLoadedPage && currentPage >= 3 && typeof window.completeModule === 'function') {
       window.completeModule('book');
     }
 
     stage.setAttribute('aria-label', `Pratinjau buku, halaman ${currentPage} dari ${totalPages}`);
+    stage.setAttribute('aria-busy', String(isBusy));
     [previousButton, previousEdge].filter(Boolean).forEach(button => {
       button.disabled = isBusy || currentPage <= 1;
     });
@@ -147,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     if (pageRange) pageRange.disabled = isBusy;
     thumbnails?.classList.toggle('is-busy', isBusy);
+    thumbnails?.querySelectorAll('.book-thumbnail').forEach(button => { button.disabled = isBusy; });
 
     const activeThumbnail = thumbnails?.querySelector('.book-thumbnail.active');
     activeThumbnail?.classList.remove('active');
@@ -156,17 +218,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nextActiveThumbnail) {
       nextActiveThumbnail.classList.add('active');
       nextActiveThumbnail.setAttribute('aria-current', 'page');
-      nextActiveThumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      revealActiveThumbnail();
     }
   };
 
   const updatePageWidth = () => {
-    const stagePadding = window.matchMedia('(max-width: 620px)').matches ? 36 : 118;
-    const isFullscreen = document.fullscreenElement === reader;
-    const widthLimit = Math.max(230, stage.clientWidth - stagePadding);
-    const heightLimit = isFullscreen
-      ? Math.max(230, (stage.clientHeight - 32) * (993 / 1404))
-      : 620;
+    if (stage.clientWidth <= 0 || stage.clientHeight <= 0) return;
+    const style = window.getComputedStyle(stage);
+    const horizontalPadding = (Number.parseFloat(style.paddingLeft) || 0) + (Number.parseFloat(style.paddingRight) || 0);
+    const verticalPadding = (Number.parseFloat(style.paddingTop) || 0) + (Number.parseFloat(style.paddingBottom) || 0);
+    const widthLimit = Math.max(1, stage.clientWidth - horizontalPadding);
+    const heightLimit = Math.max(1, stage.clientHeight - verticalPadding) * (993 / 1404);
     const baseWidth = Math.min(620, widthLimit, heightLimit);
     frame.style.setProperty('--book-render-width', `${Math.round(baseWidth * (zoom / 100))}px`);
   };
@@ -175,6 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
     zoom = clamp(Number(nextZoom) || 100, 75, 160);
     if (zoomRange) zoomRange.value = String(zoom);
     if (zoomValue) zoomValue.textContent = `${zoom}%`;
+    if (zoomOutButton) zoomOutButton.disabled = zoom <= 75;
+    if (zoomInButton) zoomInButton.disabled = zoom >= 160;
+    stage.classList.toggle('is-zoomed', zoom > 100);
+    stage.style.touchAction = zoom > 100 ? 'auto' : 'pan-y';
+    if (readingHint) readingHint.textContent = zoom > 100
+      ? 'Geser area halaman untuk melihat bagian yang diperbesar. Gunakan tombol panah untuk berganti halaman.'
+      : 'Balik halaman dengan tombol panah. Di HP, usap halaman ke kiri atau kanan.';
     updatePageWidth();
   };
 
@@ -241,7 +310,18 @@ document.addEventListener('DOMContentLoaded', () => {
       flipSheet.classList.remove('active', directionClass);
       stage.classList.remove(stageClass);
       resetPaperSurface();
+      cancelPaperTurn = null;
       onComplete();
+    };
+
+    cancelPaperTurn = () => {
+      if (completed) return;
+      completed = true;
+      window.cancelAnimationFrame(turnAnimationFrame);
+      flipSheet.classList.remove('active', directionClass);
+      stage.classList.remove(stageClass);
+      resetPaperSurface();
+      cancelPaperTurn = null;
     };
 
     flipSheet.classList.add('active', directionClass);
@@ -359,17 +439,23 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const renderPage = (requestedPage, direction = 'next', animate = true) => {
-    const targetPage = clamp(Number(requestedPage) || 1, 1, totalPages);
-    if (isBusy || (animate && targetPage === currentPage)) return;
+    const targetPage = normalizePage(requestedPage, totalPages);
+    if (isBusy || (animate && targetPage === currentPage && hasLoadedPage && failedPage === null)) return;
 
     const requestId = ++pageRequestId;
+    const requestBookId = activeBookId;
     const source = pageSource(targetPage);
     const preloader = new Image();
+    pendingImage = preloader;
     const previousSource = pageImage.getAttribute('src') || pageSource(currentPage);
 
     isBusy = true;
+    failedPage = null;
+    if (retryButton) retryButton.hidden = true;
+    setStatus(`Memuat halaman ${targetPage} dari ${books[activeBookId].title}…`);
     updatePageControls();
     window.clearTimeout(loadingTimer);
+    window.clearTimeout(loadTimeout);
     loading?.classList.remove('error');
     if (loading) loading.innerHTML = '<span></span>Memuat halaman...';
 
@@ -380,20 +466,45 @@ document.addEventListener('DOMContentLoaded', () => {
       pageImage.classList.add('is-loading');
     }
 
+    const requestIsCurrent = () => requestId === pageRequestId && requestBookId === activeBookId;
+    const failLoading = () => {
+      if (!requestIsCurrent()) return;
+      window.clearTimeout(loadingTimer);
+      window.clearTimeout(loadTimeout);
+      preloader.onload = preloader.onerror = null;
+      pendingImage = null;
+      isBusy = false;
+      failedPage = targetPage;
+      pageImage.classList.remove('is-loading');
+      if (loading) {
+        loading.textContent = `Halaman ${targetPage} belum dapat dimuat.`;
+        loading.classList.add('active', 'error');
+      }
+      if (retryButton) retryButton.hidden = false;
+      setStatus(`Halaman ${targetPage} belum dapat dimuat. Pilih Coba muat lagi atau buka PDF buku ini.`, 'error');
+      updatePageControls();
+    };
+
     preloader.onload = () => {
-      if (requestId !== pageRequestId) return;
+      if (!requestIsCurrent()) return;
 
       window.clearTimeout(loadingTimer);
+      window.clearTimeout(loadTimeout);
+      pendingImage = null;
+      preloader.onload = preloader.onerror = null;
       currentPage = targetPage;
+      hasLoadedPage = true;
       pageImage.src = source;
-      pageImage.alt = `Halaman ${currentPage} dari Buku Ajar Gambar Teknik Mesin`;
+      pageImage.alt = `Halaman ${currentPage} dari ${books[activeBookId].title}`;
+      pageImage.style.visibility = 'visible';
       pageImage.classList.remove('is-loading');
       loading?.classList.remove('active');
       updatePageControls();
       preloadNearbyPages();
-      localStorage.setItem('draftlab_book_page', String(currentPage));
+      const saved = savePosition();
+      setStatus(`Halaman ${currentPage} dari ${totalPages}. ${saved ? 'Posisi bacamu tersimpan.' : 'Browser belum bisa menyimpan posisi baca; halaman tetap bisa dibaca.'}`, saved ? '' : 'storage-error');
 
-      if (animate) {
+      if (animate && !document.hidden) {
         animatePaperTurn(direction, previousSource, source, () => {
           isBusy = false;
           updatePageControls();
@@ -404,19 +515,43 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    preloader.onerror = () => {
-      if (requestId !== pageRequestId) return;
-      window.clearTimeout(loadingTimer);
-      isBusy = false;
-      pageImage.classList.remove('is-loading');
-      if (loading) {
-        loading.textContent = 'Halaman tidak dapat dimuat. Coba lagi.';
-        loading.classList.add('active', 'error');
-      }
-      updatePageControls();
-    };
-
+    preloader.onerror = failLoading;
+    loadTimeout = window.setTimeout(failLoading, 15000);
     preloader.src = source;
+  };
+
+  const cancelPendingPage = () => {
+    pageRequestId += 1;
+    window.clearTimeout(loadingTimer);
+    window.clearTimeout(loadTimeout);
+    if (pendingImage) pendingImage.onload = pendingImage.onerror = null;
+    pendingImage = null;
+    cancelPaperTurn?.();
+    isBusy = false;
+    failedPage = null;
+    if (retryButton) retryButton.hidden = true;
+    loading?.classList.remove('active', 'error');
+  };
+
+  const updateBookPresentation = () => {
+    const book = books[activeBookId];
+    const title = document.getElementById('book-reader-title') || reader.querySelector('.book-reader-heading h3');
+    if (title) title.textContent = book.title;
+    ['book-reader-pdf', 'book-reader-download'].forEach(id => {
+      const link = document.getElementById(id);
+      if (!link) return;
+      link.href = book.pdfUrl;
+      link.setAttribute('aria-label', `${id === 'book-reader-pdf' ? 'Buka' : 'Unduh'} PDF ${book.title}`);
+    });
+    const download = document.getElementById('book-reader-download');
+    if (download) download.setAttribute('download', book.pdf);
+    bookSection.querySelectorAll('[data-book-id]').forEach(button => {
+      const active = button.dataset.bookId === activeBookId;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+      button.removeAttribute('aria-selected');
+    });
+    updatePageControls();
   };
 
   const movePage = (step) => {
@@ -426,8 +561,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   createFlipStrips();
+  updateBookPresentation();
   createThumbnails();
   updateZoom(100);
+  pageImage.style.visibility = 'hidden';
   renderPage(currentPage, 'next', false);
 
   previousButton?.addEventListener('click', () => movePage(-1));
@@ -435,7 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
   nextButton?.addEventListener('click', () => movePage(1));
   nextEdge?.addEventListener('click', () => movePage(1));
 
-  pageRange?.addEventListener('input', event => {
+  pageRange?.addEventListener('change', event => {
     const page = Number(event.target.value);
     renderPage(page, page >= currentPage ? 'next' : 'previous');
   });
@@ -443,13 +580,17 @@ document.addEventListener('DOMContentLoaded', () => {
   zoomRange?.addEventListener('input', event => updateZoom(event.target.value));
   zoomOutButton?.addEventListener('click', () => updateZoom(zoom - 10));
   zoomInButton?.addEventListener('click', () => updateZoom(zoom + 10));
+  retryButton?.addEventListener('click', () => renderPage(failedPage ?? currentPage, 'next', false));
+  thumbnails?.closest('details')?.addEventListener('toggle', revealActiveThumbnail);
 
   startReadingButton?.addEventListener('click', () => {
-    reader.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    window.setTimeout(() => stage.focus({ preventScroll: true }), 450);
+    reader.scrollIntoView({ behavior: 'auto', block: 'start' });
+    stage.focus({ preventScroll: true });
   });
 
   stage.addEventListener('keydown', event => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.repeat) return;
+    if (event.target instanceof Element && event.target.closest('input, textarea, select, button, a, [contenteditable]')) return;
     if (event.key === 'PageDown') {
       event.preventDefault();
       movePage(1);
@@ -477,14 +618,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!bookSection?.classList.contains('active') && document.fullscreenElement !== reader) return;
 
     const target = event.target instanceof Element ? event.target : null;
-    if (target?.closest('input, textarea, select, button, a, [contenteditable="true"], .book-draft-panel')) return;
+    if (target?.closest('input, textarea, select, button, a, [contenteditable]')) return;
 
     event.preventDefault();
     movePage(event.key === 'ArrowRight' ? 1 : -1);
   });
 
   stage.addEventListener('pointerdown', event => {
-    if (event.target.closest('button')) return;
+    if (zoom > 100 || isBusy || !event.isPrimary || event.button !== 0 || event.target.closest('button')) return;
+    if (event.pointerType !== 'touch' && event.pointerType !== 'pen') return;
     swipeStart = { x: event.clientX, y: event.clientY, pointerId: event.pointerId };
   });
 
@@ -504,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hideFullscreenControlsLater = (delay = 1600) => {
     window.clearTimeout(fullscreenControlsTimer);
     fullscreenControlsTimer = window.setTimeout(() => {
-      if (!pointerOverFullscreenControls) {
+      if (!pointerOverFullscreenControls && !reader.querySelector('.book-toolbar')?.contains(document.activeElement)) {
         reader.classList.remove('fullscreen-controls-visible');
       }
     }, delay);
@@ -535,9 +677,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   bookToolbar?.addEventListener('pointerleave', () => {
     pointerOverFullscreenControls = false;
-    if (bookToolbar.contains(document.activeElement)) document.activeElement.blur();
     hideFullscreenControlsLater(650);
   });
+  bookToolbar?.addEventListener('focusin', () => {
+    if (document.fullscreenElement !== reader) return;
+    window.clearTimeout(fullscreenControlsTimer);
+    reader.classList.add('fullscreen-controls-visible');
+  });
+  bookToolbar?.addEventListener('focusout', () => hideFullscreenControlsLater());
+  reader.addEventListener('pointerdown', showFullscreenControls);
 
   fullscreenButton?.addEventListener('pointerdown', () => {
     fullscreenStartedByPointer = true;
@@ -553,6 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = fullscreenButton.querySelector('span');
     if (text) text.textContent = isFullscreen ? 'Keluar layar penuh' : 'Layar penuh';
     fullscreenButton.setAttribute('aria-label', isFullscreen ? 'Keluar dari layar penuh' : 'Buka layar penuh');
+    fullscreenButton.setAttribute('aria-pressed', String(isFullscreen));
     reader.classList.toggle('fullscreen-controls-visible', isFullscreen);
     if (isFullscreen) {
       if (fullscreenStartedByPointer) fullscreenButton.blur();
@@ -570,10 +719,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (document.fullscreenElement === reader) {
         await document.exitFullscreen();
       } else {
+        if (typeof reader.requestFullscreen !== 'function') throw new Error('Fullscreen unavailable');
         await reader.requestFullscreen();
       }
-    } catch (error) {
-      console.error('Mode layar penuh tidak tersedia', error);
+    } catch {
+      setStatus('Layar penuh belum tersedia di browser ini. Kamu tetap bisa memperbesar halaman atau membuka PDF.', 'fullscreen-error');
     }
   });
 
@@ -586,51 +736,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Multi-book switcher logic
   const switchBook = (bookId) => {
-    if (!books[bookId] || bookId === activeBookId) return;
+    if (!Object.hasOwn(books, bookId)) return;
+    if (bookId === activeBookId) {
+      if (failedPage !== null) renderPage(failedPage, 'next', false);
+      return;
+    }
+    cancelPendingPage();
     activeBookId = bookId;
     totalPages = books[activeBookId].totalPages;
     pageBasePath = books[activeBookId].basePath;
-
-    const readerHeading = reader.querySelector('.book-reader-heading h3');
-    if (readerHeading) readerHeading.textContent = books[activeBookId].title;
-
-    if (pageRange) {
-      pageRange.max = String(totalPages);
-      pageRange.value = '1';
-    }
-    const pageTotalSpan = reader.querySelector('.book-page-counter span:last-child');
-    if (pageTotalSpan) pageTotalSpan.textContent = `dari ${totalPages}`;
-
-    document.querySelectorAll('.book-select-tab').forEach(tab => {
-      const isActive = tab.dataset.bookId === bookId;
-      tab.classList.toggle('active', isActive);
-      tab.setAttribute('aria-selected', String(isActive));
-    });
-
-    if (thumbnails) {
-      thumbnails.innerHTML = '';
-      createThumbnails();
-    }
-
-    currentPage = 1;
-    renderPage(1, 'next');
-
-    if (typeof window.completeModule === 'function') {
-      window.completeModule('book');
-    }
+    currentPage = savedPages[activeBookId];
+    hasLoadedPage = false;
+    pageImage.style.visibility = 'hidden';
+    stage.scrollLeft = stage.scrollTop = 0;
+    updateBookPresentation();
+    createThumbnails();
+    updateZoom(100);
+    renderPage(currentPage, 'next', false);
   };
 
-  document.querySelectorAll('.book-select-tab').forEach(tab => {
+  bookSection.querySelectorAll('[data-book-id]').forEach(tab => {
     tab.addEventListener('click', () => {
       switchBook(tab.dataset.bookId);
     });
   });
 
-  const btnReadDraft = document.getElementById('btn-read-book-2');
-  if (btnReadDraft) {
-    btnReadDraft.addEventListener('click', () => {
-      switchBook('garis-huruf');
-      reader.scrollIntoView({ behavior: 'smooth' });
+  bookSection.querySelectorAll('[data-read-book]').forEach(button => {
+    button.addEventListener('click', () => {
+      switchBook(button.dataset.readBook);
+      reader.scrollIntoView({ behavior: 'auto', block: 'start' });
+      stage.focus({ preventScroll: true });
     });
-  }
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && cancelPaperTurn) {
+      cancelPaperTurn();
+      isBusy = false;
+      updatePageControls();
+    }
+    if (!document.hidden && isBusy && !pendingImage && hasLoadedPage) {
+      cancelPaperTurn?.();
+      isBusy = false;
+      updatePageControls();
+    }
+  });
 });

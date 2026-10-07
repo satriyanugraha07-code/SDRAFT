@@ -1,0 +1,78 @@
+#model3d .model3d-lesson { --model-ink:#153451; --model-muted:#55748a; --model-accent:#078bad; max-width:1240px; margin:0 auto; padding:8px 0 32px; color:var(--model-ink); min-width:0; }
+#model3d .model3d-lesson *, #model3d .model3d-lesson *::before, #model3d .model3d-lesson *::after { box-sizing:border-box; }
+#model3d .model3d-lesson [hidden] { display:none!important; }
+#model3d .model3d-lesson button { font-family:inherit; cursor:pointer; }
+#model3d .model3d-lesson button:focus-visible, #model3d .model3d-lesson a:focus-visible, #model3d .model3d-lesson summary:focus-visible, #model3d .model3d-lesson canvas:focus-visible { outline:3px solid #56b5ce; outline-offset:3px; }
+#model3d .model3d-hero { position:relative; display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,.8fr); align-items:center; gap:24px; padding:30px 36px; margin-bottom:30px; border:1px solid #b5e4f1; border-radius:30px; background:linear-gradient(115deg,#e0f8fe,#d5f0fc 55%,#b9e3f8); box-shadow:0 14px 32px #0a759b12; overflow:hidden; }
+#model3d .model3d-eyebrow { display:flex; align-items:center; gap:8px; margin:0 0 12px; color:#247c9b; font-size:10px; font-weight:800; letter-spacing:.06em; }
+#model3d .model3d-eyebrow span { color:#e4a42f; font-size:19px; }
+#model3d .model3d-hero h2 { margin:0 0 8px; color:#0a2859; font-size:clamp(30px,3.1vw,43px); font-weight:800; line-height:1.18; letter-spacing:-.05em; }
+#model3d .model3d-hero h2 span { color:#078bad; }
+#model3d .model3d-swoosh { display:block; width:110px; height:18px; margin-bottom:10px; }
+#model3d .model3d-hero p:last-of-type { max-width:440px; margin:0; font-size:13px; line-height:1.75; color:var(--model-muted); }
+#model3d .model3d-primary { display:inline-flex; justify-content:center; align-items:center; gap:18px; min-height:44px; padding:13px 21px; margin-top:16px; border:0; border-radius:50px; background:linear-gradient(135deg,#05a6bf,#058aa9); color:white; font-size:12px; font-weight:750; box-shadow:0 7px 17px #058aa92a; }
+#model3d .model3d-primary:hover { background:#057e9b; }
+#model3d .model3d-primary span { font-size:19px; line-height:1; }
+#model3d .model3d-hero-art { position:relative; display:grid; place-items:center; min-height:240px; }
+#model3d .model3d-hero-art::before { content:''; position:absolute; width:245px; height:225px; max-width:100%; border-radius:44% 56% 58% 42%; background:#ffffff65; transform:rotate(-12deg); }
+#model3d .model3d-hero-art svg { position:relative; width:100%; max-width:340px; filter:drop-shadow(0 8px 8px #24567215); }
+#model3d .model3d-hero-art > span { position:absolute; top:-15px; right:-8px; font:700 23px/1.05 'Caveat',cursive; color:#246383; transform:rotate(5deg); }
+#model3d .model3d-kicker { margin:0 0 7px; font-size:9px; line-height:1.5; color:#648197; font-weight:800; letter-spacing:.07em; }
+#model3d .model3d-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; margin:0 0 17px; }
+#model3d .model3d-heading h3 { margin:0; font-size:23px; line-height:1.35; font-weight:800; letter-spacing:-.04em; }
+#model3d .model3d-tag { padding:8px 12px; border-radius:22px; background:#e9f7fc; color:#2585a4; font-size:10px; font-weight:750; }
+#model3d .model3d-workspace { display:grid; grid-template-columns:minmax(0,1fr) 285px; align-items:start; gap:21px; margin-bottom:27px; }
+#model3d .model3d-viewer, #model3d .model3d-detail { min-width:0; border:1px solid #d9e9f1; border-radius:27px; background:#fff; box-shadow:0 6px 22px #1b4f760a; }
+#model3d .model3d-viewer { overflow:hidden; }
+#model3d .model3d-panel-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:23px 25px 15px; }
+#model3d .model3d-panel-heading h3 { margin:0; font-size:20px; line-height:1.4; font-weight:800; letter-spacing:-.04em; }
+#model3d .model3d-status { max-width:145px; flex-shrink:0; color:#75919f; font-size:9px; text-align:right; line-height:1.5; }
+#model3d .model3d-status.ready { color:#35896c; }
+#model3d .model3d-status.error { color:#a96832; }
+#model3d .model3d-view-picker { display:flex; flex-wrap:wrap; gap:6px; margin:0 18px 14px; }
+#model3d .model3d-view-picker button, #model3d .model3d-toolbar button, #model3d .model3d-zoom button { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:8px 12px; border:1px solid #deebf2; border-radius:22px; background:#f8fcfe; color:#52768e; font-size:10px; font-weight:750; line-height:1.4; }
+#model3d .model3d-view-picker button:hover, #model3d .model3d-toolbar button:hover, #model3d .model3d-zoom button:hover { background:#eaf7fc; border-color:#a9d7e5; }
+#model3d .model3d-view-picker button[aria-pressed="true"], #model3d .model3d-toolbar button[aria-pressed="true"] { border-color:#83c8d9; background:#e3f6fc; color:#057c9d; }
+#model3d .model3d-stage { position:relative; height:430px; margin:0 14px; border-radius:22px; background:radial-gradient(ellipse at 55% 70%,#dbf0e7,transparent 65%),linear-gradient(145deg,#ecf9ff,#f6fbff 60%,#e7f4fc); overflow:hidden; }
+#model3d .model3d-stage::after { content:''; position:absolute; bottom:11%; left:23%; width:54%; height:7%; border-radius:50%; background:#527f6d; opacity:.08; filter:blur(12px); pointer-events:none; }
+#model3d .model3d-stage canvas { position:relative; z-index:1; display:block; width:100%; height:100%; cursor:grab; touch-action:none; }
+#model3d .model3d-stage canvas.is-dragging { cursor:grabbing; }
+#model3d .model3d-stage-note { position:absolute; z-index:2; top:15px; left:16px; padding:7px 11px; max-width:calc(100% - 32px); border:1px solid #dceff4; border-radius:20px; background:#ffffffc4; color:#6690a0; font-size:9px; line-height:1.5; pointer-events:none; }
+#model3d .model3d-stage-caption { position:absolute; z-index:2; bottom:16px; left:16px; color:#3e8b78; font:700 23px/1.1 'Caveat',cursive; pointer-events:none; }
+#model3d .model3d-fallback { display:block; width:100%; height:100%; object-fit:contain; background:#f4f9fd; }
+#model3d .model3d-toolbar { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:15px 18px 8px; }
+#model3d .model3d-render-picker, #model3d .model3d-actions { display:flex; flex-wrap:wrap; gap:6px; }
+#model3d .model3d-zoom { display:flex; align-items:center; gap:8px; padding:8px 20px 20px; }
+#model3d .model3d-zoom p { flex:1; margin:0; color:#7792a1; font-size:9px; line-height:1.65; }
+#model3d .model3d-zoom button { width:35px; min-height:35px; padding:6px; font-size:16px; }
+#model3d .model3d-zoom > span { min-width:36px; text-align:center; color:#4f7c90; font-size:10px; font-weight:750; }
+#model3d .model3d-detail { padding:23px; }
+#model3d .model3d-detail h3 { margin:0 0 10px; font-size:22px; line-height:1.3; letter-spacing:-.04em; }
+#model3d .model3d-detail > p:not(.model3d-kicker) { margin:0; color:var(--model-muted); font-size:12px; line-height:1.8; }
+#model3d .model3d-detail-tip { display:flex; gap:10px; margin:18px 0; padding:14px; border-radius:16px; background:#eaf7f2; color:#4f826e; }
+#model3d .model3d-detail-tip > span { color:#369173; font-size:23px; }
+#model3d .model3d-detail-tip p { margin:0; font-size:11px; line-height:1.7; }
+#model3d .model3d-features { padding:17px 0 0; border-top:1px solid #e3edf2; }
+#model3d .model3d-features > span { font-size:9px; font-weight:800; letter-spacing:.05em; color:#7993a4; }
+#model3d .model3d-features > div { display:flex; gap:10px; padding:12px 0; }
+#model3d .model3d-features i { display:grid; place-items:center; align-self:start; flex:none; width:31px; height:31px; border-radius:11px; background:#ecf7fc; font-size:10px; font-style:normal; color:#4294aa; }
+#model3d .model3d-features p { margin:0; color:#6e8a9c; font-size:10px; line-height:1.65; }
+#model3d .model3d-features strong { display:block; color:#254760; font-size:12px; margin-bottom:3px; }
+#model3d .model3d-dimensions { margin:12px 0 17px; padding:12px 14px; border-radius:15px; background:#f1f8fc; }
+#model3d .model3d-dimensions dt { color:#7a94a4; font-size:9px; margin-bottom:4px; }
+#model3d .model3d-dimensions dd { margin:0; color:#2b6e84; font-size:13px; font-weight:750; }
+#model3d .model3d-downloads { color:#6d879b; font-size:11px; }
+#model3d .model3d-downloads summary, #model3d .model3d-footnote summary { cursor:pointer; padding:5px 0; }
+#model3d .model3d-downloads a { display:flex; justify-content:space-between; padding:10px 12px; margin-top:9px; border:1px solid #dcebf1; border-radius:13px; color:#3d8399; text-decoration:none; background:#f8fcfe; }
+#model3d .model3d-learning { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-bottom:24px; }
+#model3d .model3d-learning article { min-width:0; padding:22px; border:1px solid #e1edf2; border-radius:22px; background:linear-gradient(145deg,#fff,#f1f9fd); }
+#model3d .model3d-learning article:nth-child(2) { background:linear-gradient(145deg,#fff,#eff9f3); }
+#model3d .model3d-learning article:nth-child(3) { background:linear-gradient(145deg,#fff,#fff7e5); }
+#model3d .model3d-learning article > span { display:grid; place-items:center; width:34px; height:34px; border-radius:12px; margin-bottom:15px; background:#e5f4fc; color:#4586a0; font-size:11px; font-weight:800; }
+#model3d .model3d-learning h4 { margin:0 0 8px; font-size:15px; line-height:1.4; letter-spacing:-.025em; }
+#model3d .model3d-learning p { margin:0; color:var(--model-muted); font-size:11px; line-height:1.8; }
+#model3d .model3d-footnote { padding:13px 18px; border:1px solid #e2edf2; border-radius:17px; background:#f8fcfe; color:#7790a1; font-size:11px; }
+#model3d .model3d-footnote p { line-height:1.8; }
+@media(max-width:1100px) { #model3d .model3d-workspace { grid-template-columns:minmax(0,1fr) 255px; gap:16px; } #model3d .model3d-detail { padding:20px; } #model3d .model3d-panel-heading { align-items:start; } #model3d .model3d-status { max-width:95px; } }
+@media(max-width:960px) { #model3d .model3d-workspace { grid-template-columns:minmax(0,1fr); } #model3d .model3d-detail { display:grid; grid-template-columns:1fr 1fr; gap:8px 24px; } #model3d .model3d-detail > .model3d-kicker, #model3d .model3d-detail h3, #model3d .model3d-detail > p, #model3d .model3d-detail-tip { grid-column:1; } #model3d .model3d-features { grid-column:2; grid-row:1 / span 4; border:0; padding:0; } #model3d .model3d-dimensions { grid-column:2; } #model3d .model3d-hero { padding:27px; gap:15px; } }
+@media(max-width:600px) { #model3d .model3d-hero { grid-template-columns:minmax(0,1fr); padding:25px 22px 18px; gap:15px; border-radius:24px; margin-bottom:23px; } #model3d .model3d-hero h2 { font-size:32px; } #model3d .model3d-hero-art { min-height:170px; } #model3d .model3d-hero-art svg { max-width:270px; height:180px; } #model3d .model3d-hero-art > span { top:0; right:0; font-size:20px; } #model3d .model3d-heading h3 { font-size:21px; } #model3d .model3d-tag { font-size:9px; padding:7px 9px; } #model3d .model3d-panel-heading { padding:19px 18px 13px; } #model3d .model3d-panel-heading h3 { font-size:18px; } #model3d .model3d-stage { height:340px; margin:0 10px; } #model3d .model3d-view-picker { margin:0 14px 12px; gap:5px; } #model3d .model3d-view-picker button { font-size:10px; padding:8px 11px; min-height:40px; } #model3d .model3d-toolbar { padding:14px; } #model3d .model3d-toolbar button { min-height:40px; } #model3d .model3d-zoom { flex-wrap:wrap; padding:0 15px 17px; } #model3d .model3d-zoom p { flex:1 0 100%; margin:0 0 7px; } #model3d .model3d-detail { display:block; padding:22px; } #model3d .model3d-features { padding-top:16px; border-top:1px solid #e3edf2; } #model3d .model3d-learning { grid-template-columns:minmax(0,1fr); gap:12px; } #model3d .model3d-learning article { display:grid; grid-template-columns:36px 1fr; column-gap:15px; padding:18px; } #model3d .model3d-learning article > span { grid-column:1; grid-row:1 / span 2; margin:0; } #model3d .model3d-learning h4, #model3d .model3d-learning p { grid-column:2; } }
