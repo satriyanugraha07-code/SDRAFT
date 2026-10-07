@@ -169,15 +169,15 @@ export const POST_TEST_DATA = {
     },
     {
       no: 13,
-      q: 'Fungsi papan gambar adalah ....',
+      q: 'Fungsi busur derajat adalah ....',
       options: {
         A: 'menyimpan pensil',
-        B: 'menyediakan permukaan kerja yang rata dan stabil',
+        B: 'mengukur atau membentuk sudut',
         C: 'menghapus garis',
         D: 'membuat lingkaran'
       },
       key: 'B',
-      explanation: 'Papan gambar memberikan landasan bidang datar sempurna tanpa gelombang untuk menempelkan kertas gambar.'
+      explanation: 'Busur derajat digunakan untuk mengukur dan membentuk sudut. Pusat busur harus tepat pada titik sudut dan garis dasarnya sejajar salah satu kaki sudut.'
     },
     {
       no: 14,
@@ -317,7 +317,7 @@ export const POST_TEST_DATA = {
       no: 29,
       q: 'Sebutkan minimal 6 alat gambar teknik manual beserta fungsinya.',
       guide: 'Sebutkan nama 6 alat beserta fungsinya masing-masing.',
-      sampleAnswer: '1) Pensil gambar: membuat garis goresan, 2) Mistar/penggaris lurus: mengukur dan memandu garis lurus, 3) Sepasang segitiga: membuat garis tegak, miring, dan sejajar, 4) Jangka: menggambar busur dan lingkaran, 5) Penghapus: menghapus kesalahan garis tanpa merusak kertas, 6) Papan gambar: alas kerja yang datar dan stabil.'
+      sampleAnswer: '1) Pensil gambar: membuat garis goresan, 2) Mistar/penggaris lurus: mengukur dan memandu garis lurus, 3) Sepasang segitiga: membuat garis tegak, miring, dan sejajar, 4) Jangka: menggambar busur dan lingkaran, 5) Penghapus: menghapus kesalahan garis tanpa merusak kertas, 6) Busur derajat: mengukur dan membentuk sudut.'
     },
     {
       no: 30,

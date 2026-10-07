@@ -374,9 +374,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const moduleTitles = {
         book: "Buku Ajar Gambar Teknik Mesin",
         intro: "Pengenalan Gambar Teknik Mesin",
-        tools: "Papan Gambar Digital & Mistar Segitiga",
+        tools: "Pengenalan Alat Gambar",
         pencils: "Laboratorium Pensil Gambar",
-        lines: "Standardisasi Garis & Huruf ISO 3098",
+        lines: "Kenali Jenis Garis Gambar Teknik",
         etiket: "Kepala Gambar (Etiket Standar ISO)",
         projection: "Simulasi Proyeksi Orthogonal Glass Box",
         model3d: "Konversi Model 3D Interaktif",
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
           dashboard: "Beranda Belajar",
           book: "Baca Buku",
           intro: "Pengenalan Gambar Teknik",
-          tools: "Papan Gambar",
+          tools: "Alat Gambar",
           pencils: "Laboratorium Pensil",
           lines: "Jenis Garis",
           etiket: "Etiket Gambar",
@@ -436,8 +436,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Auto trigger size layout check for canvases
-        if (target === 'tools' && typeof window.resizeBoardCanvas === 'function') {
-          setTimeout(window.resizeBoardCanvas, 100);
+        if (target === 'tools') {
+          window.dispatchEvent(new CustomEvent('sdraft:open-tools'));
         } else if (target === 'pencils' && typeof window.resizePencilCanvas === 'function') {
           setTimeout(window.resizePencilCanvas, 100);
         } else if (target === 'quiz') {
@@ -685,7 +685,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         resultMedal.textContent = "❌";
         resultTitle.textContent = "Coba Lagi!";
-        resultDesc.textContent = `Kamu menjawab ${state.quiz.score} dari ${state.quiz.questions.length} pertanyaan dengan benar. Kamu belum lulus kuis. Silakan pelajari kembali modul-modul di papan gambar dan proyeksi lalu ulangi kuis!`;
+        resultDesc.textContent = `Kamu menjawab ${state.quiz.score} dari ${state.quiz.questions.length} pertanyaan dengan benar. Kamu belum lulus kuis. Silakan pelajari kembali modul alat gambar dan proyeksi lalu ulangi kuis!`;
       }
     };
   };

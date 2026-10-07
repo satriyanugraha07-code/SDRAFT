@@ -57,7 +57,7 @@
         <p class="nav-group-label">Praktik &amp; gambar</p>
         <div class="nav-item" data-target="tools">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21 21 3v18H3Z"/><path d="m10 17 7-7v7h-7Z"/><path d="M5 19h2m2 0h1m2 0h1m2 0h1"/></svg>
-          <span>Papan Gambar</span>
+          <span>Alat Gambar</span>
         </div>
         <div class="nav-item" data-target="pencils">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 17.3-.8 4.5 4.5-.8L20.2 7.5a2.8 2.8 0 0 0-4-4L3 17.3Z"/><path d="m14.5 5.2 4.3 4.3M3 17.3l3.7 3.7"/></svg>
@@ -675,8 +675,8 @@
               <span class="studio-card-bottom"><span class="gamtek-card-title">Baca buku</span><span class="studio-card-arrow" aria-hidden="true">↗</span></span>
             </button>
             <button type="button" class="module-card studio-card" data-module="tools">
-              <span class="studio-card-art studio-art-mint"><img src="/ICON/papan-gambar.png" alt="" width="160" height="140" loading="lazy"></span>
-              <span class="studio-card-bottom"><span class="gamtek-card-title">Papan gambar</span><span class="studio-card-arrow" aria-hidden="true">↗</span></span>
+              <span class="studio-card-art studio-art-mint"><img src="/images/tools/drawing-kit-soft.png" alt="" width="160" height="140" loading="lazy"></span>
+              <span class="studio-card-bottom"><span class="gamtek-card-title">Kenali alat gambar</span><span class="studio-card-arrow" aria-hidden="true">↗</span></span>
             </button>
             <button type="button" class="module-card studio-card" data-module="pencils">
               <span class="studio-card-art studio-art-butter"><img src="/ICON/pensil.png" alt="" width="160" height="140" loading="lazy"></span>
@@ -762,8 +762,8 @@
           <div class="utility-card">
             <div class="utility-card-icon" aria-hidden="true">2</div>
             <h3>Coba alatnya</h3>
-            <p>Gunakan papan gambar untuk latihan langsung.</p>
-            <button type="button" class="utility-link" data-open-module="tools">Buka Papan Gambar <span aria-hidden="true">→</span></button>
+            <p>Kenali alat gambar dan ikuti animasi cara penggunaannya.</p>
+            <button type="button" class="utility-link" data-open-module="tools">Buka Alat Gambar <span aria-hidden="true">→</span></button>
           </div>
           <div class="utility-card">
             <div class="utility-card-icon" aria-hidden="true">3</div>
@@ -1089,275 +1089,80 @@
       </section>
 
 
-      <!-- ================= PAPAN GAMBAR (TOOLS) SECTION ================= -->
-      <section id="tools" class="app-section">
-        <div class="glass-panel" style="flex-grow: 1; display: flex; flex-direction: column; gap: 1rem;">
-          <div class="panel-header" style="margin-bottom: 0;">
-            <h3 class="panel-title">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-              Papan Gambar
-            </h3>
-            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">Pilih alat, lalu geser atau gambar di papan.</p>
-          </div>
-
-          <div class="tools-showcase">
-            <div class="tools-shelf">
-              <div class="tool-item-card active" data-tool="tsquare">
-                <div class="tool-item-thumb">📏</div>
-                <div class="tool-item-details">
-                  <h5>Penggaris T-Square</h5>
-                  <p>Ruler basis horizontal (bisa digeser vertikal)</p>
-                </div>
-              </div>
-              <div class="tool-item-card" data-tool="triangle-45">
-                <div class="tool-item-thumb">📐</div>
-                <div class="tool-item-details">
-                  <h5>Segitiga 45°-45°</h5>
-                  <p>Segitiga siku sama kaki untuk garis 45° & 90°</p>
-                </div>
-              </div>
-              <div class="tool-item-card" data-tool="triangle-30-60">
-                <div class="tool-item-thumb">📐</div>
-                <div class="tool-item-details">
-                  <h5>Segitiga 30°-60°</h5>
-                  <p>Segitiga siku-siku untuk sudut 30° & 60°</p>
-                </div>
-              </div>
-              <div class="tool-item-card" data-tool="compass">
-                <div class="tool-item-thumb">🧭</div>
-                <div class="tool-item-details">
-                  <h5>Jangka Gambar</h5>
-                  <p>Membuat lingkaran & busur dengan presisi</p>
-                </div>
-              </div>
-              <div class="tool-item-card" data-tool="protractor">
-                <div class="tool-item-thumb">⚪</div>
-                <div class="tool-item-details">
-                  <h5>Busur Derajat</h5>
-                  <p>Mengukur & membentuk sudut non-standar</p>
-                </div>
-              </div>
-              <div class="tool-item-card" data-tool="template">
-                <div class="tool-item-thumb">🎨</div>
-                <div class="tool-item-details">
-                  <h5>Mal Gambar & Sablon</h5>
-                  <p>Mencetak lengkung kurva, huruf, & simbol</p>
-                </div>
-              </div>
-
-              <!-- Tool Description Card (updated dynamically) -->
-              <details class="tool-info-card learning-detail-block" id="tool-description-card" style="margin-top: auto; background: var(--bg-secondary); border: 1px solid var(--border-glass); border-radius: 12px; padding: 0.85rem 1rem; box-shadow: var(--shadow-sm);">
-                <summary id="desc-tool-name" style="color: var(--color-cyan); font-weight: bold; font-size: 0.85rem;">Tentang Penggaris T-Square</summary>
-                <p id="desc-tool-usage" style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 0.4rem;">Digunakan sebagai landasan untuk menggambar garis horizontal lurus sejajar di atas meja gambar.</p>
-                <details class="learning-detail-tip"><summary>Tip penggunaan</summary><span id="desc-tool-fact">Alat utama sebagai rel penyangga bagi penggaris segitiga berpasangan.</span></details>
-              </details>
-
-              <!-- Mode selector & controls -->
-              <div style="border-top: 1px solid var(--border-glass); padding-top: 0.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
-                <span class="control-group-title">Mode Interaksi</span>
-                <div style="display: flex; gap: 0.5rem;">
-                  <button class="board-btn active" id="tool-mode-drag">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
-                    Geser Alat
-                  </button>
-                  <button class="board-btn" id="tool-mode-draw">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                    Menggambar
-                  </button>
-                </div>
-
-                <!-- Compass controls (hidden by default) -->
-                <div id="compass-controls-card" style="display: none; flex-direction: column; gap: 0.5rem; margin-top: 0.25rem;">
-                  <span class="control-group-title" style="border-top: 1px dashed var(--border-glass); padding-top: 0.5rem;">Kontrol Jangka Gambar</span>
-                  <div class="control-slider-group" style="padding: 0.5rem; background: var(--bg-tertiary); border-color: var(--border-glass);">
-                    <label style="font-size: 0.7rem; color: var(--text-secondary);">Radius: <span id="val-compass-radius">60 px</span></label>
-                    <input type="range" min="20" max="150" value="60" class="range-slider" id="slider-compass-radius">
-                  </div>
-                  <div style="display: flex; gap: 0.4rem;">
-                    <button class="board-btn" id="btn-compass-draw" style="font-size: 0.7rem; padding: 0.4rem; flex: 1;">✍️ Lingkaran</button>
-                    <button class="board-btn" id="btn-compass-draw-arc" style="font-size: 0.7rem; padding: 0.4rem; flex: 1;">🌙 Busur</button>
-                  </div>
-                </div>
-
-                <!-- Tool Demo Panel (NEW) -->
-                <details class="learning-detail-block"><summary>Contoh penggunaan segitiga</summary>
-                <div id="tool-demo-panel" style="border-top: 1px dashed var(--border-glass); padding-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.25rem;">
-                  <span class="control-group-title">Animasi Panduan Penggunaan</span>
-                  <div style="display: flex; flex-direction: column; gap: 0.4rem;">
-                    <div class="triangle-demo-picker" role="group" aria-label="Pilih kombinasi dua penggaris segitiga">
-                      <button class="triangle-combo-btn active" type="button" data-triangle-demo="15" aria-pressed="true">
-                        <strong>15°</strong>
-                        <span>45° − 30°</span>
-                      </button>
-                      <button class="triangle-combo-btn" type="button" data-triangle-demo="45-parallel" aria-pressed="false">
-                        <strong>45°</strong>
-                        <span>Garis sejajar</span>
-                      </button>
-                      <button class="triangle-combo-btn" type="button" data-triangle-demo="75" aria-pressed="false">
-                        <strong>75°</strong>
-                        <span>45° + 30°</span>
-                      </button>
-                      <button class="triangle-combo-btn" type="button" data-triangle-demo="90" aria-pressed="false">
-                        <strong>90°</strong>
-                        <span>Tegak lurus</span>
-                      </button>
-                    </div>
-                    <p class="triangle-demo-note" id="triangle-demo-note" aria-live="polite">Selisih sudut 45° dan 30° menghasilkan garis 15°.</p>
-                    <button class="board-btn" id="btn-demo-triangles" style="font-size: 0.75rem; padding: 0.45rem; justify-content: center; width: 100%;">▶ Jalankan Kombinasi Terpilih</button>
-                    <button class="board-btn" id="btn-demo-protractor" style="font-size: 0.75rem; padding: 0.45rem; justify-content: center; width: 100%;">⚪ Penggunaan Busur</button>
-                  </div>
-                </div>
-                </details>
-              </div>
+      <!-- ================= PENGENALAN ALAT GAMBAR ================= -->
+      <section id="tools" class="app-section" aria-labelledby="tools-heading">
+        <div class="instruments-lesson">
+          <header class="instruments-heading">
+            <div class="instrument-hero-copy">
+              <p class="instruments-eyebrow"><span aria-hidden="true">✦</span> YUK, KENALI ALAT GAMBAR</p>
+              <h2 id="tools-heading">Dari alat sederhana,<br><span>jadi garis yang tepat.</span></h2>
+              <p>Pilih alatnya, kenali fungsinya, lalu lihat cara memegang dan menggunakannya.</p>
+              <svg class="instrument-hero-swoosh" viewBox="0 0 154 24" fill="none" aria-hidden="true"><path d="M3 20C36 5 88 3 151 8" stroke="#ffc33b" stroke-width="6" stroke-linecap="round"/></svg>
+              <button type="button" class="instrument-hero-start" id="instrument-hero-start">Coba alatnya <span aria-hidden="true">→</span></button>
             </div>
-
-            <div class="drawing-board-container">
-              <div class="board-toolbar">
-                <button class="board-btn" id="board-toggle-grid">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
-                  Tampilkan Grid
-                </button>
-                <button class="board-btn" id="board-btn-download" style="margin-left: auto;">
-                  💾 Simpan Gambar (PNG)
-                </button>
-                <button class="board-btn" id="board-btn-clear" style="border-color: rgba(229, 72, 77, 0.3); color: var(--color-red);">
-                  🗑️ Hapus Gambar
-                </button>
+            <div class="instrument-hero-art" aria-hidden="true"><span class="instrument-hero-note">Kenali, pegang,<br>lalu coba.</span><img src="/images/tools/drawing-kit-soft.png" alt="" width="1280" height="1280"></div>
+          </header>
+          <div class="instrument-catalog-heading"><h3>Mau mencoba alat yang mana?</h3><p>Pilih satu alat untuk mulai belajar.</p></div>
+          <div class="instrument-catalog" role="group" aria-label="Pilih alat gambar">
+            <button type="button" class="instrument-card is-selected" data-instrument="ruler" aria-pressed="true">
+              <span class="instrument-card-number">01</span>
+              <span class="instrument-card-art"><img src="/images/tools/ruler-soft.png" alt="Ilustrasi mistar lurus dengan skala ukur" width="1280" height="1280"></span>
+              <span class="instrument-card-name">Mistar lurus</span><span class="instrument-card-purpose">Mengukur &amp; menarik garis</span>
+              <span class="instrument-card-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button type="button" class="instrument-card" data-instrument="triangles" aria-pressed="false">
+              <span class="instrument-card-number">02</span>
+              <span class="instrument-card-art"><img src="/images/tools/triangles-soft.png" alt="Ilustrasi sepasang mistar segitiga 45 derajat dan 30–60 derajat" width="1280" height="1280"></span>
+              <span class="instrument-card-name">Mistar segitiga</span><span class="instrument-card-purpose">Garis tegak, miring &amp; sejajar</span>
+              <span class="instrument-card-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button type="button" class="instrument-card" data-instrument="compass" aria-pressed="false">
+              <span class="instrument-card-number">03</span>
+              <span class="instrument-card-art"><img src="/images/tools/compass-soft.png" alt="Ilustrasi jangka dengan kaki jarum dan kaki pensil" width="1280" height="1280"></span>
+              <span class="instrument-card-name">Jangka</span><span class="instrument-card-purpose">Lingkaran &amp; busur</span>
+              <span class="instrument-card-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button type="button" class="instrument-card" data-instrument="protractor" aria-pressed="false">
+              <span class="instrument-card-number">04</span>
+              <span class="instrument-card-art"><img src="/images/tools/protractor-soft.png" alt="Ilustrasi busur derajat setengah lingkaran" width="1280" height="1280"></span>
+              <span class="instrument-card-name">Busur derajat</span><span class="instrument-card-purpose">Mengukur &amp; membentuk sudut</span>
+              <span class="instrument-card-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <div class="instrument-workspace">
+            <article class="instrument-explainer" aria-labelledby="instrument-name">
+              <p class="instrument-section-label">KENALI DULU, YUK</p>
+              <h3 id="instrument-name">Mistar lurus</h3>
+              <p id="instrument-function">Mengukur panjang dan memandu pensil agar menghasilkan garis lurus.</p>
+              <figure class="instrument-portrait"><img id="instrument-photo" src="/images/tools/ruler-soft.png" alt="Mistar lurus" width="1280" height="1280"><figcaption id="instrument-photo-caption">Tepi lurus sebagai pemandu · skala sebagai pengukur</figcaption></figure>
+              <p class="instrument-section-label">IKUTI LANGKAHNYA</p>
+              <ol class="instrument-steps" id="instrument-steps"></ol>
+              <p class="instrument-tip"><span aria-hidden="true">✦</span><span id="instrument-tip">Mulai dari angka 0 pada skala, bukan dari ujung fisik mistar.</span></p>
+            </article>
+            <div class="instrument-demo" aria-labelledby="instrument-demo-title">
+              <div class="instrument-demo-heading"><div><p class="instrument-section-label">LIHAT GERAKANNYA</p><h3 id="instrument-demo-title">Menarik garis dengan mistar</h3></div><span class="instrument-demo-badge"><span aria-hidden="true">✦</span> LIHAT &amp; COBA</span></div>
+              <div class="instrument-stage" id="instrument-stage">
+                <canvas id="instrument-canvas" role="img" aria-label="Animasi tiga dimensi penggunaan mistar lurus"></canvas>
+                <div class="instrument-fallback" id="instrument-fallback" hidden><img id="instrument-fallback-photo" src="/images/tools/ruler-soft.png" alt="Ilustrasi alat gambar"><p id="instrument-fallback-message">Animasi 3D sedang disiapkan.</p></div>
+                <div class="instrument-stage-label"><span id="instrument-stage-step">LANGKAH 1 / 3</span><span id="instrument-stage-value">8 cm</span></div>
               </div>
-
-              <!-- Drawing Canvas Wrapper -->
-              <div class="canvas-wrapper" id="board-canvas-wrapper">
-                <div class="canvas-grid-guide" id="board-grid-guide"></div>
-                <!-- Demo Caption Overlay (NEW) -->
-                <div id="demo-caption-overlay" style="display: none; position: absolute; top: 15px; left: 50%; transform: translateX(-50%); background: var(--bg-secondary); border: 1.5px solid var(--color-cyan); padding: 0.5rem 1.25rem; border-radius: 20px; font-size: 0.78rem; font-family: var(--font-mono); color: var(--color-blue); z-index: 50; text-align: center; box-shadow: var(--shadow-md); letter-spacing: 0.5px; font-weight: bold; transition: var(--transition-smooth);">
-                  Menyiapkan demonstrasi...
-                </div>
-                <canvas id="drawing-canvas-element"></canvas>
-
-                <!-- T-Square Ruler -->
-                <div class="virtual-ruler virtual-tsquare" id="ruler-tsquare" style="transform: translate(0px, 200px);">
-                  <div class="ruler-marks"></div>
-                </div>
-
-                <!-- 45-degree triangle -->
-                <div class="virtual-ruler virtual-triangle" id="ruler-triangle-45" style="width: 200px; height: 200px; transform: translate(150px, 80px) rotate(0deg); display: none;">
-                  <svg class="triangle-svg" viewBox="0 0 200 200">
-                    <polygon class="triangle-body" points="0,200 200,200 0,0" />
-                    <!-- Ruler tick marks along edges -->
-                    <line x1="0" y1="200" x2="200" y2="200" stroke="#000" stroke-width="1.5" stroke-dasharray="1 9" />
-                    <line x1="0" y1="0" x2="0" y2="200" stroke="#000" stroke-width="1.5" stroke-dasharray="1 9" />
-                    <!-- Rotate handle -->
-                    <circle cx="20" cy="180" r="12" fill="#00f0ff" stroke="#fff" stroke-width="2" class="rotate-handle" style="cursor: pointer;" />
-                    <text x="17" y="184" font-size="12" font-weight="bold" fill="#000" style="pointer-events: none;">↻</text>
-                  </svg>
-                </div>
-
-                <!-- 30-60 degree triangle -->
-                <div class="virtual-ruler virtual-triangle" id="ruler-triangle-30-60" style="width: 240px; height: 138.56px; transform: translate(320px, 120px) rotate(0deg); display: none;">
-                  <svg class="triangle-svg" viewBox="0 0 240 138.56">
-                    <polygon class="triangle-body" points="0,138.56 240,138.56 0,0" />
-                    <line x1="0" y1="138.56" x2="240" y2="138.56" stroke="#000" stroke-width="1.5" stroke-dasharray="1 9" />
-                    <line x1="0" y1="0" x2="0" y2="138.56" stroke="#000" stroke-width="1.5" stroke-dasharray="1 9" />
-                    <circle cx="20" cy="120" r="12" fill="var(--color-cyan)" stroke="#fff" stroke-width="2" class="rotate-handle" style="cursor: pointer;" />
-                    <text x="17" y="124" font-size="12" font-weight="bold" fill="#000" style="pointer-events: none;">↻</text>
-                  </svg>
-                </div>
-
-                <!-- Virtual Jangka (Compass) -->
-                <div class="virtual-ruler virtual-compass" id="ruler-compass" style="width: 120px; height: 120px; transform: translate(200px, 150px) rotate(0deg); display: none;">
-                  <svg class="compass-svg" viewBox="0 0 120 120" style="width: 100%; height: 100%;">
-                    <!-- Head joint -->
-                    <circle cx="60" cy="20" r="7" fill="#64748b" stroke="#cbd5e1" stroke-width="1.5" />
-                    <rect x="58" y="20" width="4" height="20" fill="#64748b" />
-                    <!-- Leg 1: Needle leg -->
-                    <line x1="60" y1="40" x2="30" y2="105" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round" class="compass-needle-leg" />
-                    <line x1="30" y1="105" x2="27" y2="115" stroke="#64748b" stroke-width="1.5" class="compass-needle-tip" /> <!-- Needle -->
-                    <!-- Leg 2: Pencil leg -->
-                    <line x1="60" y1="40" x2="90" y2="105" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round" class="compass-pencil-leg" />
-                    <!-- Pencil holder and lead -->
-                    <rect x="86" y="95" width="8" height="12" rx="2" fill="var(--color-cyan)" class="compass-pencil-holder" />
-                    <polygon points="88,107 92,107 90,115" fill="#475569" class="compass-pencil-tip" />
-
-                    <!-- Indicators for visual center reference -->
-                    <circle cx="27" cy="115" r="4" fill="var(--color-orange)" class="compass-needle-indicator" style="pointer-events: none; opacity: 0.8;" />
-                    <circle cx="90" cy="115" r="4" fill="var(--color-cyan)" class="compass-pencil-indicator" style="pointer-events: none; opacity: 0.8;" />
-                  </svg>
-                  <div class="compass-rotate-handle rotate-handle" style="position: absolute; top: -5px; left: 48px; width: 24px; height: 24px; background: var(--color-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; cursor: pointer; font-size: 10px; box-shadow: 0 0 8px var(--color-cyan-glow);">↻</div>
-                </div>
-
-                <!-- Virtual Busur Derajat (Protractor) -->
-                <div class="virtual-ruler virtual-protractor" id="ruler-protractor" style="width: 200px; height: 100px; transform: translate(180px, 160px) rotate(0deg); display: none;">
-                  <svg class="protractor-svg" viewBox="0 0 200 100" style="width: 100%; height: 100%; opacity: 0.7;">
-                    <!-- Semi-circle body -->
-                    <path d="M 10 100 A 90 90 0 0 1 190 100 Z" fill="rgba(141, 198, 33, 0.1)" stroke="var(--color-cyan)" stroke-width="2" />
-                    <!-- Inner cutout -->
-                    <path d="M 40 100 A 60 60 0 0 1 160 100 Z" fill="none" stroke="var(--color-cyan)" stroke-width="0.8" opacity="0.4" />
-                    <!-- Center index mark -->
-                    <circle cx="100" cy="100" r="3" fill="var(--color-cyan)" />
-                    <line x1="100" y1="90" x2="100" y2="100" stroke="var(--color-cyan)" stroke-width="1" />
-                    <!-- Origin horizontal line -->
-                    <line x1="10" y1="100" x2="190" y2="100" stroke="var(--color-cyan)" stroke-width="1" />
-
-                    <!-- Angle labels and tick lines -->
-                    <line x1="100" y1="10" x2="100" y2="20" stroke="var(--color-cyan)" stroke-width="1.5" />
-                    <text x="100" y="29" font-size="8" font-family="monospace" fill="var(--color-cyan)" text-anchor="middle" font-weight="bold">90°</text>
-
-                    <line x1="37" y1="55" x2="45" y2="59" stroke="var(--color-cyan)" stroke-width="1" />
-                    <text x="54" y="65" font-size="7" font-family="monospace" fill="var(--color-cyan)" text-anchor="middle">30°/150°</text>
-
-                    <line x1="64" y1="26" x2="71" y2="35" stroke="var(--color-cyan)" stroke-width="1" />
-                    <text x="76" y="44" font-size="7" font-family="monospace" fill="var(--color-cyan)" text-anchor="middle">60°/120°</text>
-
-                    <line x1="136" y1="26" x2="129" y2="35" stroke="var(--color-cyan)" stroke-width="1" />
-                    <text x="124" y="44" font-size="7" font-family="monospace" fill="var(--color-cyan)" text-anchor="middle">120°/60°</text>
-
-                    <line x1="163" y1="55" x2="155" y2="59" stroke="var(--color-cyan)" stroke-width="1" />
-                    <text x="146" y="65" font-size="7" font-family="monospace" fill="var(--color-cyan)" text-anchor="middle">150°/30°</text>
-                  </svg>
-                </div>
-
-                <!-- Virtual Mal Gambar (Drawing Template / Stencil) -->
-                <div class="virtual-ruler virtual-template" id="ruler-template" style="width: 260px; height: 160px; transform: translate(140px, 120px) rotate(0deg); display: none;">
-                  <svg class="template-svg" viewBox="0 0 260 160" style="width: 100%; height: 100%; opacity: 0.7;">
-                    <!-- Plastic body -->
-                    <rect x="5" y="5" width="250" height="150" rx="10" fill="rgba(255, 123, 0, 0.08)" stroke="var(--color-orange)" stroke-width="2" />
-
-                    <!-- Cutout shapes (stencil circles, hexagons, squares) -->
-                    <!-- Circles -->
-                    <circle cx="40" cy="45" r="22" fill="none" stroke="var(--color-orange)" stroke-width="1.5" stroke-dasharray="2 3" />
-                    <text x="40" y="50" font-size="8" font-family="monospace" fill="var(--color-orange)" text-anchor="middle">R22</text>
-
-                    <circle cx="100" cy="45" r="16" fill="none" stroke="var(--color-orange)" stroke-width="1.5" stroke-dasharray="2 3" />
-                    <text x="100" y="49" font-size="8" font-family="monospace" fill="var(--color-orange)" text-anchor="middle">R16</text>
-
-                    <circle cx="150" cy="45" r="12" fill="none" stroke="var(--color-orange)" stroke-width="1.5" stroke-dasharray="2 3" />
-                    <text x="150" y="48" font-size="7" font-family="monospace" fill="var(--color-orange)" text-anchor="middle">R12</text>
-
-                    <!-- Squares -->
-                    <rect x="22" y="90" width="36" height="36" rx="2" fill="none" stroke="var(--color-orange)" stroke-width="1.5" stroke-dasharray="2 3" />
-                    <text x="40" y="112" font-size="8" font-family="monospace" fill="var(--color-orange)" text-anchor="middle">36x36</text>
-
-                    <rect x="82" y="94" width="28" height="28" rx="2" fill="none" stroke="var(--color-orange)" stroke-width="1.5" stroke-dasharray="2 3" />
-                    <text x="96" y="112" font-size="7" font-family="monospace" fill="var(--color-orange)" text-anchor="middle">28x28</text>
-
-                    <!-- Hexagon -->
-                    <polygon points="175,90 195,100 195,120 175,130 155,120 155,100" fill="none" stroke="var(--color-orange)" stroke-width="1.5" stroke-dasharray="2 3" />
-                    <text x="175" y="113" font-size="8" font-family="monospace" fill="var(--color-orange)" text-anchor="middle">HEX</text>
-
-                    <!-- Triangle cutout -->
-                    <polygon points="215,35 240,75 190,75" fill="none" stroke="var(--color-orange)" stroke-width="1.5" stroke-dasharray="2 3" />
-                    <text x="215" y="68" font-size="7" font-family="monospace" fill="var(--color-orange)" text-anchor="middle">TRI</text>
-
-                    <!-- Text Stencil ISO 3098 -->
-                    <rect x="210" y="95" width="30" height="25" rx="2" fill="none" stroke="var(--color-orange)" stroke-width="1" opacity="0.5" />
-                    <text x="225" y="111" font-size="11" font-family="monospace" fill="var(--color-orange)" text-anchor="middle" font-weight="bold">A</text>
-                  </svg>
-                  <div class="template-rotate-handle rotate-handle" style="position: absolute; bottom: -5px; left: 118px; width: 24px; height: 24px; background: var(--color-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; cursor: pointer; font-size: 10px; box-shadow: 0 0 8px var(--color-orange-glow);">↻</div>
-                </div>
+              <div class="instrument-caption-row"><span class="instrument-caption-icon" aria-hidden="true">↗</span><p class="instrument-stage-caption" id="instrument-stage-caption" role="status" aria-live="polite">Sejajarkan tepi mistar dengan arah garis yang akan dibuat.</p></div>
+              <div class="instrument-playback">
+                <div class="instrument-playback-buttons"><button type="button" class="instrument-play" id="instrument-play"><span class="instrument-play-symbol" aria-hidden="true">▶</span><span id="instrument-play-label">Putar animasi</span></button><button type="button" id="instrument-restart" aria-label="Ulangi animasi dari awal"><span aria-hidden="true">↺</span> Ulangi</button><button type="button" id="instrument-view" aria-pressed="false">Lihat miring</button></div>
+                <label class="instrument-timeline-label" for="instrument-timeline">Urutan gerakan <output id="instrument-progress" for="instrument-timeline">0%</output></label>
+                <input type="range" id="instrument-timeline" min="0" max="100" step="0.1" value="0" aria-label="Urutan gerakan animasi">
+                <p class="instrument-demo-note">Geser urutan gerakan untuk melihat langkahnya pelan-pelan.</p>
               </div>
-              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-family: var(--font-mono);">
-                <span>💡 Tarik/Drag alat untuk memindahkan posisinya di atas kertas.</span>
-                <span>Klik tombol ↻ biru untuk memutar segitiga.</span>
+              <div class="instrument-measurements" id="instrument-measurements" hidden>
+                <div><span>GESER PADA SKALA PENYANGGA</span><strong id="instrument-slide-value">1,41 cm</strong><small id="instrument-scale-reading">1,00 → 2,41 cm</small></div>
+                <div><span>JARAK TEGAK LURUS ANTAR GARIS</span><strong id="instrument-normal-value">10 mm</strong><small>Diukur dari 0 pada mistar</small></div>
+              </div>
+              <div class="instrument-settings">
+                <p class="instrument-controls-title">Coba ubah ukurannya <span>lalu putar lagi</span></p>
+                <div id="instrument-range-control"><label for="instrument-setting" id="instrument-setting-label">Panjang garis <output id="instrument-setting-value" for="instrument-setting">8 cm</output></label><input type="range" id="instrument-setting" min="4" max="10" step="1" value="8"></div>
+                <fieldset id="instrument-angle-control" hidden><legend>Sudut garis</legend><div class="instrument-angle-options"><button type="button" data-instrument-angle="30" aria-pressed="false">30°</button><button type="button" data-instrument-angle="45" aria-pressed="true" class="is-selected">45°</button><button type="button" data-instrument-angle="60" aria-pressed="false">60°</button><button type="button" data-instrument-angle="90" aria-pressed="false">90°</button></div></fieldset>
+                <div id="instrument-spacing-control" hidden><label for="instrument-spacing">Jarak antar garis <output id="instrument-spacing-value" for="instrument-spacing">10 mm</output></label><input type="range" id="instrument-spacing" min="5" max="10" step="1" value="10"><p class="instrument-setting-note" id="instrument-spacing-note">Jarak diukur tegak lurus terhadap kedua garis.</p></div>
+                <div id="instrument-compass-control" hidden><label for="instrument-compass-mode">Bentuk yang dibuat</label><select id="instrument-compass-mode"><option value="circle">Lingkaran penuh · 360°</option><option value="arc">Busur setengah lingkaran · 180°</option></select></div>
               </div>
             </div>
           </div>
@@ -1367,615 +1172,114 @@
 
       <!-- ================= LABORATORIUM PENSIL SECTION ================= -->
       <section id="pencils" class="app-section">
-        <div class="glass-panel" style="flex-grow: 1; display: flex; flex-direction: column; gap: 1rem;">
-          <div class="panel-header" style="margin-bottom: 0;">
-            <h3 class="panel-title" style="color: var(--color-cyan);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-              Laboratorium Pensil
-            </h3>
-            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">
-              Pilih pensil, lalu coba goresannya di kanvas.
-            </p>
-          </div>
-
-          <div class="pencils-layout">
-            <!-- Left Side: Pencils Selection & Description Cards -->
-            <div class="pencils-controls">
-              <span class="control-group-title">Pilih Tingkat Pensil</span>
-
-              <details class="pencil-legend-card learning-detail-block" style="background: var(--bg-secondary); border: 1px solid var(--border-glass); border-radius: 12px; padding: 1rem; font-size: 0.82rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 0.75rem; box-shadow: var(--shadow-sm);">
-                <summary>Arti H, HB, dan B</summary>
-                <p style="margin-bottom: 0.4rem;">📐 <strong>Seri H (Keras / Hard):</strong> Mengandung tanah liat tinggi. Goresan abu tipis, cocok untuk garis bantu awal.</p>
-                <p style="margin-bottom: 0.4rem;">✍️ <strong>Seri HB & F (Medium):</strong> Seimbang. Terbaik untuk menulis teks dan detail etiket.</p>
-                <p style="margin-bottom: 0px;">🎨 <strong>Seri B (Lunak / Soft):</strong> Mengandung karbon tinggi. Hasil goresan hitam tebal, untuk garis tampak utama & arsir bayangan.</p>
-              </details>
-
-              <!-- Pencil Characteristics and Metadata -->
-              <details class="pencil-details-card learning-detail-block" style="margin-top: auto; background: var(--bg-secondary); border: 1px solid var(--border-glass); border-radius: 12px; padding: 1rem; box-shadow: var(--shadow-sm);">
-                <summary id="pencil-info-title" style="color: var(--color-cyan); font-weight: bold;">Tentang pensil HB</summary>
-
-                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                  <span style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">Kekerasan Grafit:</span>
-                  <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <div style="flex-grow: 1; height: 6px; background: var(--bg-tertiary); border-radius: 3px; overflow: hidden; border: 1px solid var(--border-glass);">
-                      <div id="pencil-hardness-fill" style="width: 50%; height: 100%; background: var(--color-cyan); transition: var(--transition-smooth);"></div>
-                    </div>
-                    <span id="pencil-hardness-text" style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--color-cyan); font-weight: bold;">SEDANG</span>
-                  </div>
-                </div>
-
-                <div class="pencil-use-case" style="font-size: 0.75rem; line-height: 1.4; color: var(--text-secondary);">
-                  💡 <strong>Penggunaan Utama:</strong> <span id="pencil-info-use">Menulis teks gambar, membuat huruf standardisasi (ISO), dan menggambar kontur sedang.</span>
-                </div>
-
-                <details class="pencil-pro-con learning-detail-tip" style="border-top: 1px dashed var(--border-glass); padding-top: 0.5rem; font-size: 0.75rem;"><summary>Kelebihan dan kekurangan</summary><div class="pencil-pro-con-content">
-                  <div style="display: flex; align-items: flex-start; gap: 0.4rem;">
-                    <span style="color: var(--color-green);">✅</span>
-                    <p style="margin: 0; color: var(--text-primary);"><strong>Kelebihan:</strong> <span id="pencil-info-pro">Ketebalan cukup seimbang, mudah dibaca, dan tidak terlalu mudah patah atau luntur.</span></p>
-                  </div>
-                  <div style="display: flex; align-items: flex-start; gap: 0.4rem;">
-                    <span style="color: var(--color-red);">❌</span>
-                    <p style="margin: 0; color: var(--text-secondary);"><strong>Kekurangan:</strong> <span id="pencil-info-con">Tidak cukup tipis untuk garis bantu arsir halus, dan tidak cukup hitam untuk garis tepi utama.</span></p>
-                  </div>
-                </div></details>
-              </details>
+        <div class="pencil-lab" aria-labelledby="pencil-lab-heading">
+          <header class="pencil-hero">
+            <div class="pencil-hero-copy">
+              <p class="pencil-eyebrow"><span aria-hidden="true">✦</span> LABORATORIUM PENSIL</p>
+              <h2 id="pencil-lab-heading">Beda pensil,<br><span>beda ketebalan garis.</span></h2>
+              <p>Bandingkan hasil 2H sampai 2B untuk gambar teknik, lalu lihat bekas pada kertas saat goresannya dihapus.</p>
+              <svg class="pencil-swoosh" viewBox="0 0 120 18" aria-hidden="true"><path d="M3 12Q44 2 114 7" fill="none" stroke="#f5be43" stroke-width="4" stroke-linecap="round"/></svg>
+              <button type="button" class="pencil-primary" id="pencil-hero-start">Lihat pensil bekerja <span aria-hidden="true">→</span></button>
             </div>
-
-            <!-- Right Side: Drawing pad canvas -->
-            <div class="pencil-canvas-container">
-              <div class="board-toolbar" style="margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
-                <span style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono); align-self: center;">🧪 KANVAS UJI COBA CORETAN PENSIL</span>
-                <div style="margin-left: auto; display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap;">
-                  <button class="board-btn active" id="pencil-mode-draw-btn">✏️ Pensil</button>
-                  <button class="board-btn" id="pencil-mode-erase-btn">🧼 Penghapus</button>
-                  <button class="board-btn" id="pencil-mode-stump-btn">☁️ Dusel</button>
-                  <button class="board-btn" id="pencil-toggle-template-btn">📋 Template</button>
-                  <button class="board-btn" id="pencil-download-btn">💾 Simpan PNG</button>
-                  <button class="board-btn" id="pencil-clear-canvas-btn" style="border-color: rgba(229, 72, 77, 0.3); color: var(--color-red);">🗑️ Bersihkan</button>
-                </div>
+            <div class="pencil-hero-art" aria-hidden="true"><span class="pencil-hero-note">2H tipis,<br>2B lebih tebal.</span><div id="pencil-hero-illustration"></div></div>
+          </header>
+          <div class="pencil-heading-row"><h3>Pilih pensilmu</h3><p>Dari grafit keras ke grafit lunak.</p></div>
+          <div class="pencil-catalog" id="pencil-grade-catalog" role="group" aria-label="Pilih jenis pensil"></div>
+          <div class="pencil-workspace">
+            <article class="pencil-demo" aria-labelledby="pencil-demo-title">
+              <div class="pencil-panel-heading"><div><p class="pencil-kicker">LIHAT GERAKANNYA</p><h3 id="pencil-demo-title">HB membuat garis</h3></div><span class="pencil-demo-badge">✦ LIHAT & COBA</span></div>
+              <div class="pencil-demo-modes" role="group" aria-label="Jenis demonstrasi pensil"><button type="button" data-pencil-mode="line" aria-pressed="true">Garis lurus</button><button type="button" data-pencil-mode="hatch" aria-pressed="false">Arsiran</button><button type="button" data-pencil-mode="erase" aria-pressed="false">Gores & hapus</button></div>
+              <div class="pencil-stage" id="pencil-demo-stage">
+                <canvas id="pencil-demo-canvas" role="img" aria-label="Animasi pensil HB membuat garis pada kertas"></canvas>
+                <div class="pencil-stage-badges"><span id="pencil-stage-step">1 · PILIH PENSIL</span><span id="pencil-stage-grade">2H · tekanan sedang</span></div>
+                <div class="pencil-scene-fallback" id="pencil-scene-fallback" hidden><div id="pencil-fallback-art"></div><p>Animasi 3D belum tersedia. Lihat wujud pensil dan bandingkan goresannya di bawah.</p></div>
               </div>
-
-              <div class="pencil-canvas-wrapper" id="pencil-canvas-wrapper">
-                <div class="pencil-template-guide" id="pencil-template-guide" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.70; z-index: 1;">
-                  <svg width="100%" height="100%" viewBox="0 0 500 350" preserveAspectRatio="none">
-                    <rect x="20" y="20" width="460" height="310" rx="4" fill="none" stroke="var(--color-cyan)" stroke-dasharray="4 4" stroke-width="1.5" />
-                    <!-- Guidelines for lines -->
-                    <line x1="40" y1="60" x2="460" y2="60" stroke="#94a3b8" stroke-dasharray="2 2" />
-                    <text x="45" y="52" fill="#475569" font-size="8" font-family="monospace">Garis Bantu Tipis (Gunakan pensil 4H/2H)</text>
-
-                    <line x1="40" y1="120" x2="460" y2="120" stroke="#64748b" stroke-width="1" />
-                    <text x="45" y="112" fill="#334155" font-size="8" font-family="monospace">Garis Sedang / Teks (Gunakan pensil HB)</text>
-
-                    <line x1="40" y1="180" x2="460" y2="180" stroke="#334155" stroke-width="2.5" />
-                    <text x="45" y="172" fill="#0f172a" font-size="8" font-family="monospace">Garis Benda Utama (Gunakan pensil 2B)</text>
-
-                    <!-- Gradation box trace areas -->
-                    <rect x="40" y="230" width="120" height="60" fill="none" stroke="#cbd5e1" stroke-dasharray="3 3" />
-                    <text x="45" y="222" fill="#475569" font-size="8" font-family="monospace">Blok Arsir Halus (4H)</text>
-
-                    <rect x="180" y="230" width="120" height="60" fill="none" stroke="#cbd5e1" stroke-dasharray="3 3" />
-                    <text x="185" y="222" fill="#475569" font-size="8" font-family="monospace">Blok Arsir Sedang (HB)</text>
-
-                    <rect x="320" y="230" width="120" height="60" fill="none" stroke="#cbd5e1" stroke-dasharray="3 3" />
-                    <text x="325" y="222" fill="#475569" font-size="8" font-family="monospace">Blok Arsir Gelap (6B)</text>
-                  </svg>
-                </div>
-                <!-- Graphite canvas -->
-                <canvas id="pencil-lab-canvas-element" style="position: relative; z-index: 2; cursor: crosshair;"></canvas>
+              <p class="pencil-live-caption"><span aria-hidden="true">↗</span><span id="pencil-demo-caption" role="status" aria-live="polite">Bandingkan ketebalan garis dari setiap pensil.</span></p>
+              <div class="pencil-playback">
+                <div class="pencil-playback-buttons"><button type="button" class="pencil-primary" id="pencil-demo-play" aria-label="Putar animasi pensil"><span id="pencil-play-icon" aria-hidden="true">▶</span><span id="pencil-play-text">Putar animasi</span></button><button type="button" id="pencil-demo-restart" aria-label="Ulangi animasi pensil">↺ Ulangi</button><button type="button" id="pencil-demo-view" aria-pressed="true">Lihat dari atas</button></div>
+                <label class="pencil-timeline-label" for="pencil-demo-timeline">Urutan gerakan <output id="pencil-demo-progress" for="pencil-demo-timeline">0%</output></label><input type="range" id="pencil-demo-timeline" min="0" max="100" step="0.1" value="0" aria-label="Urutan animasi pensil">
+                <p class="pencil-small-note">Geser untuk mengamati ketebalan garis dan bekas pada kertas setelah dihapus.</p>
               </div>
-
-              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 0.4rem;">
-                <span>Bandingkan goresan tiap pensil.</span>
-              </div>
-            </div>
+              <fieldset class="pencil-pressure"><legend>Coba tekanan pada kertas</legend><div role="group" aria-label="Tekanan pensil"><button type="button" data-pencil-pressure="light" aria-pressed="false">Ringan</button><button type="button" data-pencil-pressure="medium" aria-pressed="true">Sedang</button><button type="button" data-pencil-pressure="firm" aria-pressed="false">Kuat</button></div><p id="pencil-pressure-note">Lihat dampak tekanan kuat pada seri H melalui Gores & hapus.</p></fieldset>
+            </article>
+            <aside class="pencil-focus" aria-labelledby="pencil-focus-name">
+              <p class="pencil-kicker">KENALI PILIHANMU</p><h3 id="pencil-focus-name">Pensil HB</h3>
+              <div class="pencil-focus-art" id="pencil-focus-art"></div>
+              <div class="pencil-character-tags"><span id="pencil-focus-hardness">Keras</span><span id="pencil-focus-line">Garis sangat tipis</span></div>
+              <p id="pencil-focus-description"></p><h4>Cocok untuk</h4><p id="pencil-focus-use"></p>
+              <div class="pencil-erase-note"><h4>Saat dikoreksi</h4><p id="pencil-focus-erase"></p></div>
+              <div class="pencil-closeup"><p class="pencil-kicker">LIHAT HASILNYA LEBIH DEKAT</p><div id="pencil-focus-sample"></div><p id="pencil-sample-note">Goresan HB pada tekanan sedang.</p><div class="pencil-paper-profile" id="pencil-paper-profile" hidden><svg viewBox="0 0 260 86" role="img" aria-label="Potongan kertas dari samping: permukaan berlekuk setelah grafit dihapus"><path d="M12 35H99Q108 35 113 44Q126 65 141 44Q146 35 155 35H248V75H12Z" fill="#f8f3e7"/><path d="M12 35H99Q108 35 113 44Q126 65 141 44Q146 35 155 35H248" fill="none" stroke="#8caaba" stroke-width="2.5"/><path d="M184 15H157L133 47" fill="none" stroke="#2585a4" stroke-width="1.3"/><circle cx="133" cy="47" r="2.3" fill="#2585a4"/><text x="189" y="18" font-family="sans-serif" font-size="9" font-weight="700" fill="#2585a4">Lekukan</text></svg><p>Potongan kertas dari samping · diperbesar. Meski grafit dihapus, permukaan tetap berlekuk.</p></div></div>
+              <p class="pencil-tip"><span aria-hidden="true">✦</span><span id="pencil-focus-tip"></span></p>
+            </aside>
           </div>
-
-          <!-- Skala Grafit ISO (Pencil Hardness Scale Chart) (NEW) -->
-          <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.25rem; margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem;">
-            <span class="control-group-title">Pilih jenis pensil</span>
-            <div class="graphite-scale-container">
-              <!-- Hard scale H -->
-              <div class="graphite-grade-group">
-                <span class="group-label">H · Tipis</span>
-                <div class="graphite-cells">
-                  <div class="graphite-cell" data-iso="2h">2H</div>
-                  <div class="graphite-cell" data-iso="h">H</div>
-                </div>
-              </div>
-
-              <!-- Medium scale HB/F -->
-              <div class="graphite-grade-group">
-                <span class="group-label">HB · Sedang</span>
-                <div class="graphite-cells">
-                  <div class="graphite-cell active" data-iso="hb">HB</div>
-                </div>
-              </div>
-
-              <!-- Soft scale B -->
-              <div class="graphite-grade-group">
-                <span class="group-label">B · Tebal</span>
-                <div class="graphite-cells">
-                  <div class="graphite-cell" data-iso="b">B</div>
-                  <div class="graphite-cell" data-iso="2b">2B</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <section class="pencil-comparison" aria-labelledby="pencil-compare-title">
+            <div class="pencil-heading-row"><div><p class="pencil-kicker">BANDINGKAN LANGSUNG</p><h3 id="pencil-compare-title">2H tipis, 2B lebih tebal.</h3></div><span class="pencil-compare-condition" id="pencil-compare-condition">Garis · tekanan sedang</span></div>
+            <p class="pencil-comparison-intro" id="pencil-comparison-intro">Lihat contoh ketebalan garis dari setiap pensil.</p>
+            <div class="pencil-line-key" aria-label="Fungsi ketebalan garis"><span><i aria-hidden="true"></i>Garis bantu & arsiran · tipis</span><span><i aria-hidden="true"></i>Garis utama · lebih tebal</span></div>
+            <div class="pencil-comparison-rows" id="pencil-comparison-rows"></div>
+            <div class="pencil-scale-label"><span>2H · garis sangat tipis</span><span>garis lebih tebal · 2B</span></div>
+            <details class="pencil-learning-note"><summary>Ketebalan garis & bekas pada kertas</summary><p>Dalam contoh ini, 2H dan H dipakai untuk memperlihatkan garis tipis, HB garis sedang, serta B dan 2B garis lebih tebal. Pilih ketebalan sesuai fungsi garis pada gambar teknik: garis bantu dan arsiran tipis, garis utama lebih tebal.</p><p>Grafit seri H keras. Goresan ringan relatif mudah dikoreksi, tetapi tekanan yang terlalu kuat dapat meninggalkan bekas atau lekukan pada kertas meskipun grafitnya terhapus. Grafit seri B lebih lunak; setelah dihapus, sisa grafit dapat membentuk noda di sekitar goresan.</p><p>Ketebalan dan bekas pada animasi adalah contoh pembelajaran yang diperbesar agar jelas, bukan ukuran standar dalam milimeter. Kondisi kertas dan penghapus juga memengaruhi hasil koreksi.</p><p class="pencil-sources">Bacaan: <a href="https://api.pageplace.de/preview/DT0400.9780134851099_A35628249/preview-9780134851099_A35628249.pdf" target="_blank" rel="noopener noreferrer">Modern Graphics Communication, hlm. 46</a>, <a href="https://files.eric.ed.gov/fulltext/ED249090.pdf" target="_blank" rel="noopener noreferrer">Engineering Aid 3 & 2</a>, dan <a href="https://openoregon.pressbooks.pub/drawing/part/chapter-1/" target="_blank" rel="noopener noreferrer">Drawing Materials</a>.</p></details>
+          </section>
+          <section class="pencil-practice" aria-labelledby="pencil-practice-title">
+            <div class="pencil-heading-row"><div><p class="pencil-kicker">SEKARANG GILIRANMU</p><h3 id="pencil-practice-title">Coba gores sendiri.</h3></div><span class="pencil-practice-selection" id="pencil-practice-selection">HB · tekanan sedang</span></div>
+            <p class="pencil-practice-intro">Tarik jari atau kursor di kertas. Ganti dari 2H ke 2B untuk membandingkan garis tipis dan tebal.</p>
+            <div class="pencil-practice-toolbar"><div class="pencil-practice-grades" id="pencil-practice-grades" role="group" aria-label="Pensil untuk latihan"></div><div class="pencil-practice-actions" role="group" aria-label="Alat latihan"><button type="button" id="pencil-practice-draw" aria-pressed="true">✎ Pensil</button><button type="button" id="pencil-practice-erase" aria-pressed="false">Penghapus</button><button type="button" id="pencil-practice-clear">Bersihkan</button><button type="button" id="pencil-practice-save">Simpan PNG</button></div></div>
+            <div class="pencil-practice-paper" id="pencil-canvas-wrapper"><canvas id="pencil-lab-canvas-element" role="img" aria-label="Kertas latihan goresan pensil, gunakan jari atau kursor"></canvas><span id="pencil-practice-tag" hidden></span><span class="pencil-practice-placeholder" id="pencil-practice-placeholder">Mulai satu garis di sini <span aria-hidden="true">↗</span></span></div>
+            <p class="pencil-small-note">Latihan ini untuk membandingkan lebar goresan digital. Lihat sisa grafit dan lekukan kertas pada animasi Gores & hapus, lalu coba dengan pensil dan kertas sungguhan.</p>
+          </section>
         </div>
       </section>
-
       <!-- ================= STANDARDISASI GARIS SECTION ================= -->
       <section id="lines" class="app-section">
-        <div class="line-lab-hero glass-panel">
-          <div>
-            <span class="line-lab-kicker">Laboratorium ISO 128</span>
-            <h3>Kenali Jenis Garis</h3>
-            <p>Pilih garis atau sentuh gambarnya untuk melihat fungsinya.</p>
+        <div class="line-lesson" aria-labelledby="line-lesson-title">
+          <header class="line-hero">
+            <div class="line-hero-copy">
+              <p class="line-eyebrow"><span aria-hidden="true">✦</span> KENALI JENIS GARIS</p>
+              <h2 id="line-lesson-title">Satu gambar,<br><span>banyak makna garis.</span></h2>
+              <p>Lihat bentuknya, pilih garisnya, lalu kenali fungsinya pada gambar teknik.</p>
+              <svg class="line-hero-swoosh" viewBox="0 0 120 18" aria-hidden="true"><path d="M3 12Q44 2 114 7" fill="none" stroke="#f5be43" stroke-width="4" stroke-linecap="round"/></svg>
+              <button type="button" class="line-primary" id="line-hero-start">Mulai kenali garis <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="line-hero-art" aria-hidden="true"><span class="line-hero-note">Baca garisnya,<br>pahami bendanya.</span><div id="line-hero-illustration"></div></div>
+          </header>
+          <div class="line-heading-row"><div><p class="line-kicker">ENAM FUNGSI GARIS</p><h3>Kenali dari pola & ketebalannya.</h3></div><p>Pilih kartu untuk melihat contohnya.</p></div>
+          <div class="line-catalog" id="line-type-catalog" role="group" aria-label="Pilih jenis garis"></div>
+          <div class="line-workspace">
+            <article class="line-demo" aria-labelledby="line-drawing-title">
+              <div class="line-demo-heading"><div><p class="line-kicker">SEMUA TAMPAK DALAM SATU GAMBAR</p><h3 id="line-drawing-title">Tutup bantalan</h3></div><span class="line-example-tag">Contoh disederhanakan</span></div>
+              <div class="line-drawing-toolbar"><div><button type="button" id="line-show-all">Lihat semua garis</button><button type="button" id="line-focus-toggle" aria-pressed="false">Sorot saja garis ini</button></div><div role="group" aria-label="Perbesaran gambar"><button type="button" id="line-zoom-out" aria-label="Perkecil gambar jenis garis">−</button><button type="button" id="line-zoom-in" aria-label="Perbesar gambar jenis garis">+</button><button type="button" id="line-zoom-reset">Pas gambar</button></div></div>
+              <div class="line-drawing-stage" id="line-drawing-stage"></div>
+              <p class="line-live-caption"><span aria-hidden="true">↗</span><span id="line-drawing-caption" role="status" aria-live="polite">Pilih sebuah garis untuk mengenali fungsinya.</span></p>
+              <div class="line-player">
+                <div class="line-playback-buttons"><button type="button" class="line-primary" id="line-animation-play" aria-label="Putar animasi jenis garis">▶ Putar animasi</button><button type="button" id="line-animation-tour">Putar semua</button><button type="button" id="line-animation-restart">↺ Ulangi</button><button type="button" id="line-animation-prev" aria-label="Jenis garis sebelumnya">←</button><button type="button" id="line-animation-next" aria-label="Jenis garis berikutnya">→</button></div>
+                <label class="line-timeline-label" for="line-animation-timeline">Munculkan garis pilihan <output id="line-animation-progress" for="line-animation-timeline">100%</output></label><input type="range" id="line-animation-timeline" min="0" max="100" step="1" value="100" aria-label="Urutan animasi jenis garis">
+                <p class="line-small-note">Animasi menunjukkan letak setiap kelompok garis. Pola putus-putus dan strip–titik tetap dipertahankan.</p>
+              </div>
+            </article>
+            <aside class="line-detail" aria-labelledby="line-detail-title">
+              <p class="line-kicker">GARIS YANG KAMU PILIH</p><h3 id="line-detail-title">Garis benda</h3>
+              <div class="line-detail-swatch" id="line-detail-swatch"></div><p class="line-detail-pattern" id="line-detail-pattern">Kontinu tebal</p><span class="line-thickness-tag" id="line-detail-thickness">Tebal · contoh 0,7 mm</span>
+              <h4>Fungsinya</h4><p id="line-detail-function"></p><h4>Di mana contohnya?</h4><p id="line-detail-location"></p>
+              <div class="line-rule-box"><h4>Cara membacanya</h4><p id="line-detail-rule"></p></div>
+              <div class="line-mistake-box"><h4>Ingat ini</h4><p id="line-detail-mistake"></p></div>
+            </aside>
           </div>
-          <div class="line-lab-ratio" aria-label="Perbandingan ketebalan garis">
-            <span>Rasio ketebalan</span>
-            <div><i class="ratio-line thick"></i><b>tebal</b></div>
-            <div><i class="ratio-line thin"></i><b>tipis</b></div>
-            <strong>≈ 2 : 1</strong>
+          <div class="line-quick-rules" aria-label="Tiga hal yang perlu diperhatikan">
+            <article><span aria-hidden="true">01</span><h3>Tebal punya tugas.</h3><p>Kontur yang terlihat lebih tebal. Garis ukuran, bantu, sumbu, dan arsir lebih tipis. Contoh pasangan di sini: 0,7 dan 0,35 mm.</p></article>
+            <article><span aria-hidden="true">02</span><h3>Pola memberi arti.</h3><p>Putus-putus untuk bagian tersembunyi; strip panjang–titik untuk sumbu. Keduanya memiliki fungsi yang berbeda.</p></article>
+            <article><span aria-hidden="true">03</span><h3>Rongga tetap kosong.</h3><p>Pada potongan A–A, arsir hanya mengisi material padat. Panah A menunjukkan arah melihat potongan.</p></article>
           </div>
-        </div>
-
-        <div class="line-lab-layout">
-          <aside class="line-type-panel glass-panel" aria-labelledby="line-type-title">
-            <div class="line-type-heading">
-              <div>
-                <span class="line-lab-kicker">Pilih materi</span>
-                <h3 id="line-type-title">7 Penerapan Garis</h3>
-              </div>
-              <button type="button" class="line-show-all" id="line-show-all">Lihat semua</button>
-            </div>
-
-            <div class="line-type-list" role="list">
-              <button type="button" class="line-type-button active" data-line-type="visible" aria-pressed="true">
-                <span class="line-number">01</span><i class="line-swatch swatch-visible"></i>
-                <span class="line-meta-col">
-                  <strong>Garis benda</strong>
-                  <small>Kontinu tebal (0,7 mm)</small>
-                </span>
-                <span class="line-pencil-badge">HB · 0.7</span>
-              </button>
-              <button type="button" class="line-type-button" data-line-type="dimension" aria-pressed="false">
-                <span class="line-number">02</span><i class="line-swatch swatch-dimension"></i>
-                <span class="line-meta-col">
-                  <strong>Garis ukuran</strong>
-                  <small>Kontinu tipis (0,35 mm)</small>
-                </span>
-                <span class="line-pencil-badge">2H · 0.35</span>
-              </button>
-              <button type="button" class="line-type-button" data-line-type="hidden" aria-pressed="false">
-                <span class="line-number">03</span><i class="line-swatch swatch-hidden"></i>
-                <span class="line-meta-col">
-                  <strong>Garis tersembunyi</strong>
-                  <small>Putus-putus (0,35 mm)</small>
-                </span>
-                <span class="line-pencil-badge">H · 0.35</span>
-              </button>
-              <button type="button" class="line-type-button" data-line-type="center" aria-pressed="false">
-                <span class="line-number">04</span><i class="line-swatch swatch-center"></i>
-                <span class="line-meta-col">
-                  <strong>Garis sumbu</strong>
-                  <small>Strip titik tipis</small>
-                </span>
-                <span class="line-pencil-badge">2H · 0.35</span>
-              </button>
-              <button type="button" class="line-type-button" data-line-type="cutting" aria-pressed="false">
-                <span class="line-number">05</span><i class="line-swatch swatch-cutting"></i>
-                <span class="line-meta-col">
-                  <strong>Bidang potong</strong>
-                  <small>Ujung tebal + panah</small>
-                </span>
-                <span class="line-pencil-badge">HB &amp; 2H</span>
-              </button>
-              <button type="button" class="line-type-button" data-line-type="hatch" aria-pressed="false">
-                <span class="line-number">06</span><i class="line-swatch swatch-hatch"></i>
-                <span class="line-meta-col">
-                  <strong>Garis arsir</strong>
-                  <small>Kontinu tipis 45°</small>
-                </span>
-                <span class="line-pencil-badge">2H · 0.3</span>
-              </button>
-              <button type="button" class="line-type-button" data-line-type="break" aria-pressed="false">
-                <span class="line-number">07</span><i class="line-swatch swatch-break"></i>
-                <span class="line-meta-col">
-                  <strong>Garis patahan</strong>
-                  <small>Pemendekan objek</small>
-                </span>
-                <span class="line-pencil-badge">H · 0.35</span>
-              </button>
-            </div>
-          </aside>
-
-          <article class="line-drawing-card glass-panel" id="line-drawing-card">
-            <div class="line-drawing-heading">
-              <div class="heading-left">
-                <span class="line-lab-kicker">Laboratorium Interaktif · ISO 128</span>
-                <h3 class="drawing-main-title">Tutup Bearing / Gasket Flange</h3>
-              </div>
-
-              <!-- Interactive Controls Toolbar -->
-              <div class="line-stage-controls">
-                <!-- Theme Mode Selector (Putih ISO / Blueprint / Dark CAD) -->
-                <div class="line-control-pill-group" role="group" aria-label="Pilihan Gaya Tampilan">
-                  <button type="button" class="ctrl-mode-btn active" data-drawing-theme="white" title="Kertas Putih Standar ISO">
-                    <span>📄 Putih ISO</span>
-                  </button>
-                  <button type="button" class="ctrl-mode-btn" data-drawing-theme="blueprint" title="Mode Blueprint Gambar Teknik Klasik">
-                    <span>📐 Blueprint</span>
-                  </button>
-                  <button type="button" class="ctrl-mode-btn" data-drawing-theme="cad" title="Mode AutoCAD Dark Workspace">
-                    <span>🖤 Dark CAD</span>
-                  </button>
-                </div>
-
-                <!-- Simulation Button -->
-                <button type="button" class="ctrl-action-btn" id="btn-simulate-drafting" title="Animasi Urutan Langkah Menarik Garis dari Sumbu hingga Dimensi">
-                  <span class="sim-btn-icon">▶</span>
-                  <span>Simulasi Urutan Gambar</span>
-                </button>
-
-                <!-- Zoom & Pan Controls -->
-                <div class="line-zoom-group">
-                  <button type="button" class="zoom-btn" id="btn-zoom-in" title="Perbesar (Zoom In)">+</button>
-                  <button type="button" class="zoom-btn" id="btn-zoom-out" title="Perkecil (Zoom Out)">−</button>
-                  <button type="button" class="zoom-btn" id="btn-zoom-reset" title="Kembalikan Ukuran Semula (Fit)">⟲</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- CAD Quick Layer Manager Bar (Saklar On/Off Layer) -->
-            <div class="line-layer-bar">
-              <span class="layer-bar-label">⚡ Layer CAD:</span>
-              <div class="layer-bar-chips">
-                <button type="button" class="layer-toggle-btn active" data-toggle-layer="visible" title="Klik untuk sembunyikan/tampilkan Garis Benda">
-                  <span class="layer-dot dot-visible"></span>
-                  <span>Garis Benda</span>
-                  <span class="layer-eye">👁️</span>
-                </button>
-                <button type="button" class="layer-toggle-btn active" data-toggle-layer="dimension" title="Klik untuk sembunyikan/tampilkan Garis Ukuran">
-                  <span class="layer-dot dot-dimension"></span>
-                  <span>Garis Ukuran</span>
-                  <span class="layer-eye">👁️</span>
-                </button>
-                <button type="button" class="layer-toggle-btn active" data-toggle-layer="center" title="Klik untuk sembunyikan/tampilkan Garis Sumbu">
-                  <span class="layer-dot dot-center"></span>
-                  <span>Garis Sumbu</span>
-                  <span class="layer-eye">👁️</span>
-                </button>
-                <button type="button" class="layer-toggle-btn active" data-toggle-layer="cutting" title="Klik untuk sembunyikan/tampilkan Garis Potong A-A">
-                  <span class="layer-dot dot-cutting"></span>
-                  <span>Bidang Potong</span>
-                  <span class="layer-eye">👁️</span>
-                </button>
-                <button type="button" class="layer-toggle-btn active" data-toggle-layer="hatch" title="Klik untuk sembunyikan/tampilkan Garis Arsir">
-                  <span class="layer-dot dot-hatch"></span>
-                  <span>Garis Arsir</span>
-                  <span class="layer-eye">👁️</span>
-                </button>
-                <button type="button" class="layer-toggle-btn active" data-toggle-layer="hidden" title="Klik untuk sembunyikan/tampilkan Garis Tersembunyi">
-                  <span class="layer-dot dot-hidden"></span>
-                  <span>Tersembunyi</span>
-                  <span class="layer-eye">👁️</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Interactive Drawing Simulation Player Banner -->
-            <div id="drafting-sim-banner" class="drafting-sim-banner" style="display: none;">
-              <div class="sim-banner-left">
-                <div class="sim-step-badge" id="sim-step-badge">LANGKAH 1 DARI 5</div>
-                <strong class="sim-step-title" id="sim-step-title">Menarik Garis Sumbu (Strip Titik Tipis)</strong>
-                <p class="sim-step-desc" id="sim-step-desc">Tentukan pusat lubang bor dan sumbu simetri utama terlebih dahulu menggunakan pensil 2H tipis.</p>
-                <div class="sim-progress-track"><div class="sim-progress-fill" id="sim-progress-fill" style="width: 20%;"></div></div>
-              </div>
-              <div class="sim-banner-actions">
-                <button type="button" class="sim-btn-nav" id="sim-btn-prev">◀ Mundur</button>
-                <button type="button" class="sim-btn-play" id="sim-btn-play">⏸ Jeda</button>
-                <button type="button" class="sim-btn-nav" id="sim-btn-next">Maju ▶</button>
-                <button type="button" class="sim-btn-close" id="sim-btn-close" title="Tutup Simulasi">✕ Selesai</button>
-              </div>
-            </div>
-
-            <div class="line-drawing-stage" id="line-stage-container">
-              <!-- Floating Live Hover Tooltip (HUD) -->
-              <div id="line-hover-hud" class="line-hover-hud" style="display: none;">
-                <div class="hud-top-row">
-                  <span class="hud-badge-type" id="hud-type-badge">Garis Benda</span>
-                  <span class="hud-badge-iso" id="hud-iso-badge">ISO 128 Tipe A</span>
-                </div>
-                <div class="hud-title" id="hud-line-title">Kontur Utama Flange 120×120</div>
-                <div class="hud-meta">
-                  <span id="hud-spec-text">Tebal: 0,5–0,7 mm · Pensil HB/B</span>
-                </div>
-              </div>
-
-              <svg id="line-technical-drawing" viewBox="0 0 940 480" role="img" aria-labelledby="line-drawing-title line-drawing-desc">
-                <title id="line-drawing-title">Tutup Bearing - Latihan Standarisasi Garis ISO 128</title>
-                <desc id="line-drawing-desc">Gambar teknik tutup bearing tampak depan dan potongan A-A sesuai standar ISO 128.</desc>
-                <defs>
-                  <!-- Technical Drafting Background Grid (Crisp blueprint tint) -->
-                  <pattern id="line-tech-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(14, 116, 184, 0.14)" stroke-width="0.75"/>
-                  </pattern>
-
-                  <!-- 45 Degree Section Hatching Pattern -->
-                  <pattern id="line-hatch-pattern" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-                    <line x1="0" y1="0" x2="0" y2="8" stroke="currentColor" stroke-width="1.1"/>
-                  </pattern>
-
-                  <!-- Sharp Engineering Dimension Arrow Markers -->
-                  <marker id="line-arrow-start" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto-start-reverse">
-                    <path d="M 7 1 L 0 3.5 L 7 6 Z" fill="currentColor"/>
-                  </marker>
-                  <marker id="line-arrow-end" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-                    <path d="M 0 1 L 7 3.5 L 0 6 Z" fill="currentColor"/>
-                  </marker>
-                  <marker id="line-leader-arrow" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto">
-                    <path d="M 7 1 L 0 3.5 L 7 6 Z" fill="currentColor"/>
-                  </marker>
-                  <marker id="section-cutting-arrow" markerWidth="9" markerHeight="9" refX="1" refY="4.5" orient="auto">
-                    <path d="M 0 1.5 L 8 4.5 L 0 7.5 Z" fill="currentColor"/>
-                  </marker>
-                </defs>
-
-                <!-- Blueprint Background Canvas -->
-                <rect x="0" y="0" width="940" height="480" fill="#f4f9fd"/>
-                <rect x="0" y="0" width="940" height="480" fill="url(#line-tech-grid)"/>
-
-                <g id="svg-zoom-viewport" style="transform-origin: 470px 240px; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
-
-                <!-- ================= 1. VIEW TITLES ================= -->
-                <g class="drawing-view-titles" fill="currentColor" stroke="currentColor">
-                  <!-- Tampak Depan Title -->
-                  <text x="240" y="438" font-family="var(--font-primary, sans-serif)" font-size="16px" font-weight="800" text-anchor="middle" letter-spacing="0.05em" stroke="none">TAMPAK DEPAN</text>
-                  <line x1="165" y1="446" x2="315" y2="446" stroke-width="2"/>
-
-                  <!-- Potongan A-A Title -->
-                  <text x="680" y="438" font-family="var(--font-primary, sans-serif)" font-size="16px" font-weight="800" text-anchor="middle" letter-spacing="0.05em" stroke="none">POTONGAN A - A</text>
-                  <line x1="600" y1="446" x2="760" y2="446" stroke-width="2"/>
-                </g>
-
-                <!-- ================= 2. LAYER: GARIS ARSIR (HATCH CONTINUOUS THIN 45 DEG) ================= -->
-                <g class="technical-line-layer line-layer-hatch" data-line-layer="hatch" role="button" tabindex="0" aria-label="Garis arsir potongan 45 derajat">
-                  <title>Garis arsir: material padat yang terpotong bidang A-A</title>
-                  <!-- Left solid section hatching -->
-                  <polygon points="575,330 575,312.5 610,312.5 610,260 645,260 645,330" fill="url(#line-hatch-pattern)" stroke="none"/>
-                  <!-- Right solid section hatching -->
-                  <polygon points="715,330 715,260 750,260 750,312.5 785,312.5 785,330" fill="url(#line-hatch-pattern)" stroke="none"/>
-                </g>
-
-                <!-- ================= 3. LAYER: GARIS BENDA (VISIBLE CONTINUOUS THICK) ================= -->
-                <g class="technical-line-layer line-layer-visible active" data-line-layer="visible" role="button" tabindex="0" aria-label="Garis benda kontinu tebal">
-                  <title>Garis benda: kontur dan tepi benda nyata yang terlihat</title>
-                  <!-- Tampak Depan: Flange 120x120 R10 -->
-                  <rect x="135" y="120" width="210" height="210" rx="17.5" ry="17.5"/>
-                  <!-- Boss Ø80 (radius 70) -->
-                  <circle cx="240" cy="225" r="70"/>
-                  <!-- Bore Ø40 (radius 35) -->
-                  <circle cx="240" cy="225" r="35"/>
-                  <!-- 4 Holes 4xØ12 (radius 10.5) -->
-                  <circle cx="170" cy="155" r="10.5"/>
-                  <circle cx="310" cy="155" r="10.5"/>
-                  <circle cx="170" cy="295" r="10.5"/>
-                  <circle cx="310" cy="295" r="10.5"/>
-
-                  <!-- Potongan A-A: Profile (Flange, Boss, Bore) -->
-                  <line x1="575" y1="330" x2="785" y2="330"/>
-                  <line x1="575" y1="330" x2="575" y2="312.5"/>
-                  <line x1="575" y1="312.5" x2="610" y2="312.5"/>
-                  <line x1="610" y1="312.5" x2="610" y2="260"/>
-                  <line x1="610" y1="260" x2="645" y2="260"/>
-                  <line x1="645" y1="260" x2="645" y2="330"/>
-                  <line x1="715" y1="260" x2="715" y2="330"/>
-                  <line x1="715" y1="260" x2="750" y2="260"/>
-                  <line x1="750" y1="260" x2="750" y2="312.5"/>
-                  <line x1="750" y1="312.5" x2="785" y2="312.5"/>
-                  <line x1="785" y1="312.5" x2="785" y2="330"/>
-                </g>
-
-                <!-- ================= 4. LAYER: GARIS TERSEMBUNYI (HIDDEN DASHED THIN) ================= -->
-                <g class="technical-line-layer line-layer-hidden" data-line-layer="hidden" role="button" tabindex="0" aria-label="Garis tersembunyi putus-putus tipis">
-                  <title>Garis tersembunyi: posisi lubang baut di belakang bidang potongan A-A</title>
-                  <!-- Hidden bolt holes on left flange wing -->
-                  <line x1="582" y1="312.5" x2="582" y2="330"/>
-                  <line x1="603" y1="312.5" x2="603" y2="330"/>
-                  <!-- Hidden bolt holes on right flange wing -->
-                  <line x1="757" y1="312.5" x2="757" y2="330"/>
-                  <line x1="778" y1="312.5" x2="778" y2="330"/>
-                </g>
-
-                <!-- ================= 5. LAYER: GARIS SUMBU / SIMETRI (CENTER CHAIN THIN) ================= -->
-                <g class="technical-line-layer line-layer-center" data-line-layer="center" role="button" tabindex="0" aria-label="Garis sumbu strip-titik tipis">
-                  <title>Garis sumbu: pusat simetri lingkaran dan lubang bor</title>
-                  <!-- Tampak Depan: Main Vertical & Horizontal Centerlines -->
-                  <line x1="240" y1="72" x2="240" y2="368"/>
-                  <line x1="105" y1="225" x2="375" y2="225"/>
-
-                  <!-- Tampak Depan: 4 Bolt Holes Crosshairs -->
-                  <line x1="152" y1="155" x2="188" y2="155"/>
-                  <line x1="170" y1="137" x2="170" y2="173"/>
-
-                  <line x1="292" y1="155" x2="328" y2="155"/>
-                  <line x1="310" y1="137" x2="310" y2="173"/>
-
-                  <line x1="152" y1="295" x2="188" y2="295"/>
-                  <line x1="170" y1="277" x2="170" y2="313"/>
-
-                  <line x1="292" y1="295" x2="328" y2="295"/>
-                  <line x1="310" y1="277" x2="310" y2="313"/>
-
-                  <!-- Potongan A-A: Main Centerline -->
-                  <line x1="680" y1="238" x2="680" y2="352"/>
-
-                  <!-- Potongan A-A: Bolt Hole Centerlines in Flange Wings -->
-                  <line x1="592.5" y1="305" x2="592.5" y2="342"/>
-                  <line x1="767.5" y1="305" x2="767.5" y2="342"/>
-                </g>
-
-                <!-- ================= 6. LAYER: GARIS BIDANG POTONG (CUTTING PLANE A-A) ================= -->
-                <g class="technical-line-layer line-layer-cutting" data-line-layer="cutting" role="button" tabindex="0" aria-label="Garis bidang potong A-A">
-                  <title>Bidang potong A-A: arah pandang dan letak penampang potongan</title>
-                  <!-- Top Cutting End & Arrow pointing Right -->
-                  <line class="cutting-end" x1="240" y1="48" x2="240" y2="72"/>
-                  <line class="cutting-arrow" x1="240" y1="56" x2="265" y2="56" marker-end="url(#section-cutting-arrow)"/>
-                  <text x="220" y="62" font-family="var(--font-primary, sans-serif)" font-size="16px" font-weight="900" text-anchor="middle">A</text>
-
-                  <!-- Bottom Cutting End & Arrow pointing Right -->
-                  <line class="cutting-end" x1="240" y1="368" x2="240" y2="392"/>
-                  <line class="cutting-arrow" x1="240" y1="384" x2="265" y2="384" marker-end="url(#section-cutting-arrow)"/>
-                  <text x="220" y="390" font-family="var(--font-primary, sans-serif)" font-size="16px" font-weight="900" text-anchor="middle">A</text>
-                </g>
-
-                <!-- ================= 7. LAYER: GARIS UKURAN & BANTU (DIMENSION CONTINUOUS THIN) ================= -->
-                <g class="technical-line-layer line-layer-dimension" data-line-layer="dimension" role="button" tabindex="0" aria-label="Garis ukuran dan garis bantu kontinu tipis">
-                  <title>Garis ukuran: nilai dimensi, diameter, radius, dan jarak</title>
-
-                  <!-- Tampak Depan: Top 120 -->
-                  <line class="extension-line" x1="135" y1="120" x2="135" y2="82"/>
-                  <line class="extension-line" x1="345" y1="120" x2="345" y2="82"/>
-                  <line x1="135" y1="90" x2="345" y2="90" marker-start="url(#line-arrow-start)" marker-end="url(#line-arrow-end)"/>
-                  <text x="240" y="85" text-anchor="middle" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700">120</text>
-
-                  <!-- Tampak Depan: Left 120 -->
-                  <line class="extension-line" x1="135" y1="120" x2="90" y2="120"/>
-                  <line class="extension-line" x1="135" y1="330" x2="90" y2="330"/>
-                  <line x1="98" y1="120" x2="98" y2="330" marker-start="url(#line-arrow-start)" marker-end="url(#line-arrow-end)"/>
-                  <text class="dimension-vertical" x="88" y="225" text-anchor="middle" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700" transform="rotate(-90 88 225)">120</text>
-
-                  <!-- Tampak Depan: Leader R10 -->
-                  <path d="M 339.8 130.1 L 368 102 H 392" marker-start="url(#line-leader-arrow)" fill="none"/>
-                  <text x="396" y="98" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700">R10</text>
-
-                  <!-- Tampak Depan: Leader Ø80 -->
-                  <path d="M 299.4 187.9 L 362 148 H 388" marker-start="url(#line-leader-arrow)" fill="none"/>
-                  <text x="392" y="152" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700">Ø80</text>
-
-                  <!-- Tampak Depan: Leader Ø40 -->
-                  <path d="M 270.3 242.5 L 342 284 H 368" marker-start="url(#line-leader-arrow)" fill="none"/>
-                  <text x="372" y="288" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700">Ø40</text>
-
-                  <!-- Tampak Depan: Leader 4×Ø12 -->
-                  <path d="M 317.5 302.5 L 358 340 H 384" marker-start="url(#line-leader-arrow)" fill="none"/>
-                  <text x="388" y="344" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700">4×Ø12</text>
-
-                  <!-- Potongan A-A: Top Ø80 -->
-                  <line class="extension-line" x1="610" y1="260" x2="610" y2="190"/>
-                  <line class="extension-line" x1="750" y1="260" x2="750" y2="190"/>
-                  <line x1="610" y1="198" x2="750" y2="198" marker-start="url(#line-arrow-start)" marker-end="url(#line-arrow-end)"/>
-                  <text x="680" y="193" text-anchor="middle" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700">Ø80</text>
-
-                  <!-- Potongan A-A: Top Ø40 -->
-                  <line class="extension-line" x1="645" y1="260" x2="645" y2="218"/>
-                  <line class="extension-line" x1="715" y1="260" x2="715" y2="218"/>
-                  <line x1="645" y1="226" x2="715" y2="226" marker-start="url(#line-arrow-start)" marker-end="url(#line-arrow-end)"/>
-                  <text x="680" y="221" text-anchor="middle" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700">Ø40</text>
-
-                  <!-- Potongan A-A: Right 30 (Boss height) -->
-                  <line class="extension-line" x1="750" y1="260" x2="845" y2="260"/>
-                  <line class="extension-line" x1="785" y1="312.5" x2="845" y2="312.5"/>
-                  <line x1="838" y1="260" x2="838" y2="312.5" marker-start="url(#line-arrow-start)" marker-end="url(#line-arrow-end)"/>
-                  <text class="dimension-vertical" x="830" y="286" text-anchor="middle" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700" transform="rotate(-90 830 286)">30</text>
-
-                  <!-- Potongan A-A: Right 40 (Total height) -->
-                  <line class="extension-line" x1="750" y1="260" x2="880" y2="260"/>
-                  <line class="extension-line" x1="785" y1="330" x2="880" y2="330"/>
-                  <line x1="872" y1="260" x2="872" y2="330" marker-start="url(#line-arrow-start)" marker-end="url(#line-arrow-end)"/>
-                  <text class="dimension-vertical" x="864" y="295" text-anchor="middle" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700" transform="rotate(-90 864 295)">40</text>
-
-                  <!-- Potongan A-A: Right 10 (Flange thickness) -->
-                  <line class="extension-line" x1="785" y1="312.5" x2="812" y2="312.5"/>
-                  <line class="extension-line" x1="785" y1="330" x2="812" y2="330"/>
-                  <line x1="805" y1="312.5" x2="805" y2="330" marker-start="url(#line-arrow-start)" marker-end="url(#line-arrow-end)"/>
-                  <text x="812" y="324" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700">10</text>
-
-                  <!-- Potongan A-A: Bottom 120 (Flange width) -->
-                  <line class="extension-line" x1="575" y1="330" x2="575" y2="372"/>
-                  <line class="extension-line" x1="785" y1="330" x2="785" y2="372"/>
-                  <line x1="575" y1="364" x2="785" y2="364" marker-start="url(#line-arrow-start)" marker-end="url(#line-arrow-end)"/>
-                  <text x="680" y="359" text-anchor="middle" font-family="var(--font-mono, monospace)" font-size="12px" font-weight="700">120</text>
-                </g>
-
-                <!-- ================= 8. LAYER: GARIS PATAHAN (BREAK LINE) ================= -->
-                <g class="technical-line-layer line-layer-break" data-line-layer="break" role="button" tabindex="0" aria-label="Garis patahan bebas tipis">
-                  <title>Garis patahan: penyingkatan bagian panjang yang seragam</title>
-                </g>
-                </g>
-              </svg>
-              <div class="line-stage-hint"><span>Klik garis pada gambar</span><span>atau pilih materi di kiri</span></div>
-            </div>
-          </article>
-        </div>
-
-        <div class="line-learning-grid">
-          <article class="line-detail-card glass-panel" aria-live="polite">
-            <div class="line-detail-heading">
-              <div>
-                <span class="line-lab-kicker" id="line-detail-code">01 · Kontinu tebal</span>
-                <h3 id="line-detail-title">Garis Benda / Garis Nyata</h3>
-              </div>
-              <span class="line-thickness-pill" id="line-detail-thickness">0,5–0,7 mm</span>
-            </div>
-
-            <!-- Interactive Detail Tabs -->
-            <div class="line-detail-tabs-nav" role="tablist">
-              <button type="button" class="line-detail-tab-btn active" data-detail-tab="iso" role="tab" aria-selected="true">
-                📋 Aturan ISO 128
-              </button>
-              <button type="button" class="line-detail-tab-btn" data-detail-tab="mistakes" role="tab" aria-selected="false">
-                ⚠️ Kesalahan Siswa
-              </button>
-              <button type="button" class="line-detail-tab-btn" data-detail-tab="tips" role="tab" aria-selected="false">
-                💡 Tips Praktis
-              </button>
-            </div>
-
-            <!-- Tab 1: ISO Aturan & Fungsi (Default) -->
-            <div class="line-detail-grid line-tab-pane active" id="pane-tab-iso">
-              <div><span>Fungsi</span><p id="line-detail-function">Menunjukkan kontur dan tepi benda yang terlihat langsung oleh pengamat.</p></div>
-              <div><span>Contoh pada benda</span><p id="line-detail-location">Tepi luar flange 120×120 mm, silinder boss Ø80, lubang pusat Ø40, 4 lubang baut Ø12, dan kontur luar Potongan A–A.</p></div>
-              <div><span>Cara menggambar</span><p id="line-detail-rule">Tarik tegas, hitam, merata, dan tidak terputus. Harus paling dominan dibanding garis bantu.</p></div>
-              <div><span>Pensil yang sesuai</span><p id="line-detail-pencil">HB atau B; mekanis 0,5–0,7 mm.</p></div>
-            </div>
-
-            <!-- Tab 2: Kesalahan Umum Siswa -->
-            <div class="line-detail-box line-tab-pane" id="pane-tab-mistakes" style="display: none;">
-              <ul class="line-mistakes-list" id="line-mistakes-content">
-                <li>Menggunakan pensil 2H sehingga kontur benda tampak pudar atau kusam.</li>
-                <li>Menarik garis secara bolak-balik (menggosok) sehingga ketebalan tidak merata atau berserabut.</li>
-                <li>Pertemuan sudut ujung flange tidak saling menutup rapat (ada celah bocor).</li>
-              </ul>
-            </div>
-
-            <!-- Tab 3: Pro Drafting Tips -->
-            <div class="line-detail-box line-tab-pane" id="pane-tab-tips" style="display: none;">
-              <div class="line-pro-tip" id="line-tips-content">
-                <strong>Tips Presisi:</strong> Putar sedikit batang pensil secara kontinu sambil menarik garis lurus agar keruncingan grafit tetap rata dan garis tidak melebar di ujung.
-              </div>
-            </div>
-          </article>
-
-          <article class="line-challenge-card glass-panel">
-            <div class="line-challenge-heading">
-              <div>
-                <span class="line-lab-kicker">Latihan cepat</span>
-                <h3>Tebak Garis pada Benda</h3>
-              </div>
-              <div class="line-challenge-score-wrapper" style="display: flex; align-items: center; gap: 0.5rem;">
-                <span id="line-streak-pill" class="line-streak-pill" style="display: none;">🔥 <span id="line-streak-count">0</span> Streak</span>
-                <span id="line-challenge-score">0 / 4</span>
-              </div>
-            </div>
-            <p id="line-challenge-prompt">Mulai latihan, lalu klik garis yang diminta langsung pada gambar kerja.</p>
-            <div class="line-challenge-progress"><i id="line-challenge-progress"></i></div>
-            <button type="button" class="cta-button" id="line-challenge-start">Mulai latihan</button>
-            <p class="line-challenge-feedback" id="line-challenge-feedback" role="status" aria-live="polite"></p>
-          </article>
-        </div>
-
+          <section class="line-challenge" aria-labelledby="line-challenge-title">
+            <div class="line-heading-row"><div><p class="line-kicker">COBA PEMAHAMANMU</p><h3 id="line-challenge-title">Garis ini untuk apa?</h3></div><span class="line-challenge-state" id="line-challenge-score">0 / 4</span></div>
+            <p id="line-challenge-prompt">Empat soal singkat tentang garis pada gambar. Pilih jawabannya, lalu lihat penjelasannya.</p>
+            <button type="button" class="line-primary" id="line-challenge-start">Mulai latihan</button>
+            <button type="button" class="line-primary" id="line-challenge-next" hidden>Soal berikutnya →</button>
+            <div class="line-answer-options" id="line-answer-options" role="group" aria-label="Jawaban jenis garis" hidden></div>
+            <div class="line-progress-track"><i id="line-challenge-progress"></i></div>
+            <p id="line-challenge-feedback" class="line-challenge-feedback" role="status" aria-live="polite"></p>
+          </section>
+          <details class="line-source-note"><summary>Tentang contoh & aturan gambar</summary><p>Contoh digambar ulang dari bentuk tutup bantalan yang kamu lampirkan. Detail ceruk dan dudukan lubang disederhanakan. Gambar ini untuk mengenali jenis garis, bukan gambar manufaktur lengkap. Tampilan dipisah untuk belajar, bukan susunan proyeksi satu lembar kerja.</p><p>Bidang A–A melintang di tengah kedalaman benda. Karena bidang ini tidak melalui baris lubang baut, potongannya menampilkan material lengkung tanpa rongga lubang baut. Garis tersembunyi pada potongan dihilangkan agar bentuk dalam terbaca.</p><p>Dasar materi: <a href="https://www.iso.org/standard/83355.html" target="_blank" rel="noopener noreferrer">ISO 128-2:2022 — jenis garis</a>, <a href="https://www.iso.org/standard/83356.html" target="_blank" rel="noopener noreferrer">ISO 128-3:2022 — tampak dan potongan</a>, <a href="https://www.iso.org/standard/64007.html" target="_blank" rel="noopener noreferrer">ISO 129-1 — ukuran</a>, dan <a href="https://archive.nptel.ac.in/content/storage2/courses/112103019/module3/lec31/2.html" target="_blank" rel="noopener noreferrer">NPTEL — membaca potongan</a>.</p></details>
+          <details class="line-extra-reference"><summary>Referensi tambahan: huruf & ukuran kertas</summary><div class="line-extra-content">
         <!-- Standar Huruf ISO 3098 & Ukuran Kertas ISO 216 Section -->
         <div class="glass-panel" style="margin-top: 1.25rem;">
           <div class="panel-header">
@@ -2023,6 +1327,7 @@
                 <div class="letter-guideline-base"></div>
                 <div class="letter-display-text" id="iso-letter-display">SDRAFT 2026 ISO-3098</div>
               </div>
+              <p class="line-small-note">Pratinjau membantu membandingkan ukuran dan kemiringan huruf. Ukuran pada layar merupakan ilustrasi; gunakan tinggi h dalam mm saat menggambar di kertas.</p>
 
               <div class="lettering-specs-pills">
                 <span>Tipe B: <strong>d = h / 10</strong></span>
@@ -2034,7 +1339,7 @@
 
             <!-- Right: ISO 216 Paper Sizes Table & Ratio -->
             <div class="iso-paper-box">
-              <span class="control-group-title">Standar Ukuran Kertas & Margin (ISO 216)</span>
+              <span class="control-group-title">Ukuran kertas ISO 216 · bingkai gambar ISO 5457</span>
 
               <div class="paper-selector-tabs" id="paper-tabs">
                 <button class="paper-tab-btn" data-paper="a0">A0</button>
@@ -2051,8 +1356,8 @@
                 </div>
                 <div class="paper-detail-stats">
                   <div><span>Dimensi (P × L):</span><strong id="paper-dimensions">210 × 297 mm</strong></div>
-                  <div><span>Margin Kiri (Jilid):</span><strong id="paper-margin-left">20 mm (atau 10 mm)</strong></div>
-                  <div><span>Margin Tepi Lain:</span><strong id="paper-margin-other">5 mm</strong></div>
+                  <div><span>Margin Kiri (Jilid):</span><strong id="paper-margin-left">20 mm</strong></div>
+                  <div><span>Margin Tepi Lain:</span><strong id="paper-margin-other">10 mm</strong></div>
                   <div><span>Orientasi Baku:</span><strong id="paper-orientation">Vertikal / Horizontal</strong></div>
                 </div>
                 <div class="paper-visual-proportions">
@@ -2060,20 +1365,18 @@
                     <span id="paper-aspect-preview">A4 (1:√2)</span>
                   </div>
                   <p class="paper-ratio-note">
-                    📌 Perbandingan panjang terhadap lebar kertas ISO adalah <strong>1 : √2 (1 : 1,414)</strong>. Jika dipotong atau dilipat tepat di tengah, proporsi panjang dan lebar tetap persis sama!
+                    Perbandingan sisi pendek terhadap sisi panjang seri A mendekati <strong>1 : √2 (1 : 1,414)</strong>. Melipat sisi panjang menjadi dua menghasilkan format berikutnya dengan proporsi yang sama, mengikuti pembulatan ukuran dalam mm.
                   </p>
+                  <p class="paper-ratio-note">Margin bingkai mengikuti <a href="https://cdn.standards.iteh.ai/samples/29017/e46c0ec5d98f470aab82dae76889f229/ISO-5457-1999.pdf" target="_blank" rel="noopener noreferrer">ISO 5457</a>. A4 dapat dipakai vertikal atau horizontal sesuai <a href="https://www.dinmedia.de/en/standard/din-en-iso-5457/278410251" target="_blank" rel="noopener noreferrer">amandemen 2010</a>.</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="line-standard-note glass-panel">
-          <strong>Dasar materi:</strong>
-          <span>Konvensi garis mengacu pada <a href="https://www.iso.org/standard/83355.html" target="_blank" rel="noopener">ISO 128-2:2022</a>, sedangkan tampak dan potongan mengacu pada <a href="https://www.iso.org/standard/83356.html" target="_blank" rel="noopener">ISO 128-3:2022</a>. Huruf mengacu pada <a href="https://www.iso.org/standard/54728.html" target="_blank" rel="noopener">ISO 3098</a> dan ukuran kertas mengacu pada ISO 216.</span>
+          </div></details>
         </div>
       </section>
-
       <!-- ================= ETIKET ISO SECTION ================= -->
       <section id="etiket" class="app-section">
         <div class="etiket-grid">
@@ -3991,7 +3294,7 @@
                   <span class="posttest-q-badge">Soal 13</span>
                   <span class="posttest-score-badge">3 Poin</span>
                 </div>
-                <div class="posttest-q-text">Fungsi papan gambar adalah ....</div>
+                <div class="posttest-q-text">Fungsi busur derajat adalah ....</div>
                 <div class="posttest-mcq-list">
                   <button type="button" class="posttest-mcq-opt" data-q="13" data-val="A">
                     <span class="posttest-opt-letter">A</span>
@@ -3999,7 +3302,7 @@
                   </button>
                   <button type="button" class="posttest-mcq-opt" data-q="13" data-val="B">
                     <span class="posttest-opt-letter">B</span>
-                    <span class="posttest-opt-text">menyediakan permukaan kerja yang rata dan stabil</span>
+                    <span class="posttest-opt-text">mengukur atau membentuk sudut</span>
                   </button>
                   <button type="button" class="posttest-mcq-opt" data-q="13" data-val="C">
                     <span class="posttest-opt-letter">C</span>

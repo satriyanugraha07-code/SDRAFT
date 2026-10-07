@@ -10,7 +10,7 @@ const revealSelectors = {
   intro: '.intro-opening, .intro-index, .intro-lesson',
   tools: '.panel-header, .tools-showcase > *',
   pencils: '.panel-header, .pencils-layout > *',
-  lines: ':scope > .line-lab-hero, .line-lab-layout > *, .line-learning-grid > *, :scope > .glass-panel',
+  lines: '.line-hero, .line-catalog, .line-workspace > *, .line-quick-rules, .line-challenge',
   etiket: '.etiket-grid > .glass-panel',
   projection: '.projection-viewport, .projection-controls > .glass-panel',
   model3d: ':scope > .model-lab-hero, :scope > .cad-model-selector-bar, .model-lab-grid > *, :scope > .solidworks-library',

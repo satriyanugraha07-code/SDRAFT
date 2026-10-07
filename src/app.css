@@ -11,3 +11,7 @@
 @import './color-refresh.css';
 @import './navigation-refresh.css';
 @import './page-motion.css';
+
+@import './instruments.css';
+@import './pencils.css';
+@import './lines.css';

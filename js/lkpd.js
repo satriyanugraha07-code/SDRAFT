@@ -35,7 +35,7 @@ export function initLkpd() {
       feat3: { title: "Busur & Lingkaran Singgung", desc: "Membuat garis singgung dua lingkaran dan menyambung garis lengkung dengan radius R." },
       feat4: { title: "Konstruksi Bentuk Elips", desc: "Metode 4 titik pusat lingkaran dan metode koordinat konsentris." },
       actionTarget: "tools",
-      actionText: "Buka Papan Gambar Simulator →"
+      actionText: "Buka Pengenalan Alat Gambar →"
     },
     job3: {
       isReady: false,
@@ -324,7 +324,7 @@ export function initLkpd() {
       subtitle: "Latihan Menarik Garis Sejajar & Tebal-Tipis ISO",
       desc: "Pola ini melatih tarikan garis horizontal dari kiri ke kanan dengan kecepatan konstan, ketebalan seragam, serta pergantian tipe garis tebal, garis tipis, garis gores, dan garis sumbu bertitik.",
       steps: [
-        "Rapatkan penggaris lurus / penggaris T pada tepi kiri meja/papan gambar.",
+        "Letakkan mistar lurus sesuai arah garis dan tahan agar tidak bergeser.",
         "Gunakan pensil 2H untuk garis tipis (0.25 mm) dan pensil HB/2B untuk garis tebal (0.5 - 0.7 mm).",
         "Tarik garis selalu dari kiri ke kanan (atau dari kanan ke kiri untuk yang bertangan kidal).",
         "Putar pensil perlahan saat menarik garis agar ketebalan mata pensil tetap bulat dan seragam.",
