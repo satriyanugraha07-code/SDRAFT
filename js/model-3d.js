@@ -1,8 +1,10 @@
 import { publicAssetUrl } from '../src/asset-url.js';
+import { isModuleLocked } from '../src/module-availability.js';
 
 // --- PENAMPIL MODEL 3D INTERAKTIF REALVIEW (CAD STUDIO SHADER) ---
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (isModuleLocked('model3d')) return;
   const section = document.getElementById('model3d');
   const shell = document.getElementById('model3d-shell');
   const canvas = document.getElementById('model3d-canvas');

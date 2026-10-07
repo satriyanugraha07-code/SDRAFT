@@ -6,6 +6,7 @@ export function initPageInteractions() {
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   cards.forEach((card) => {
     card.addEventListener('pointermove', (event) => {
+      if (card.disabled || card.getAttribute('aria-disabled') === 'true') return;
       if (!finePointer.matches || !canAnimate()) return;
       const rect = card.getBoundingClientRect();
       const x = (event.clientX - rect.left) / rect.width;
@@ -25,6 +26,7 @@ export function initPageInteractions() {
     if (!canAnimate() || !(event.target instanceof Element)) return;
     const target = event.target.closest('.studio-primary, .studio-card, .module-filter, .nav-item');
     if (!target) return;
+    if (target.matches(':disabled, [aria-disabled="true"]')) return;
     const rect = target.getBoundingClientRect();
     const ripple = document.createElement('span');
     ripple.className = 'press-ripple';

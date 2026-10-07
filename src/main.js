@@ -16,24 +16,27 @@ import { initHeroScene } from './hero-scene.js';
 import { initPageInteractions } from './interactions.js';
 import { initPageMotion } from './page-motion.js';
 import { initDisplaySettings } from './display-settings.js';
+import { isModuleLocked } from './module-availability.js';
+import { initModuleLocks } from './module-locks.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initDisplaySettings();
+  initModuleLocks();
   const scenePreview = document.getElementById('learning-scene');
-  if (scenePreview && 'IntersectionObserver' in window) {
+  if (scenePreview && !isModuleLocked('model3d') && 'IntersectionObserver' in window) {
     const sceneObserver = new IntersectionObserver((entries) => {
       if (!entries[0]?.isIntersecting) return;
       sceneObserver.disconnect();
       initHeroScene();
     }, { rootMargin: '120px' });
     sceneObserver.observe(scenePreview);
-  } else {
+  } else if (!isModuleLocked('model3d')) {
     initHeroScene();
   }
-  initLkpd();
+  if (!isModuleLocked('lkpd')) initLkpd();
   initAuth();
-  initDiagnostik();
-  initPostTest();
+  if (!isModuleLocked('diagnostik')) initDiagnostik();
+  if (!isModuleLocked('quiz')) initPostTest();
   const pageTitle = document.getElementById('current-page-title');
   const navigationItems = document.querySelectorAll('.nav-item');
   const absoluteSocialImage = new URL(publicAssetUrl('brand/sdraft-wordmark.png'), window.location.origin).href;
@@ -45,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   navigationItems.forEach((item) => {
     item.setAttribute('role', 'button');
-    item.setAttribute('tabindex', '0');
+    item.setAttribute('tabindex', isModuleLocked(item.dataset.target) ? '-1' : '0');
 
     item.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
@@ -58,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-open-module]').forEach((button) => {
     button.addEventListener('click', () => {
       const target = button.getAttribute('data-open-module');
+      if (isModuleLocked(target)) return;
       document.querySelector(`.nav-item[data-target="${target}"]`)?.click();
     });
   });
@@ -83,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   cards.forEach((card) => {
+    if (isModuleLocked(card.dataset.module)) return;
     card.setAttribute('aria-label', `Buka ${card.querySelector('.gamtek-card-title')?.textContent.trim() || 'modul'}`);
     if (card.tagName === 'BUTTON') return;
     card.setAttribute('role', 'button');

@@ -1,0 +1,243 @@
+/* Projection uses the homepage's sky, mint models and rounded pastel cards. */
+#projection .projection-lesson {
+  --projection-ink: #153451;
+  --projection-muted: #476580;
+  --projection-accent: #078bad;
+  --projection-soft: #e7f7fc;
+  --view-accent: #178ba8;
+  width: 100%;
+  max-width: 1240px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 8px 0 32px;
+  color: var(--projection-ink);
+}
+#projection .projection-lesson *, #projection .projection-lesson *::before, #projection .projection-lesson *::after { box-sizing: border-box; }
+#projection .projection-lesson [hidden] { display: none !important; }
+#projection .projection-lesson .projection-flat-stage { display: flex; flex-direction: column; }
+#projection .projection-lesson #projection-flat-host { flex: none; margin: auto; }
+#projection .projection-lesson button { font-family: inherit; cursor: pointer; }
+#projection .projection-lesson button:disabled { opacity: .45; cursor: default; }
+
+#projection .projection-lesson .projection-hero { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr); align-items: center; gap: 24px; padding: 30px 36px; margin-bottom: 30px; border: 1px solid #b5e4f1; border-radius: 30px; background: linear-gradient(115deg, #e0f8fe, #d5f0fc 55%, #b9e3f8); box-shadow: 0 14px 32px #0a759b12; overflow: hidden; }
+#projection .projection-lesson .projection-hero::after { content: ''; position: absolute; z-index: -1; width: 310px; height: 310px; top: -120px; right: -75px; border-radius: 50%; background: #ffffff40; pointer-events: none; }
+#projection .projection-lesson .projection-hero-copy { position: relative; z-index: 1; }
+#projection .projection-lesson .projection-eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: #247c9b; font-size: 10px; font-weight: 800; letter-spacing: .06em; }
+#projection .projection-lesson .projection-eyebrow > span { color: #e4a42f; font-size: 19px; }
+#projection .projection-lesson .projection-hero h2 { margin: 0 0 12px; color: #0a2859; font-size: clamp(30px, 3.1vw, 43px); font-weight: 800; line-height: 1.18; letter-spacing: -.05em; }
+#projection .projection-lesson .projection-hero h2 span { color: #078bad; }
+#projection .projection-lesson .projection-hero-copy > p:last-of-type { max-width: 440px; margin: 0; color: var(--projection-muted); font-size: 13px; line-height: 1.75; }
+#projection .projection-lesson .projection-hero-swoosh { display: block; width: 110px; height: 18px; }
+#projection .projection-lesson .projection-primary { display: inline-flex; align-items: center; justify-content: center; gap: 15px; min-height: 44px; padding: 13px 21px; border: 0; border-radius: 50px; background: linear-gradient(135deg, #05a6bf, #058aa9); box-shadow: 0 7px 17px #058aa92a; color: #fff; font-size: 12px; font-weight: 750; line-height: 1.3; }
+#projection .projection-lesson .projection-primary:hover { background: linear-gradient(135deg, #0797b2, #067d9c); }
+#projection .projection-lesson .projection-primary > span { font-size: 19px; line-height: 1; }
+#projection .projection-lesson #projection-start { margin-top: 15px; }
+#projection .projection-lesson .projection-hero-art { position: relative; display: grid; place-items: center; min-height: 232px; }
+#projection .projection-lesson .projection-hero-art::before { content: ''; position: absolute; width: 235px; height: 225px; max-width: 100%; border-radius: 44% 56% 58% 42%; background: #ffffff75; transform: rotate(-12deg); pointer-events: none; }
+#projection .projection-lesson .projection-hero-art > svg, #projection .projection-lesson .projection-hero-art > div { position: relative; display: block; width: 280px; max-width: 100%; }
+#projection .projection-lesson .projection-hero-art svg { display: block; width: 100%; max-height: 245px; filter: drop-shadow(0 9px 9px #24567220); }
+#projection .projection-lesson .projection-hero-note { position: absolute; z-index: 2; top: -10px; right: -10px; color: #246383; font: 700 23px/1.05 'Caveat', cursive; transform: rotate(5deg); }
+
+#projection .projection-lesson .projection-heading-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 16px; }
+#projection .projection-lesson .projection-heading-row h3 { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.35; letter-spacing: -.04em; }
+#projection .projection-lesson .projection-heading-row > p { margin: 0; color: #6b8699; font-size: 11px; line-height: 1.65; }
+#projection .projection-lesson .projection-kicker { margin: 0 0 8px; color: #648197; font-size: 9px; font-weight: 800; line-height: 1.5; letter-spacing: .07em; }
+#projection .projection-lesson .projection-method-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px; }
+#projection .projection-lesson .projection-method-card { --method-accent: #288e70; --method-soft: #e8f8ef; position: relative; display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 13px 16px; align-items: center; min-width: 0; padding: 20px; border: 1px solid #d9e9f1; border-bottom: 3px solid var(--method-accent); border-radius: 23px; background: linear-gradient(165deg, #fff, #f7fcff); box-shadow: 0 5px 16px #1b4f760e; color: var(--projection-ink); text-align: left; transition: border-color .18s, box-shadow .18s; }
+#projection .projection-lesson .projection-method-card[data-system="us"] { --method-accent: #b48725; --method-soft: #fff7de; }
+#projection .projection-lesson .projection-method-card:hover { border-color: var(--method-accent); }
+#projection .projection-lesson .projection-method-card[aria-pressed="true"], #projection .projection-lesson .projection-method-card.is-selected { border-color: var(--method-accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--method-accent) 17%, transparent), 0 8px 20px #1b4f7612; }
+#projection .projection-lesson .projection-method-symbol { display: grid; place-items: center; width: 86px; height: 76px; border-radius: 17px; background: var(--method-soft); color: var(--method-accent); }
+#projection .projection-lesson .projection-method-symbol svg { display: block; width: 75px; max-width: 100%; height: 54px; }
+#projection .projection-lesson .projection-method-copy { min-width: 0; }
+#projection .projection-lesson .projection-method-copy strong { display: block; margin-bottom: 6px; font-size: 17px; font-weight: 800; line-height: 1.4; letter-spacing: -.03em; }
+#projection .projection-lesson .projection-method-copy strong > span { color: #678799; font-size: 11px; font-weight: 600; letter-spacing: 0; }
+#projection .projection-lesson .projection-method-copy > span { display: block; color: #5d7d93; font-size: 11px; line-height: 1.75; }
+#projection .projection-lesson .projection-method-copy > .projection-method-tag { display: inline-block; margin-top: 9px; color: var(--method-accent); font-size: 9px; }
+#projection .projection-lesson .projection-method-map { grid-column: 1 / -1; display: grid; place-items: center; min-width: 0; padding: 10px 14px; border-radius: 15px; background: #f4fafc; }
+#projection .projection-lesson .projection-method-map svg { display: block; width: 100%; max-height: 100px; }
+#projection .projection-lesson .projection-method-tag { grid-column: 1 / -1; display: inline-block; justify-self: start; padding: 5px 9px; border-radius: 20px; background: var(--method-soft); color: var(--method-accent); font-size: 9px; font-weight: 750; line-height: 1.65; }
+
+#projection .projection-lesson .projection-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: start; gap: 21px; margin-bottom: 27px; }
+#projection .projection-lesson .projection-preview, #projection .projection-lesson .projection-detail { min-width: 0; border: 1px solid #d9e9f1; border-radius: 27px; background: #fff; box-shadow: 0 6px 22px #1b4f760a; }
+#projection .projection-lesson .projection-preview { overflow: hidden; }
+#projection .projection-lesson .projection-panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 23px 25px 15px; }
+#projection .projection-lesson .projection-panel-heading h3 { margin: 0; font-size: 20px; font-weight: 800; line-height: 1.4; letter-spacing: -.04em; }
+#projection .projection-lesson .projection-badge { display: inline-flex; align-items: center; gap: 5px; flex: 0 0 auto; padding: 8px 10px; border-radius: 25px; background: #e9f7fc; color: #2585a4; font-size: 8px; font-weight: 800; line-height: 1.45; white-space: nowrap; }
+#projection .projection-lesson .projection-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin: 0 15px 13px; }
+#projection .projection-lesson .projection-mode-switch { display: flex; min-width: 0; gap: 5px; padding: 5px; border: 1px solid #deebf2; border-radius: 28px; background: #edf7fc; }
+#projection .projection-lesson .projection-mode-switch button { min-height: 38px; padding: 9px 15px; border: 0; border-radius: 23px; background: transparent; color: #5b7f96; font-size: 10px; font-weight: 750; line-height: 1.4; }
+#projection .projection-lesson .projection-mode-switch button[aria-pressed="true"], #projection .projection-lesson .projection-mode-switch button.active { background: #fff; box-shadow: 0 2px 8px #1b4f760b; color: #0a83a2; }
+#projection .projection-lesson .projection-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+#projection .projection-lesson .projection-actions button, #projection .projection-lesson .projection-zoom button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 38px; padding: 8px 11px; border: 1px solid #deebf2; border-radius: 22px; background: #f8fcfe; color: #52768e; font-size: 10px; font-weight: 750; line-height: 1.4; }
+#projection .projection-lesson .projection-actions button:hover, #projection .projection-lesson .projection-zoom button:hover { border-color: #a9d7e5; background: #eaf7fc; }
+#projection .projection-lesson .projection-actions button[aria-pressed="true"] { border-color: #81c6d7; background: #e5f6fc; color: #0a7e9c; }
+#projection .projection-lesson .projection-actions button svg { width: 14px; height: 14px; }
+
+#projection .projection-lesson .projection-stage-wrap { position: relative; min-width: 0; margin: 0 14px; border-radius: 22px; background: radial-gradient(ellipse at 80% 15%, #ffffffd9, transparent 65%), linear-gradient(145deg, #e8f8ff, #f4fbff 60%, #e6f4fc); overflow: hidden; }
+#projection .projection-lesson .projection-viewport { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: 440px; min-height: 0; border: 0; border-radius: 22px; background: transparent; box-shadow: none; perspective: 1000px; overflow: hidden; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+#projection .projection-lesson .projection-viewport.is-dragging { cursor: grabbing; }
+#projection .projection-lesson .projection-glass-box { position: relative; flex: 0 0 auto; width: 300px; height: 300px; transform-style: preserve-3d; transform-origin: center center; transition: none !important; }
+#projection .projection-lesson .projection-viewport.is-dragging *, #projection .projection-lesson .projection-glass-box.is-dragging, #projection .projection-lesson .projection-glass-box.is-dragging * { transition: none !important; }
+#projection .projection-lesson .projection-glass-box .cube-face { position: absolute; top: 0; left: 0; display: flex; align-items: center; justify-content: center; width: 300px; height: 300px; border: 1px dashed #3c98b350; background: #b9e4f00d; box-shadow: none; transform-style: preserve-3d; transform-origin: center; backface-visibility: visible; opacity: 0; pointer-events: none; transition: none; }
+#projection .projection-lesson[data-box="true"] .projection-glass-box .cube-face { opacity: 1; }
+#projection .projection-lesson[data-box="false"] .projection-glass-box .cube-face { opacity: 0; pointer-events: none; }
+#projection .projection-lesson .projection-glass-box .face-front { transform: translateZ(150px); }
+#projection .projection-lesson .projection-glass-box .face-back { transform: rotateY(180deg) translateZ(150px); }
+#projection .projection-lesson .projection-glass-box .face-top { transform: rotateX(90deg) translateZ(150px); }
+#projection .projection-lesson .projection-glass-box .face-bottom { transform: rotateX(-90deg) translateZ(150px); }
+#projection .projection-lesson .projection-glass-box .face-left { transform: rotateY(-90deg) translateZ(150px); }
+#projection .projection-lesson .projection-glass-box .face-right { transform: rotateY(90deg) translateZ(150px); }
+#projection .projection-lesson .cube-face-label { position: absolute; top: 8px; left: 8px; padding: 4px 7px; border: 1px solid #b2d5e16e; border-radius: 8px; background: #ffffffc9; box-shadow: none; color: #54859a; font-family: var(--font-main); font-size: 10px; font-weight: 750; letter-spacing: 0; text-transform: none; }
+#projection .projection-lesson .projection-drawing { width: 80%; height: 80%; opacity: .65; }
+#projection .projection-lesson .projection-glass-box .projection-drawing .projection-view-tile { fill: transparent; stroke: #3ba8c2; stroke-width: 1.2; }
+#projection .projection-lesson .projection-drawing svg { display: block; width: 100%; height: 100%; overflow: visible; }
+#projection .projection-lesson .projection-drawing path, #projection .projection-lesson .projection-drawing rect { fill: #c5e9f018; stroke: #398fa7; stroke-width: 1.4; }
+#projection .projection-lesson .projection-drawing line { stroke: #398fa7; stroke-width: 1.4; }
+#projection .projection-lesson .projection-glass-box .wireframe-object { position: absolute; top: 90px; left: 90px; width: 120px; height: 120px; opacity: 1; transform-style: preserve-3d; transition: none; pointer-events: none; }
+#projection .projection-lesson .block-3d-face { border: 1.2px solid #376b59; background: #83baa2; box-shadow: none; backface-visibility: visible; transform-origin: center; transition: none; }
+#projection .projection-lesson .block-3d-face--front { background: linear-gradient(145deg, #a4d6bd, #78b195); }
+#projection .projection-lesson .block-3d-face--tower-top, #projection .projection-lesson .block-3d-face--base-top { background: linear-gradient(145deg, #d9eee0, #aed5be); }
+#projection .projection-lesson .block-3d-face--outer-right, #projection .projection-lesson .block-3d-face--step { background: linear-gradient(145deg, #81b49b, #5a8b72); }
+#projection .projection-lesson .block-3d-face--back, #projection .projection-lesson .block-3d-face--outer-left { background: linear-gradient(145deg, #80ab92, #527f67); }
+#projection .projection-lesson .block-3d-face--bottom { background: #4f775f; }
+#projection .projection-lesson .projection-flat-stage { width: 100%; height: 440px; min-width: 0; max-width: 100%; padding: 16px; border-radius: 22px; background: transparent; overflow: auto; scrollbar-color: #a5cddd #edf6fb; scrollbar-width: thin; }
+#projection .projection-lesson #projection-flat-host { width: 100%; min-width: 0; height: auto; }
+#projection .projection-lesson #projection-flat-host > svg { display: block; width: 100%; max-width: none; height: auto; border-radius: 15px; background: #ffffffd9; }
+#projection .projection-lesson .projection-layout-view[role="button"] { cursor: pointer; outline: none; }
+#projection .projection-lesson .projection-layout-view .projection-view-tile { fill: #fff; stroke: #dcebf2; stroke-width: 1; }
+#projection .projection-lesson .projection-layout-view[aria-pressed="true"] .projection-view-tile, #projection .projection-lesson .projection-layout-view.is-selected .projection-view-tile { fill: #e9f8fe; stroke: #22a5c1; stroke-width: 2; }
+#projection .projection-lesson .projection-layout-view[role="button"]:hover .projection-view-tile { stroke: #68bdd0; stroke-width: 2; }
+#projection .projection-lesson .projection-layout-view[role="button"]:focus-visible .projection-view-tile { stroke: #088ba9; stroke-width: 3; }
+#projection .projection-lesson[data-mode="flat"] .projection-viewport { display: none !important; }
+#projection .projection-lesson[data-mode="3d"] .projection-flat-stage { display: none !important; }
+#projection .projection-lesson .projection-stage-note { position: absolute; z-index: 2; top: 14px; left: 15px; max-width: calc(100% - 30px); padding: 7px 10px; border: 1px solid #ffffffb8; border-radius: 20px; background: #ffffffcb; color: #64879c; font-size: 9px; font-weight: 750; line-height: 1.55; pointer-events: none; }
+#projection .projection-lesson .projection-stage-status { display: flex; align-items: center; gap: 10px; padding: 13px 15px; margin: 13px 22px 15px; border-radius: 16px; background: var(--projection-soft); color: #3f647c; font-size: 11px; line-height: 1.8; }
+#projection .projection-lesson .projection-stage-status > span:first-child { display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px; border-radius: 50%; background: #fff; color: #078bad; font-size: 17px; }
+#projection .projection-lesson .projection-stage-status p { margin: 0; }
+#projection .projection-lesson .projection-zoom { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0 22px 15px; }
+#projection .projection-lesson #projection-zoom > span { flex: 1 1 200px; color: #7b98aa; font-size: 9px; line-height: 1.65; }
+#projection .projection-lesson #projection-zoom > button { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 8px 11px; border: 1px solid #deebf2; border-radius: 22px; background: #f8fcfe; color: #52768e; font: inherit; font-size: 10px; font-weight: 750; line-height: 1.4; cursor: pointer; }
+#projection .projection-lesson #projection-zoom > button:hover { border-color: #a9d7e5; background: #eaf7fc; }
+#projection .projection-lesson #btn-proj-zoom-in, #projection .projection-lesson #btn-proj-zoom-out { width: 38px; padding: 7px; font-size: 17px; line-height: 1; }
+#projection .projection-lesson .projection-view-picker { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 7px; padding: 0 22px 23px; }
+#projection .projection-lesson .projection-view-chip { display: flex; align-items: center; justify-content: center; gap: 5px; min-height: 42px; min-width: 0; padding: 9px 6px; border: 1px solid #dce9ef; border-radius: 20px; background: #f8fcfe; color: #607f95; font-size: 9px; font-weight: 750; line-height: 1.5; }
+#projection .projection-lesson .projection-view-chip:hover { border-color: #aacfdc; background: #edf8fc; }
+#projection .projection-lesson .projection-view-chip[aria-pressed="true"] { border-color: var(--view-accent); background: #e5f7fc; color: var(--view-accent); }
+#projection .projection-lesson .projection-view-chip svg { flex: 0 0 auto; width: 14px; height: 14px; }
+#projection .projection-lesson .projection-view-chip > span { display: block; flex: 0 0 8px; width: 8px; height: 8px; border: 1px solid #15345133; border-radius: 50%; background: var(--view-color, #178ba8); }
+
+#projection .projection-lesson .projection-detail { padding: 25px 22px; }
+#projection .projection-lesson .projection-detail h3 { margin: 0 0 15px; color: var(--projection-ink); font-size: 25px; font-weight: 800; line-height: 1.28; letter-spacing: -.04em; }
+#projection .projection-lesson .projection-detail h4 { margin: 0 0 7px; color: #315973; font-size: 12px; font-weight: 800; line-height: 1.5; }
+#projection .projection-lesson .projection-detail > p:not(.projection-kicker):not(.projection-detail-tip) { margin: 0 0 17px; color: var(--projection-muted); font-size: 12px; line-height: 1.85; }
+#projection .projection-lesson .projection-view-art { display: grid; place-items: center; padding: 16px; margin: 0 0 15px; border-radius: 18px; background: #edf8f2; }
+#projection .projection-lesson .projection-view-art svg { display: block; width: 100%; height: auto; max-height: 170px; }
+#projection .projection-lesson .projection-view-size { display: inline-block; padding: 6px 10px; margin: 0 0 14px; border-radius: 20px; background: #edf8f2; color: #39806a; font-family: var(--font-mono); font-size: 10px; font-weight: 500; line-height: 1.65; }
+#projection .projection-lesson .projection-view-position { padding: 13px 15px; margin: 0 0 16px; border-radius: 16px; background: #f1f9fc; color: #3d6b83; font-size: 11px; line-height: 1.8; }
+#projection .projection-lesson .projection-view-position > span { display: block; margin-bottom: 6px; color: #7394a6; font-size: 8px; font-weight: 800; letter-spacing: .07em; }
+#projection .projection-lesson .projection-view-position > p { margin: 0; }
+#projection .projection-lesson .projection-detail-tip { padding: 14px 15px; margin: 18px 0 0; border-radius: 16px; background: #fff5df; color: #826835; font-size: 11px; line-height: 1.8; }
+
+#projection .projection-lesson .projection-method-explainer { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding: 24px; margin-bottom: 27px; border: 1px solid #d9e9f1; border-radius: 25px; background: #fff; box-shadow: 0 6px 22px #1b4f7608; }
+#projection .projection-lesson #projection-iso-symbol { display: grid; place-items: center; flex: 0 0 115px; min-height: 90px; padding: 13px; border-radius: 17px; background: #edf8f2; color: #39806a; }
+#projection .projection-lesson #projection-iso-symbol svg { display: block; width: 90px; max-width: 100%; height: 62px; }
+#projection .projection-lesson .projection-method-explainer > div:not(#projection-iso-symbol):not(.projection-order) { flex: 1 1 230px; min-width: 0; }
+#projection .projection-lesson .projection-method-explainer h3, #projection .projection-lesson .projection-method-explainer h4 { margin: 0 0 8px; color: #244e68; font-size: 18px; font-weight: 800; line-height: 1.4; letter-spacing: -.03em; }
+#projection .projection-lesson .projection-method-explainer p { margin: 0; color: #5b798d; font-size: 11px; line-height: 1.85; }
+#projection .projection-lesson .projection-order { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; flex: 1 1 280px; min-width: 0; }
+#projection .projection-lesson .projection-order > span { padding: 8px 11px; border-radius: 22px; background: #eaf7fc; color: #387b96; font-size: 10px; font-weight: 750; line-height: 1.5; }
+#projection .projection-lesson .projection-order > span[aria-hidden="true"] { padding: 0; border-radius: 0; background: transparent; color: #8aaab8; font-size: 16px; font-weight: 500; }
+#projection .projection-lesson .projection-order > i { color: #8aaab8; font-size: 16px; font-style: normal; }
+#projection .projection-lesson .projection-learning-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; margin: 0 0 27px; }
+#projection .projection-lesson .projection-learning-card { min-width: 0; padding: 21px 22px; border: 1px solid #dcebf3; border-radius: 22px; background: #eaf7fc; }
+#projection .projection-lesson .projection-learning-card:nth-child(2) { border-color: #dcecdf; background: #eef8f0; }
+#projection .projection-lesson .projection-learning-card:nth-child(3) { border-color: #f0e7d1; background: #fff5e4; }
+#projection .projection-lesson .projection-learning-card > span:first-child { display: grid; place-items: center; width: 29px; height: 29px; margin-bottom: 14px; border-radius: 50%; background: #ffffffb5; color: #458aa4; font-size: 10px; font-weight: 800; }
+#projection .projection-lesson .projection-learning-card h4 { margin: 0 0 8px; color: #244e68; font-size: 14px; font-weight: 800; line-height: 1.4; letter-spacing: -.025em; }
+#projection .projection-lesson .projection-learning-card p { margin: 0; color: #5b798d; font-size: 11px; line-height: 1.8; }
+#projection .projection-lesson .projection-footnote { min-width: 0; padding: 17px 19px; margin-bottom: 17px; border: 1px solid #dcebf3; border-radius: 19px; background: #ffffffb5; color: #56758d; }
+#projection .projection-lesson .projection-footnote > summary { cursor: pointer; color: #355e79; font-size: 12px; font-weight: 750; line-height: 1.6; }
+#projection .projection-lesson .projection-footnote p, #projection .projection-lesson .projection-footnote li { margin: 10px 0 0; color: #587990; font-size: 11px; line-height: 1.9; }
+#projection .projection-lesson .projection-footnote a { color: #1588ae; text-underline-offset: 3px; }
+#projection .projection-lesson button:focus-visible, #projection .projection-lesson summary:focus-visible, #projection .projection-lesson a:focus-visible, #projection .projection-lesson .projection-viewport:focus-visible, #projection .projection-lesson .projection-flat-stage:focus-visible { outline: 3px solid #52b7d3; outline-offset: 4px; }
+
+@media (max-width: 1100px) {
+  #projection .projection-lesson .projection-hero { padding: 26px; }
+  #projection .projection-lesson .projection-method-card { padding: 17px; gap: 12px; }
+  #projection .projection-lesson .projection-workspace { grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; }
+  #projection .projection-lesson .projection-detail { padding: 23px 19px; }
+  #projection .projection-lesson .projection-view-picker { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 980px) {
+  #projection .projection-lesson .projection-workspace { grid-template-columns: minmax(0, 1fr); }
+  #projection .projection-lesson .projection-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 0 25px; }
+  #projection .projection-lesson .projection-detail > .projection-kicker, #projection .projection-lesson .projection-detail > h3, #projection .projection-lesson .projection-detail > h4, #projection .projection-lesson .projection-detail > p:not(.projection-detail-tip), #projection .projection-lesson .projection-detail > .projection-view-size, #projection .projection-lesson .projection-detail > .projection-view-position { grid-column: 1; }
+  #projection .projection-lesson .projection-view-art { grid-column: 2; grid-row: 1 / 5; align-self: start; }
+  #projection .projection-lesson .projection-detail-tip { grid-column: 2; margin-top: 0; align-self: start; }
+  #projection .projection-lesson .projection-view-picker { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  #projection .projection-lesson .projection-learning-grid { gap: 11px; }
+  #projection .projection-lesson .projection-learning-card { padding: 18px; }
+}
+@media (max-width: 720px) {
+  #projection .projection-lesson { padding-top: 0; }
+  #projection .projection-lesson .projection-hero { display: block; min-height: 260px; padding: 25px 22px; margin-bottom: 25px; border-radius: 25px; }
+  #projection .projection-lesson .projection-eyebrow { margin-bottom: 10px; font-size: 8px; }
+  #projection .projection-lesson .projection-hero h2 { font-size: clamp(27px, 6.2vw, 34px); }
+  #projection .projection-lesson .projection-hero-copy > p:last-of-type { max-width: 82%; font-size: 11px; }
+  #projection .projection-lesson #projection-start { margin-top: 13px; padding: 12px 17px; font-size: 11px; }
+  #projection .projection-lesson .projection-hero-art { position: absolute; z-index: 0; right: -9px; bottom: -5px; width: 145px; min-height: 135px; opacity: .8; }
+  #projection .projection-lesson .projection-hero-art::before { width: 130px; height: 130px; }
+  #projection .projection-lesson .projection-hero-art > svg, #projection .projection-lesson .projection-hero-art > div { width: 145px; }
+  #projection .projection-lesson .projection-hero-note { display: none; }
+  #projection .projection-lesson .projection-heading-row h3 { font-size: 19px; }
+  #projection .projection-lesson .projection-heading-row > p { display: none; }
+  #projection .projection-lesson .projection-method-grid { grid-template-columns: minmax(0, 1fr); gap: 13px; margin-bottom: 24px; }
+  #projection .projection-lesson .projection-method-card { grid-template-columns: 72px minmax(0, 1fr); padding: 15px; gap: 12px; }
+  #projection .projection-lesson .projection-method-symbol { width: 72px; height: 66px; border-radius: 15px; }
+  #projection .projection-lesson .projection-method-symbol svg { width: 62px; height: 48px; }
+  #projection .projection-lesson .projection-method-copy strong { font-size: 16px; }
+  #projection .projection-lesson .projection-method-copy > span { font-size: 10px; }
+  #projection .projection-lesson .projection-method-map { padding: 8px 12px; }
+  #projection .projection-lesson .projection-method-map svg { max-height: 88px; }
+  #projection .projection-lesson .projection-panel-heading { padding: 20px 19px 15px; }
+  #projection .projection-lesson .projection-panel-heading h3 { font-size: 18px; }
+  #projection .projection-lesson .projection-badge { max-width: 105px; padding: 7px 8px; font-size: 7px; white-space: normal; }
+  #projection .projection-lesson .projection-toolbar { margin: 0 10px 11px; gap: 9px; }
+  #projection .projection-lesson .projection-mode-switch { width: 100%; }
+  #projection .projection-lesson .projection-mode-switch button { flex: 1; min-height: 40px; padding: 9px 13px; font-size: 10px; }
+  #projection .projection-lesson .projection-actions { width: 100%; gap: 6px; }
+  #projection .projection-lesson .projection-actions button { flex: 1 0 auto; min-height: 40px; padding: 9px 11px; font-size: 9px; }
+  #projection .projection-lesson .projection-stage-wrap { margin: 0 10px; border-radius: 19px; }
+  #projection .projection-lesson .projection-viewport, #projection .projection-lesson .projection-flat-stage { height: 330px; border-radius: 19px; }
+  #projection .projection-lesson .projection-flat-stage { padding: 9px; }
+  #projection .projection-lesson .projection-stage-note { top: 12px; left: 12px; max-width: calc(100% - 24px); padding: 6px 9px; font-size: 8px; }
+  #projection .projection-lesson .projection-stage-status { margin: 11px 15px 13px; padding: 11px; gap: 9px; font-size: 10px; }
+  #projection .projection-lesson .projection-zoom { margin: 0 15px 14px; }
+  #projection .projection-lesson .projection-zoom button { min-height: 40px; font-size: 9px; }
+  #projection .projection-lesson #projection-zoom > button { min-height: 40px; font-size: 9px; }
+  #projection .projection-lesson #btn-proj-zoom-in, #projection .projection-lesson #btn-proj-zoom-out { width: 40px; font-size: 17px; }
+  #projection .projection-lesson .projection-view-picker { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; padding: 0 15px 20px; }
+  #projection .projection-lesson .projection-view-chip { min-height: 44px; font-size: 10px; }
+  #projection .projection-lesson .projection-detail { display: block; padding: 23px 21px; }
+  #projection .projection-lesson .projection-detail h3 { font-size: 23px; }
+  #projection .projection-lesson .projection-view-art svg { max-height: 155px; }
+  #projection .projection-lesson .projection-detail-tip { margin-top: 18px; }
+  #projection .projection-lesson .projection-method-explainer { padding: 21px 18px; gap: 16px; }
+  #projection .projection-lesson #projection-iso-symbol { flex-basis: 90px; min-height: 75px; padding: 10px; }
+  #projection .projection-lesson #projection-iso-symbol svg { width: 75px; height: 52px; }
+  #projection .projection-lesson .projection-method-explainer > div:not(#projection-iso-symbol):not(.projection-order) { flex-basis: 160px; }
+  #projection .projection-lesson .projection-method-explainer h3, #projection .projection-lesson .projection-method-explainer h4 { font-size: 16px; }
+  #projection .projection-lesson .projection-method-explainer p { font-size: 10px; }
+  #projection .projection-lesson .projection-order > span { padding: 7px 9px; font-size: 9px; }
+  #projection .projection-lesson .projection-learning-grid { grid-template-columns: minmax(0, 1fr); gap: 11px; }
+  #projection .projection-lesson .projection-learning-card { display: grid; grid-template-columns: 35px minmax(0, 1fr); gap: 4px 14px; padding: 18px; }
+  #projection .projection-lesson .projection-learning-card > span:first-child { grid-column: 1; grid-row: 1 / 3; margin: 0; }
+  #projection .projection-lesson .projection-learning-card h4, #projection .projection-lesson .projection-learning-card p { grid-column: 2; margin: 0; }
+  #projection .projection-lesson .projection-learning-card p { font-size: 10px; }
+  #projection .projection-lesson .projection-footnote { padding: 15px; }
+  #projection .projection-lesson .projection-footnote > summary { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { #projection .projection-lesson .projection-method-card { transition: none; } }
+html[data-motion="off"] #projection .projection-lesson .projection-method-card { transition: none; }
+html[data-contrast="high"] #projection .projection-lesson .projection-method-card, html[data-contrast="high"] #projection .projection-lesson .projection-preview, html[data-contrast="high"] #projection .projection-lesson .projection-detail, html[data-contrast="high"] #projection .projection-lesson .projection-method-explainer { border-color: #426884; }

@@ -1,0 +1,254 @@
+/* A calm title-block lesson with the homepage's sky and pastel surfaces. */
+#etiket .etiket-lesson {
+  --etiket-ink: #153451;
+  --etiket-muted: #476580;
+  --etiket-accent: #078bad;
+  --etiket-soft: #e7f7fc;
+  width: 100%;
+  max-width: 1240px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 8px 0 32px;
+  color: var(--etiket-ink);
+}
+#etiket .etiket-lesson *, #etiket .etiket-lesson *::before, #etiket .etiket-lesson *::after { box-sizing: border-box; animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+#etiket.app-section, #etiket .etiket-lesson { animation: none !important; transition: none !important; translate: none !important; scale: none !important; }
+#etiket .etiket-lesson.motion-pending, #etiket .etiket-lesson .motion-pending { opacity: 1 !important; translate: none !important; scale: none !important; }
+#etiket .etiket-lesson [hidden] { display: none !important; }
+#etiket .etiket-lesson button { font-family: inherit; cursor: pointer; }
+#etiket .etiket-lesson button:disabled { opacity: .45; cursor: default; }
+
+#etiket .etiket-lesson .etiket-hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr); align-items: center; gap: 24px; position: relative; isolation: isolate; overflow: hidden; padding: 30px 36px; margin-bottom: 30px; border: 1px solid #b5e4f1; border-radius: 30px; background: linear-gradient(115deg, #e0f8fe, #d5f0fc 55%, #b9e3f8); box-shadow: 0 14px 32px #0a759b12; }
+#etiket .etiket-lesson .etiket-hero::after { content: ''; position: absolute; z-index: -1; width: 310px; height: 310px; top: -120px; right: -75px; border-radius: 50%; background: #ffffff40; pointer-events: none; }
+#etiket .etiket-lesson .etiket-hero-copy { position: relative; z-index: 1; }
+#etiket .etiket-lesson .etiket-eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: #247c9b; font-size: 10px; font-weight: 800; letter-spacing: .06em; }
+#etiket .etiket-lesson .etiket-eyebrow > span { color: #e4a42f; font-size: 19px; }
+#etiket .etiket-lesson .etiket-hero h2 { margin: 0 0 12px; color: #0a2859; font-size: clamp(30px, 3.1vw, 43px); font-weight: 800; line-height: 1.18; letter-spacing: -.05em; }
+#etiket .etiket-lesson .etiket-hero h2 span { color: #078bad; }
+#etiket .etiket-lesson .etiket-hero-copy > p:last-of-type { max-width: 440px; margin: 0; color: var(--etiket-muted); font-size: 13px; line-height: 1.75; }
+#etiket .etiket-lesson .etiket-hero-swoosh { display: block; width: 110px; height: 18px; }
+#etiket .etiket-lesson .etiket-primary { display: inline-flex; align-items: center; justify-content: center; gap: 15px; min-height: 44px; padding: 13px 21px; border: 0; border-radius: 50px; background: linear-gradient(135deg, #05a6bf, #058aa9); box-shadow: 0 7px 17px #058aa92a; color: #fff; font-size: 12px; font-weight: 750; line-height: 1.3; }
+#etiket .etiket-lesson .etiket-primary:hover { background: linear-gradient(135deg, #0797b2, #067d9c); }
+#etiket .etiket-lesson .etiket-primary > span { font-size: 19px; line-height: 1; }
+#etiket .etiket-lesson #etiket-start { margin-top: 15px; }
+#etiket .etiket-lesson .etiket-hero-art { position: relative; display: grid; place-items: center; min-height: 232px; }
+#etiket .etiket-lesson .etiket-hero-art::before { content: ''; position: absolute; width: 235px; height: 225px; max-width: 100%; border-radius: 44% 56% 58% 42%; background: #ffffff75; transform: rotate(-12deg); pointer-events: none; }
+#etiket .etiket-lesson #etiket-hero-art { position: relative; width: 290px; max-width: 100%; }
+#etiket .etiket-lesson #etiket-hero-art svg { display: block; width: 100%; max-height: 245px; filter: drop-shadow(0 9px 9px #24567220); }
+#etiket .etiket-lesson .etiket-hero-note { position: absolute; z-index: 2; top: -10px; right: -10px; color: #246383; font: 700 23px/1.05 'Caveat', cursive; transform: rotate(5deg); }
+
+#etiket .etiket-lesson .etiket-heading-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 16px; }
+#etiket .etiket-lesson .etiket-heading-row h3 { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.35; letter-spacing: -.04em; }
+#etiket .etiket-lesson .etiket-heading-row > p { margin: 0; color: #6b8699; font-size: 11px; line-height: 1.65; }
+#etiket .etiket-lesson .etiket-kicker { margin: 0 0 8px; color: #648197; font-size: 9px; font-weight: 800; line-height: 1.5; letter-spacing: .07em; }
+#etiket .etiket-lesson .etiket-template-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px; }
+#etiket .etiket-lesson .etiket-template-card { --template-accent: #1589a9; --template-soft: #e5f7fc; position: relative; min-width: 0; padding: 12px 12px 17px; border: 1px solid #d9e9f1; border-bottom: 3px solid var(--template-accent); border-radius: 23px; background: linear-gradient(165deg, #fff, #f7fcff); box-shadow: 0 5px 16px #1b4f760e; color: var(--etiket-ink); text-align: left; }
+#etiket .etiket-lesson .etiket-template-card[data-etiket-template="ringkas"] { --template-accent: #288e70; --template-soft: #e8f8ef; }
+#etiket .etiket-lesson .etiket-template-card:hover { border-color: var(--template-accent); background: #fbfeff; }
+#etiket .etiket-lesson .etiket-template-card[aria-pressed="true"], #etiket .etiket-lesson .etiket-template-card.is-selected { border-color: var(--template-accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--template-accent) 17%, transparent), 0 8px 20px #1b4f7612; }
+#etiket .etiket-lesson .etiket-template-art { position: relative; display: grid; place-items: center; height: 132px; margin-bottom: 16px; padding: 17px; border-radius: 16px; background: var(--template-soft); overflow: hidden; }
+#etiket .etiket-lesson .etiket-template-art::before { content: ''; position: absolute; top: -60px; right: -20px; width: 130px; height: 130px; border-radius: 50%; background: #ffffff85; pointer-events: none; }
+#etiket .etiket-lesson .etiket-template-art > svg { position: relative; display: block; width: 100%; max-height: 100%; color: #335f75; filter: drop-shadow(0 3px 3px #15345112); }
+#etiket .etiket-lesson .etiket-template-card-title { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 0 7px 7px; font-size: 16px; font-weight: 800; line-height: 1.4; letter-spacing: -.03em; }
+#etiket .etiket-lesson .etiket-template-card-title > span { color: var(--template-accent); font-size: 18px; }
+#etiket .etiket-lesson .etiket-template-description, #etiket .etiket-lesson .etiket-template-card-desc { display: block; margin: 0 7px 12px; color: #5d7d93; font-size: 11px; line-height: 1.75; }
+#etiket .etiket-lesson .etiket-template-dimensions { display: inline-block; margin: 0 7px; padding: 5px 9px; border-radius: 20px; background: var(--template-soft); color: var(--template-accent); font-family: var(--font-mono); font-size: 9px; font-weight: 600; line-height: 1.6; }
+
+#etiket .etiket-lesson .etiket-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: start; gap: 21px; margin-bottom: 27px; }
+#etiket .etiket-lesson .etiket-preview, #etiket .etiket-lesson .etiket-detail, #etiket .etiket-lesson .etiket-form-panel, #etiket .etiket-lesson .etiket-sheet-reference { min-width: 0; border: 1px solid #d9e9f1; border-radius: 27px; background: #fff; box-shadow: 0 6px 22px #1b4f760a; }
+#etiket .etiket-lesson .etiket-preview { overflow: hidden; }
+#etiket .etiket-lesson .etiket-panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 23px 25px 15px; }
+#etiket .etiket-lesson .etiket-panel-heading h3 { margin: 0; font-size: 20px; font-weight: 800; line-height: 1.4; letter-spacing: -.04em; }
+#etiket .etiket-lesson .etiket-badge { display: inline-flex; align-items: center; gap: 5px; flex: 0 0 auto; padding: 8px 10px; border-radius: 25px; background: #e9f7fc; color: #2585a4; font-size: 8px; font-weight: 800; line-height: 1.45; white-space: nowrap; }
+#etiket .etiket-lesson .etiket-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin: 0 15px 13px; padding: 9px 10px; border-radius: 17px; background: #f3f9fc; }
+#etiket .etiket-lesson .etiket-toolbar > div { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+#etiket .etiket-lesson .etiket-toolbar button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 38px; padding: 8px 11px; border: 1px solid #deebf2; border-radius: 20px; background: #fff; color: #52768e; font-size: 10px; font-weight: 750; line-height: 1.4; }
+#etiket .etiket-lesson .etiket-toolbar button:hover { border-color: #a9d7e5; background: #eaf7fc; }
+#etiket .etiket-lesson .etiket-toolbar button[aria-pressed="true"] { border-color: #81c6d7; background: #e5f6fc; color: #0a7e9c; }
+#etiket .etiket-lesson .etiket-toolbar .etiket-primary { border: 0; background: linear-gradient(135deg, #05a6bf, #058aa9); color: #fff; box-shadow: none; }
+#etiket .etiket-lesson .etiket-toolbar .etiket-primary:hover { background: linear-gradient(135deg, #0797b2, #067d9c); }
+#etiket .etiket-lesson .etiket-toolbar button svg { width: 14px; height: 14px; }
+#etiket .etiket-lesson #etiket-zoom-in, #etiket .etiket-lesson #etiket-zoom-out { width: 38px; padding: 8px; font-size: 17px; line-height: 1; }
+#etiket .etiket-lesson #etiket-zoom-reset { min-width: 65px; }
+#etiket .etiket-lesson .etiket-field-picker { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 15px 13px; padding: 0 3px; }
+#etiket .etiket-lesson .etiket-field-picker button[data-etiket-pick] { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; max-width: 100%; padding: 9px 13px; border: 1px solid #d8e9f2; border-radius: 22px; background: #f1f9fd; color: #537b94; font-size: 10px; font-weight: 750; line-height: 1.5; }
+#etiket .etiket-lesson .etiket-field-picker button[data-etiket-pick]:hover { border-color: #a1d2e2; background: #e8f7fc; }
+#etiket .etiket-lesson .etiket-field-picker button[data-etiket-pick][aria-pressed="true"] { border-color: #72bfd3; background: #dff3fb; color: #087e9e; }
+#etiket .etiket-lesson .etiket-stage { position: relative; width: calc(100% - 28px); max-width: none; min-height: 240px; max-height: 460px; margin: 0 14px; padding: 20px; border: 1px solid #e1edf4; border-radius: 22px; background: radial-gradient(ellipse at 80% 15%, #ffffffd9, transparent 65%), linear-gradient(145deg, #e8f8ff, #f4fbff 60%, #e6f4fc); overflow: auto; scrollbar-color: #a5cddd #edf6fb; scrollbar-width: thin; }
+#etiket .etiket-lesson .etiket-stage[data-template="ringkas"], #etiket .etiket-lesson[data-template="ringkas"] .etiket-stage { min-height: 140px; }
+#etiket .etiket-lesson #etiket-stage:focus-visible { outline: 3px solid #52b7d3; outline-offset: 3px; }
+#etiket .etiket-lesson #etiket-drawing-host { position: relative; width: calc(100% * var(--etiket-zoom, 1)); min-width: 0; height: auto; }
+#etiket .etiket-lesson .etiket-drawing-svg { display: block; width: 100%; max-width: none; height: auto; border-radius: 13px; background: #fff; font-family: var(--font-main); }
+#etiket .etiket-lesson .etiket-drawing-svg .etiket-field { outline: none; cursor: pointer; }
+#etiket .etiket-lesson .etiket-drawing-svg .etiket-field-hit { fill: transparent; stroke: transparent; pointer-events: all; }
+#etiket .etiket-lesson .etiket-drawing-svg .etiket-field:hover .etiket-field-hit { fill: #e7f7fc; fill-opacity: .65; }
+#etiket .etiket-lesson .etiket-drawing-svg .etiket-field.is-active .etiket-field-hit, #etiket .etiket-lesson .etiket-drawing-svg .etiket-field[aria-pressed="true"] .etiket-field-hit, #etiket .etiket-lesson .etiket-drawing-svg .etiket-field:focus-visible .etiket-field-hit { fill: #d8f2fb; fill-opacity: .7; stroke: #1589a9; stroke-width: .35; }
+#etiket .etiket-lesson .etiket-caption { display: flex; align-items: center; gap: 10px; margin: 13px 22px 21px; padding: 13px 15px; border-radius: 16px; background: #e7f7fc; color: #3f647c; font-size: 11px; line-height: 1.8; }
+#etiket .etiket-lesson .etiket-caption > span:first-child { display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px; border-radius: 50%; background: #fff; color: #078bad; font-size: 17px; }
+#etiket .etiket-lesson .etiket-caption p { margin: 0; }
+
+#etiket .etiket-lesson .etiket-detail { padding: 25px 22px; }
+#etiket .etiket-lesson .etiket-detail h3 { margin: 0 0 14px; color: var(--etiket-ink); font-size: 24px; font-weight: 800; line-height: 1.28; letter-spacing: -.04em; }
+#etiket .etiket-lesson .etiket-field-tag { display: inline-block; max-width: 100%; padding: 7px 10px; margin: 0 0 16px; border-radius: 20px; background: #e7f7fc; color: #2585a4; font-size: 10px; font-weight: 750; line-height: 1.65; overflow-wrap: anywhere; }
+#etiket .etiket-lesson #etiket-field-description { margin: 0 0 17px; color: var(--etiket-muted); font-size: 12px; line-height: 1.85; }
+#etiket .etiket-lesson .etiket-detail h4 { margin: 0 0 6px; color: #315973; font-size: 12px; font-weight: 800; line-height: 1.5; }
+#etiket .etiket-lesson #etiket-field-example { margin: 0 0 18px; padding: 13px 14px; border-radius: 15px; background: #f3f9fc; color: #416880; font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+#etiket .etiket-lesson .etiket-live-value { display: block; max-width: 100%; min-width: 0; margin: 0 0 18px; padding: 12px 14px; border: 1px solid #dcebf3; border-radius: 15px; background: #f6fbfe; color: #315f79; font-size: 11px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+#etiket .etiket-lesson .etiket-warning { padding: 14px 15px; margin: 0 0 18px; border-radius: 16px; background: #fff5df; color: #826835; font-size: 11px; line-height: 1.8; }
+#etiket .etiket-lesson .etiket-warning p { margin: 0; }
+#etiket .etiket-lesson #etiket-edit-field { width: 100%; min-height: 42px; font-size: 11px; }
+
+#etiket .etiket-lesson .etiket-form-panel { padding: 25px; margin-bottom: 27px; }
+#etiket .etiket-lesson .etiket-form-heading { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 19px; }
+#etiket .etiket-lesson .etiket-form-heading h3 { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.4; letter-spacing: -.04em; }
+#etiket .etiket-lesson .etiket-form-heading > p { margin: 0; color: #69879b; font-size: 11px; line-height: 1.75; }
+#etiket .etiket-lesson .etiket-form-intro { max-width: 740px; margin: -5px 0 20px; color: var(--etiket-muted); font-size: 12px; line-height: 1.8; }
+#etiket .etiket-lesson #etiket-form { min-width: 0; }
+#etiket .etiket-lesson #etiket-form fieldset { min-width: 0; padding: 0; margin: 0 0 24px; border: 0; }
+#etiket .etiket-lesson #etiket-form legend { padding: 0; margin-bottom: 14px; color: #315e79; font-size: 12px; font-weight: 800; line-height: 1.6; }
+#etiket .etiket-lesson .etiket-fields-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px 19px; }
+#etiket .etiket-lesson .etiket-fields-grid label, #etiket .etiket-lesson .etiket-form-label { display: flex; flex-direction: column; gap: 8px; min-width: 0; margin: 0; color: #416980; font-size: 11px; font-weight: 750; line-height: 1.55; }
+#etiket .etiket-lesson .etiket-fields-grid label small, #etiket .etiket-lesson .etiket-form-hint { color: #7692a4; font-size: 10px; font-weight: 500; line-height: 1.7; }
+#etiket .etiket-lesson .etiket-control, #etiket .etiket-lesson #etiket-form input, #etiket .etiket-lesson #etiket-form select, #etiket .etiket-lesson #etiket-form textarea { display: block; width: 100%; max-width: 100%; min-width: 0; min-height: 44px; margin: 0; padding: 11px 13px; border: 1px solid #d6e6ef; border-radius: 13px; background: #fbfeff; box-shadow: none; color: #244b66; font-family: inherit; font-size: 12px; font-weight: 500; line-height: 1.5; }
+#etiket .etiket-lesson #etiket-form textarea { min-height: 88px; resize: vertical; }
+#etiket .etiket-lesson #etiket-form input::placeholder, #etiket .etiket-lesson #etiket-form textarea::placeholder { color: #829baa; }
+#etiket .etiket-lesson #etiket-form input:focus, #etiket .etiket-lesson #etiket-form select:focus, #etiket .etiket-lesson #etiket-form textarea:focus { border-color: #66b7ce; background: #fff; }
+#etiket .etiket-lesson #etiket-form label.is-selected, #etiket .etiket-lesson #etiket-form label.is-active { color: #078bad; }
+#etiket .etiket-lesson #etiket-form label.is-selected .etiket-control, #etiket .etiket-lesson #etiket-form label.is-active .etiket-control { border-color: #66b7ce; background: #f3fcff; }
+#etiket .etiket-lesson #etiket-form input[type="checkbox"] { width: 18px; min-height: 18px; flex: 0 0 auto; accent-color: #079bb7; }
+#etiket .etiket-lesson #etiket-form input[type="file"] { padding: 10px; font-size: 11px; }
+#etiket .etiket-lesson #etiket-form input[type="file"]::file-selector-button { border: 0; border-radius: 8px; padding: 5px 8px; background: #e5f5fb; color: #247995; font-family: inherit; font-size: 10px; cursor: pointer; }
+#etiket .etiket-lesson .etiket-extra-fields { min-width: 0; padding: 17px 19px; margin-top: 20px; border: 1px solid #dceaf2; border-radius: 18px; background: #f7fbfe; }
+#etiket .etiket-lesson .etiket-extra-fields > summary { cursor: pointer; color: #355e79; font-size: 12px; font-weight: 750; line-height: 1.6; }
+#etiket .etiket-lesson .etiket-extra-fields > .etiket-fields-grid, #etiket .etiket-lesson .etiket-extra-fields > fieldset { margin-top: 19px; }
+#etiket .etiket-lesson .etiket-form-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 20px; margin-top: 20px; border-top: 1px solid #e2edf3; }
+#etiket .etiket-lesson .etiket-form-actions > div { display: flex; flex-wrap: wrap; gap: 8px; }
+#etiket .etiket-lesson .etiket-form-actions button { min-height: 42px; padding: 10px 15px; border: 1px solid #d6e6ef; border-radius: 25px; background: #f6fbfe; color: #51758e; font-size: 11px; font-weight: 750; line-height: 1.5; }
+#etiket .etiket-lesson .etiket-form-actions button:hover { border-color: #a7d3e1; background: #eaf7fc; }
+#etiket .etiket-lesson .etiket-form-actions .etiket-primary { border: 0; background: linear-gradient(135deg, #05a6bf, #058aa9); color: #fff; }
+#etiket .etiket-lesson .etiket-form-actions p { margin: 0; max-width: 540px; color: #6e8c9f; font-size: 10px; line-height: 1.8; }
+
+#etiket .etiket-lesson .etiket-sheet-reference { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, .55fr); align-items: center; gap: 25px; padding: 25px; margin-bottom: 27px; }
+#etiket .etiket-lesson .etiket-sheet-reference h3 { margin: 0 0 12px; color: #244e68; font-size: 21px; font-weight: 800; letter-spacing: -.04em; line-height: 1.35; }
+#etiket .etiket-lesson .etiket-sheet-reference p { margin: 0 0 10px; color: var(--etiket-muted); font-size: 12px; line-height: 1.85; }
+#etiket .etiket-lesson .etiket-sheet-reference svg { display: block; width: 100%; max-height: 240px; }
+#etiket .etiket-lesson .etiket-quick-rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; margin: 0 0 27px; }
+#etiket .etiket-lesson .etiket-quick-rules > article, #etiket .etiket-lesson .etiket-quick-rules > div { min-width: 0; padding: 21px 22px; border: 1px solid #dcebf3; border-radius: 22px; background: #eaf7fc; }
+#etiket .etiket-lesson .etiket-quick-rules > :nth-child(2) { border-color: #dcecdf; background: #eef8f0; }
+#etiket .etiket-lesson .etiket-quick-rules > :nth-child(3) { border-color: #f0e7d1; background: #fff5e4; }
+#etiket .etiket-lesson .etiket-quick-rules svg { display: block; width: 35px; height: 35px; margin: 0 0 14px; color: #2c8fac; }
+#etiket .etiket-lesson .etiket-quick-rules > :nth-child(2) svg { color: #398b67; }
+#etiket .etiket-lesson .etiket-quick-rules > :nth-child(3) svg { color: #ba8a27; }
+#etiket .etiket-lesson .etiket-quick-rules > article > span:first-child, #etiket .etiket-lesson .etiket-quick-rules > div > span:first-child { display: grid; place-items: center; width: 29px; height: 29px; margin-bottom: 14px; border-radius: 50%; background: #ffffffb5; color: #458aa4; font-size: 10px; font-weight: 800; }
+#etiket .etiket-lesson .etiket-quick-rules h3, #etiket .etiket-lesson .etiket-quick-rules h4 { margin: 0 0 8px; color: #244e68; font-size: 14px; font-weight: 800; line-height: 1.4; letter-spacing: -.025em; }
+#etiket .etiket-lesson .etiket-quick-rules p { margin: 0; color: #5b798d; font-size: 11px; line-height: 1.8; }
+#etiket .etiket-lesson .etiket-source-note { min-width: 0; padding: 17px 19px; margin-bottom: 17px; border: 1px solid #dcebf3; border-radius: 19px; background: #ffffffb5; color: #56758d; }
+#etiket .etiket-lesson .etiket-source-note > summary { cursor: pointer; color: #355e79; font-size: 12px; font-weight: 750; line-height: 1.6; }
+#etiket .etiket-lesson .etiket-source-note p, #etiket .etiket-lesson .etiket-source-note li { margin: 10px 0 0; color: #587990; font-size: 11px; line-height: 1.9; }
+#etiket .etiket-lesson .etiket-source-note a { color: #1588ae; text-underline-offset: 3px; }
+#etiket .etiket-lesson button:focus-visible, #etiket .etiket-lesson input:focus-visible, #etiket .etiket-lesson select:focus-visible, #etiket .etiket-lesson textarea:focus-visible, #etiket .etiket-lesson summary:focus-visible, #etiket .etiket-lesson a:focus-visible { outline: 3px solid #52b7d3; outline-offset: 4px; }
+
+@media (max-width: 1100px) {
+  #etiket .etiket-lesson .etiket-hero { padding: 26px; }
+  #etiket .etiket-lesson .etiket-workspace { grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; }
+  #etiket .etiket-lesson .etiket-detail { padding: 23px 19px; }
+  #etiket .etiket-lesson .etiket-fields-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 980px) {
+  #etiket .etiket-lesson .etiket-workspace { grid-template-columns: minmax(0, 1fr); }
+  #etiket .etiket-lesson .etiket-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 0 25px; }
+  #etiket .etiket-lesson .etiket-detail > .etiket-kicker, #etiket .etiket-lesson .etiket-detail > h3, #etiket .etiket-lesson .etiket-detail > h4, #etiket .etiket-lesson .etiket-detail > p:not(.etiket-warning), #etiket .etiket-lesson .etiket-detail > .etiket-field-tag { grid-column: 1; }
+  #etiket .etiket-lesson .etiket-detail .etiket-warning { grid-column: 2; grid-row: 1 / 5; align-self: start; }
+  #etiket .etiket-lesson #etiket-edit-field { grid-column: 2; align-self: start; }
+  #etiket .etiket-lesson .etiket-quick-rules { gap: 11px; }
+  #etiket .etiket-lesson .etiket-quick-rules > article, #etiket .etiket-lesson .etiket-quick-rules > div { padding: 18px; }
+}
+@media (max-width: 720px) {
+  #etiket .etiket-lesson { padding-top: 0; }
+  #etiket .etiket-lesson .etiket-hero { display: block; min-height: 260px; padding: 25px 22px; margin-bottom: 25px; border-radius: 25px; }
+  #etiket .etiket-lesson .etiket-eyebrow { margin-bottom: 10px; font-size: 8px; }
+  #etiket .etiket-lesson .etiket-hero h2 { font-size: clamp(27px, 6.2vw, 34px); }
+  #etiket .etiket-lesson .etiket-hero-copy > p:last-of-type { max-width: 82%; font-size: 11px; }
+  #etiket .etiket-lesson #etiket-start { margin-top: 13px; padding: 12px 17px; font-size: 11px; }
+  #etiket .etiket-lesson .etiket-hero-art { position: absolute; z-index: 0; right: -9px; bottom: -5px; width: 145px; min-height: 135px; opacity: .8; }
+  #etiket .etiket-lesson .etiket-hero-art::before { width: 130px; height: 130px; }
+  #etiket .etiket-lesson #etiket-hero-art { width: 145px; }
+  #etiket .etiket-lesson .etiket-hero-note { display: none; }
+  #etiket .etiket-lesson .etiket-heading-row h3 { font-size: 19px; }
+  #etiket .etiket-lesson .etiket-heading-row > p { display: none; }
+  #etiket .etiket-lesson .etiket-template-grid { grid-template-columns: minmax(0, 1fr); gap: 13px; margin-bottom: 24px; }
+  #etiket .etiket-lesson .etiket-template-card { padding: 10px 10px 15px; }
+  #etiket .etiket-lesson .etiket-template-art { height: 110px; margin-bottom: 13px; padding: 14px; }
+  #etiket .etiket-lesson .etiket-template-card-title { font-size: 15px; }
+  #etiket .etiket-lesson .etiket-template-description, #etiket .etiket-lesson .etiket-template-card-desc { font-size: 10px; }
+  #etiket .etiket-lesson .etiket-panel-heading { padding: 20px 19px 15px; }
+  #etiket .etiket-lesson .etiket-panel-heading h3 { font-size: 18px; }
+  #etiket .etiket-lesson .etiket-badge { padding: 7px 8px; font-size: 7px; }
+  #etiket .etiket-lesson .etiket-toolbar { margin: 0 10px 10px; padding: 8px; gap: 6px; }
+  #etiket .etiket-lesson .etiket-toolbar button { min-height: 40px; padding: 9px 11px; font-size: 9px; }
+  #etiket .etiket-lesson #etiket-zoom-in, #etiket .etiket-lesson #etiket-zoom-out { width: 40px; font-size: 17px; }
+  #etiket .etiket-lesson .etiket-field-picker { margin: 0 10px 11px; padding: 0 2px; gap: 6px; }
+  #etiket .etiket-lesson .etiket-field-picker button[data-etiket-pick] { min-height: 44px; padding: 10px 12px; font-size: 9px; }
+  #etiket .etiket-lesson .etiket-stage { width: calc(100% - 20px); min-height: 190px; max-height: 340px; margin: 0 10px; padding: 12px; border-radius: 19px; }
+  #etiket .etiket-lesson .etiket-stage[data-template="ringkas"], #etiket .etiket-lesson[data-template="ringkas"] .etiket-stage { min-height: 120px; }
+  #etiket .etiket-lesson .etiket-caption { margin: 11px 15px 18px; padding: 11px; gap: 9px; font-size: 10px; }
+  #etiket .etiket-lesson .etiket-detail { display: block; padding: 23px 21px; }
+  #etiket .etiket-lesson .etiket-detail h3 { font-size: 23px; }
+  #etiket .etiket-lesson .etiket-form-panel { padding: 21px 17px; }
+  #etiket .etiket-lesson .etiket-form-heading { display: block; margin-bottom: 17px; }
+  #etiket .etiket-lesson .etiket-form-heading h3 { font-size: 19px; }
+  #etiket .etiket-lesson .etiket-form-heading > p { margin-top: 9px; font-size: 10px; }
+  #etiket .etiket-lesson .etiket-form-intro { font-size: 11px; }
+  #etiket .etiket-lesson .etiket-fields-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  #etiket .etiket-lesson .etiket-control, #etiket .etiket-lesson #etiket-form input, #etiket .etiket-lesson #etiket-form select, #etiket .etiket-lesson #etiket-form textarea { min-height: 46px; font-size: 16px; }
+  #etiket .etiket-lesson #etiket-form input[type="file"] { font-size: 11px; }
+  #etiket .etiket-lesson .etiket-extra-fields { padding: 15px; }
+  #etiket .etiket-lesson .etiket-form-actions { align-items: start; justify-content: start; }
+  #etiket .etiket-lesson .etiket-sheet-reference { grid-template-columns: minmax(0, 1fr); gap: 15px; padding: 21px 18px; }
+  #etiket .etiket-lesson .etiket-sheet-reference h3 { font-size: 19px; }
+  #etiket .etiket-lesson .etiket-sheet-reference p { font-size: 11px; }
+  #etiket .etiket-lesson .etiket-sheet-reference svg { max-height: 230px; }
+  #etiket .etiket-lesson .etiket-quick-rules { grid-template-columns: minmax(0, 1fr); gap: 11px; }
+  #etiket .etiket-lesson .etiket-quick-rules > article, #etiket .etiket-lesson .etiket-quick-rules > div { display: grid; grid-template-columns: 35px minmax(0, 1fr); gap: 4px 14px; padding: 18px; }
+  #etiket .etiket-lesson .etiket-quick-rules svg, #etiket .etiket-lesson .etiket-quick-rules > article > span:first-child, #etiket .etiket-lesson .etiket-quick-rules > div > span:first-child { grid-column: 1; grid-row: 1 / 3; margin: 0; }
+  #etiket .etiket-lesson .etiket-quick-rules h3, #etiket .etiket-lesson .etiket-quick-rules h4, #etiket .etiket-lesson .etiket-quick-rules p { grid-column: 2; margin: 0; }
+  #etiket .etiket-lesson .etiket-quick-rules p { font-size: 10px; }
+  #etiket .etiket-lesson .etiket-source-note { padding: 15px; }
+  #etiket .etiket-lesson .etiket-source-note > summary { font-size: 11px; }
+}
+html[data-contrast="high"] #etiket .etiket-lesson .etiket-template-card, html[data-contrast="high"] #etiket .etiket-lesson .etiket-preview, html[data-contrast="high"] #etiket .etiket-lesson .etiket-detail, html[data-contrast="high"] #etiket .etiket-lesson .etiket-form-panel, html[data-contrast="high"] #etiket .etiket-lesson .etiket-sheet-reference, html[data-contrast="high"] #etiket .etiket-lesson .etiket-stage { border-color: #426884; }
+html[data-contrast="high"] #etiket .etiket-lesson .etiket-control { border-color: #63879d; background: #fff; color: #173e57; }
+
+/* The native dialog remains in the page and previews the exact print sheet. */
+#etiket .etiket-preview-hint { margin: 0 22px 14px; color: #58798f; font-size: 11px; line-height: 1.7; }
+#etiket .etiket-print-preview { width: min(1000px, calc(100vw - 32px)); max-width: calc(100vw - 32px); max-height: 90vh; max-height: 90dvh; margin: auto; padding: 25px; border: 1px solid #c6e3ef; border-radius: 26px; background: #fff; box-shadow: 0 20px 60px #123e672b; color: #153451; overflow: auto; }
+#etiket .etiket-print-preview, #etiket .etiket-print-preview *, #etiket .etiket-print-preview *::before, #etiket .etiket-print-preview *::after { box-sizing: border-box; animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+#etiket .etiket-print-preview::backdrop { background: #153e6173; animation: none !important; transition: none !important; }
+#etiket .etiket-print-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 12px; }
+#etiket .etiket-print-kicker { margin: 0 0 8px; color: #4b819a; font-size: 10px; font-weight: 800; line-height: 1.5; letter-spacing: .04em; }
+#etiket .etiket-print-heading h2 { margin: 0; color: #0a2859; font-size: clamp(22px, 2.5vw, 29px); font-weight: 800; line-height: 1.3; letter-spacing: -.04em; }
+#etiket .etiket-print-close { display: inline-flex; align-items: center; justify-content: center; gap: 9px; flex: 0 0 auto; min-height: 44px; padding: 10px 14px; border: 1px solid #d7e8f1; border-radius: 25px; background: #f3fafe; color: #416d85; font: inherit; font-size: 11px; font-weight: 750; cursor: pointer; }
+#etiket .etiket-print-close > span { font-size: 20px; line-height: 1; }
+#etiket .etiket-print-close:hover { background: #e4f4fb; }
+#etiket .etiket-print-description { margin: 0 0 18px; color: #56768c; font-size: 12px; line-height: 1.8; }
+#etiket .etiket-print-paper-viewport { min-width: 0; max-width: 100%; padding: 15px; border: 1px solid #e0edf4; border-radius: 20px; background: linear-gradient(145deg, #e8f8ff, #f3faff); overflow: hidden; }
+#etiket .etiket-print-paper-svg { display: block; width: 100%; max-width: 100%; height: auto; margin: 0; border: 1px solid #d4e4eb; background: #fff; }
+#etiket .etiket-print-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; padding-top: 18px; }
+#etiket .etiket-print-status { max-width: 590px; margin: 0; color: #617e92; font-size: 11px; line-height: 1.8; }
+#etiket .etiket-print-primary { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; min-height: 44px; padding: 12px 19px; border: 0; border-radius: 50px; background: linear-gradient(135deg, #05a6bf, #058aa9); color: #fff; font: inherit; font-size: 12px; font-weight: 750; line-height: 1.4; cursor: pointer; }
+#etiket .etiket-print-primary:hover { background: linear-gradient(135deg, #0797b2, #067d9c); }
+#etiket .etiket-print-primary:disabled { opacity: .45; cursor: default; }
+#etiket .etiket-print-frame-host { position: absolute; left: 0; top: 0; width: 0; height: 0; border: 0; opacity: 0; pointer-events: none; }
+#etiket .etiket-print-preview button:focus-visible { outline: 3px solid #52b7d3; outline-offset: 4px; }
+@media (max-width: 720px) {
+  #etiket .etiket-print-preview { width: calc(100vw - 22px); max-width: calc(100vw - 22px); padding: 19px 15px; border-radius: 21px; }
+  #etiket .etiket-print-heading { gap: 10px; }
+  #etiket .etiket-print-kicker { font-size: 8px; }
+  #etiket .etiket-print-close { padding: 9px 12px; font-size: 10px; }
+  #etiket .etiket-print-description { font-size: 10px; }
+  #etiket .etiket-print-paper-viewport { padding: 8px; border-radius: 15px; }
+  #etiket .etiket-print-actions { align-items: start; gap: 12px; }
+  #etiket .etiket-print-status { font-size: 10px; }
+  #etiket .etiket-print-primary { width: 100%; font-size: 11px; }
+}
+html[data-contrast="high"] #etiket .etiket-print-preview { border-color: #426884; }

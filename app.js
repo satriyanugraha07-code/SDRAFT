@@ -1,4 +1,5 @@
 // --- DRAFT-LAB MAIN APP LOGIC ---
+import { isModuleLocked } from './src/module-availability.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- SPLASH INTRO SCREEN LOGIC ---
@@ -105,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "Proyeksi Isometrik",
         "Proyeksi Aksonometri"
       ],
-      correct: 0,
-      feedback: "Dalam Proyeksi Amerika (Sudut Ketiga), lingkaran diletakkan di kanan trapesium dengan sisi kecil trapesium menghadap lingkaran."
+      correct: 1,
+      feedback: "Dalam Proyeksi Eropa (Sudut Pertama), lingkaran berada di kanan gambar kerucut terpancung. Kerucut pada simbol digambar dengan ujung kecil di kiri dan ujung besar di kanan."
     },
     {
       text: "Jenis pensil gambar dengan tingkat kekerasan 'Hard' (H) biasanya digunakan juru gambar teknik untuk keperluan...",
@@ -299,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const updateProgressUI = () => {
     // Calculate percentage
-    const keys = Object.keys(state.progress);
+    const keys = Object.keys(state.progress).filter(key => !isModuleLocked(key));
     const completedCount = keys.filter(k => state.progress[k]).length;
     const percentage = Math.round((completedCount / keys.length) * 100);
 
@@ -368,6 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Complete a learning module
   window.completeModule = (moduleName, customTitle) => {
+    if (isModuleLocked(moduleName)) return;
     if (state.progress.hasOwnProperty(moduleName) && !state.progress[moduleName]) {
       state.progress[moduleName] = true;
       saveProgress();
@@ -377,8 +379,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tools: "Pengenalan Alat Gambar",
         pencils: "Laboratorium Pensil Gambar",
         lines: "Kenali Jenis Garis Gambar Teknik",
-        etiket: "Kepala Gambar (Etiket Standar ISO)",
-        projection: "Simulasi Proyeksi Orthogonal Glass Box",
+        etiket: "Etiket Gambar Teknik",
+        projection: "Proyeksi Gambar Teknik",
         model3d: "Konversi Model 3D Interaktif",
         quiz: "Tes Pemahaman (Post-Test Evaluasi Pertemuan 1)"
       };
@@ -396,6 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     navItems.forEach(item => {
       item.addEventListener('click', () => {
         const target = item.getAttribute('data-target');
+        if (isModuleLocked(target)) return;
         
         // Update active class on nav
         navItems.forEach(nav => nav.classList.remove('active'));
@@ -465,6 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- QUIZ GAME LOGIC ---
   const initQuiz = () => {
+    if (isModuleLocked('quiz')) return;
     const startView = document.getElementById('quiz-start-view');
     const playView = document.getElementById('quiz-play-view');
     const resultView = document.getElementById('quiz-result-view');

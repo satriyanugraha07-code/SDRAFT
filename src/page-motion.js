@@ -11,7 +11,6 @@ const revealSelectors = {
   tools: '.panel-header, .tools-showcase > *',
   pencils: '.panel-header, .pencils-layout > *',
   lines: '.line-hero, .line-catalog, .line-workspace > *, .line-quick-rules, .line-challenge',
-  etiket: '.etiket-grid > .glass-panel',
   projection: '.projection-viewport, .projection-controls > .glass-panel',
   model3d: ':scope > .model-lab-hero, :scope > .cad-model-selector-bar, .model-lab-grid > *, :scope > .solidworks-library',
   lkpd: '.lkpd-header-banner, .lkpd-sheet > *, .lkpd-coming-soon-card',
@@ -94,7 +93,7 @@ export function initPageMotion() {
   const enterSection = (initial = false) => {
     clearReveals();
     const section = document.querySelector('.app-section.active');
-    if (!section || !canAnimate()) return;
+    if (!section || !canAnimate() || ['etiket', 'projection'].includes(section.id)) return;
 
     if (!initial) {
       document.documentElement.dataset.initialEntry = 'done';
